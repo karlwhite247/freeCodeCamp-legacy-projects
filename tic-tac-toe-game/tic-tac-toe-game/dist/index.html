@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Tic Tac Toe Game</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Tic Tac Toe' The unbeatable Minimax Algorithm!</title>
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+  <link rel='stylesheet' href='https://codepen.io/u-ways/pen/qNLZrg.css'>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <div id="container">
+    <header class="grid cols-6" id="header">
+
+      <section id="proj-heading">
+        <h1>Tic Tac Toe Game</h1>
+        <h3 id="proj-subheading">The unbeatable Minimax Algorithm!</h3>
+      </section>
+      <details id="proj-details">
+
+        <summary>Project Info</summary>
+
+        <section class="grid cols-2 rows-2" id="details-body">
+
+          <div class="details-column"></div>
+          <div class="details-column"></div>
+        </section>
+      </details>
+
+    </header>
+    <main class="flex-c" id="app">
+      <div class="flex-c" id="app-con">
+
+        <section id="selection">
+          <h2>Choose <span class="xo xo_active" id="x">X</span>or <span class="xo" id="o">O</span><span id="draw"> Win</span>,
+
+            <span id="won">Draw </span>or <span id="lost">Lose</span>
+          </h2>
+        </section>
+        <section class="flex-r" id="blocks-con">
+          <div class="block" data-blocknumber="0"></div>
+          <div class="block" data-blocknumber="1"></div>
+          <div class="block" data-blocknumber="2"></div>
+          <div class="block" data-blocknumber="3"></div>
+          <div class="block" data-blocknumber="4"></div>
+          <div class="block" data-blocknumber="5"></div>
+          <div class="block" data-blocknumber="6"></div>
+          <div class="block" data-blocknumber="7"></div>
+          <div class="block" data-blocknumber="8"></div>
+        </section>
+        <button class="flex-c" id="reset">Reset</button>
+      </div>
+    </main>
+    <footer id="footer">
+      <p>Last Updated:
+        <time datetime="2017-05-03"> 15/08/2020 </time><a href="https://codepen.io/dashboard/" target="_blank"><i class="fa fa-codepen" aria-hidden="true"></i></a>
+      </p>
+    </footer>
+  </div>
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+  <script src='https://codepen.io/u-ways/pen/qNLZrg.js'></script>
+  <script id="rendered-js">
+    const blocks = document.querySelectorAll('#blocks-con > div');
+    let board = new Array(9).fill(0);
+    let ai = [1, "O"]; // [Player id, Symbol]
+    let user = [2, "X"];
+    let firstChoice = true;
+    const winCombos = [
+      [0, 4, 8],
+      [2, 4, 6], // Diagonal
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8], // Horizontal
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8] // Vertical
+    ];
+    const x = document.querySelector("#x");
+    const o = document.querySelector("#o");
+    x.addEventListener("click", x_or_o);
+    o.addEventListener("click", x_or_o);
+    /* O & X Selection function*/
+    function x_or_o() {
+      if (this.id === "x") {
+        user[1] = "X";
+        ai[1] = "O";
+        o.classList.remove("xo_active");
+        this.classList.add("xo_active");
+        reset();
+      } else {
+        user[1] = "O";
+        ai[1] = "X";
+        x.classList.remove("xo_active");
+        this.classList.add("xo_active");
+        reset();
+        aiIntialChoice();
+      }
+    }
+    /* Blocks listeners assignment function (Used for initial assignment & board reset)*/
+    function addBlocksEventsHandler() {
+      blocks.forEach(
+        block => block.addEventListener("click", blockEvents));
+    }
+
+    function blockEvents() {
+      let blockNumber = this.getAttribute("data-blockNumber");
+      update(this, blockNumber);
+    }
+    addBlocksEventsHandler();
+    /* Blocks listeners removal function (Used for board reset)*/
+    function removeBlocksEventsHandler() {
+      blocks.forEach(
+        block => block.removeEventListener("click", blockEvents));
+    }
+    /* Update board function*/
+    function update(block, number) {
+      block.removeEventListener("click", blockEvents);
+      board[number] = user[0];
+      block.innerHTML = user[1];
+      boardResult(user[0]);
+      return firstChoice ? aiIntialChoice() : aiThink(board);
+    }
+
+    function boardResult(player) {
+      for (let i = 0; i < winCombos.length; i++) {
+        if (window.CP.shouldStopExecution(0)) break;
+        let counter = 0;
+        for (let j = 0; j < winCombos[i].length; j++) {
+          if (window.CP.shouldStopExecution(1)) break;
+          if (board[winCombos[i][j]] !== player) {
+            break; // Early break as a mismatch found
+          } else {
+            counter++;
+          }
+        }
+        window.CP.exitedLoop(1);
+        if (counter === 3) {
+          removeBlocksEventsHandler();
+          return ceremony(winCombos[i]);
+        }
+      }
+      window.CP.exitedLoop(0);
+    }
+    const ceremony = combo => {
+      combo.forEach(winningBlock => blocks[winningBlock].classList.add("win"));
+    };
+    /* Board Reset (Returns everything to its original state)*/
+    function reset() {
+      firstChoice = true;
+      board = new Array(9).fill(0);
+      blocks.forEach(
+        block => {
+          block.classList.remove("win");
+          block.innerHTML = "";
+        });
+      removeBlocksEventsHandler();
+      addBlocksEventsHandler();
+      if (ai[1] === "X") {
+        aiIntialChoice();
+      }
+    }
+    const resetBtn = document.querySelector("#reset");
+    resetBtn.addEventListener("click", reset);
+    /* Initial AI choice function: (performance boost compared to using minimax first)*/
+    function aiIntialChoice() {
+      if (ai[1] === "O") {
+        const choice = board[4] === 0 ? 4 : 2;
+        board[choice] = ai[0];
+        blocks[choice].innerHTML = ai[1];
+        blocks[choice].removeEventListener("click", blockEvents);
+      } else {
+        board[6] = ai[0];
+        blocks[6].innerHTML = ai[1];
+        blocks[6].removeEventListener("click", blockEvents);
+      }
+      firstChoice = false;
+    }
+    /* Artificial Intelligence functionality*/
+    function aiThink(currentBoard) {
+      let choicesLeft = choiceFinder(board).length;
+      if (choicesLeft === 0) {
+        return false;
+      }
+
+      function choiceFinder(board) {
+        let choicesLeft = [];
+        board.forEach((block, index) => {
+          if (block === 0) {
+            choicesLeft.push(index);
+          }
+        });
+        return choicesLeft;
+      }
+      /** @function boardState(board)
+       *  Returns an integer:
+       *    +10 = user lost
+       *    -10 = user won
+       *      0 = tie or neutral board state
+       */
+      function boardState(board) {
+        for (let i = 0; i < winCombos.length; i++) {
+          if (window.CP.shouldStopExecution(2)) break;
+          let score = [0, 0]; // [ai,user]
+          for (let j = 0; j < winCombos[i].length; j++) {
+            if (window.CP.shouldStopExecution(3)) break;
+            if (board[winCombos[i][j]] === 0) {
+              break; // Out of loop as a mismatch found
+            } else if (board[winCombos[i][j]] === ai[0]) {
+              score[0]++;
+            } else {
+              score[1]++;
+            }
+          } // End of [j]
+          window.CP.exitedLoop(3);
+          if (score[0] === 3) {
+            return 10;
+          } else if (score[1] === 3) {
+            return -10;
+          }
+        } // End of [i]
+        window.CP.exitedLoop(2);
+        return 0; // No winning combinations found.
+      }
+      */
+
+      function minimax(currentBoard, turn) {
+        let depth = choiceFinder(currentBoard).length; // Track stack depth
+        function recursion(board, turn, choiceMade) {
+          let choicesLeft = choiceFinder(board);
+          let nextTurn = turn === ai[0] ? user[0] : ai[0];
+          let state = boardState(board);
+          if (choicesLeft.length === 0 || state !== 0) {
+            return state;
+          } else {
+            let childValues = choicesLeft.map(
+              choice => {
+                let nextBoard = [...board];
+                nextBoard[choice] = turn;
+                let nextBoardState = recursion(nextBoard, nextTurn);
+                return [choice, nextBoardState];
+              }).
+            sort((a, b) => b[1] - a[1]);
+            if (depth !== choicesLeft.length) {
+              return turn === ai[0] ? childValues[0][1] : childValues[childValues.length - 1][1];
+            } else {
+              return childValues[0][0];
+            }
+          } // else
+        } // recursion
+        return recursion(currentBoard, turn);
+      } // minimax
+      let aiChoice = minimax(currentBoard, ai[0]);
+      board[aiChoice] = ai[0];
+      blocks[aiChoice].innerHTML = ai[1];
+      blocks[aiChoice].removeEventListener("click", blockEvents);
+      return boardResult(ai[0]);
+    }
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

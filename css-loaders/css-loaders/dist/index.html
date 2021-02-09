@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - CSS Loaders</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>CodePen - Pure CSS loaders (Cloned)</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      position: relative;
+      min-height: 100%;
+      font-family: "Roboto", sans-serif;
+      font-size: 10px;
+    }
+
+    :root body {
+      height: 100%;
+      min-height: 0.1rem;
+    }
+
+    body {
+      margin: 0;
+      background-color: #2b7746;
+      font-size: 1.6rem;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Roboto", sans-serif;
+      font-weight: normal;
+    }
+
+    .icons-svg {
+      position: absolute;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .icon {
+      position: relative;
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-content: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      font-size: 2rem;
+      line-height: 100%;
+      text-align: center;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+
+    .icon-svg {
+      display: inline-flex;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .icon-svg-reference {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 6rem 100% 7rem;
+      grid-template-areas: "header""main""footer";
+      min-height: 100vh;
+    }
+
+    .main-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2rem;
+      grid-area: header;
+    }
+
+    .page-title {
+      margin: 0;
+      color: #fff;
+      font-size: 2.2rem;
+      line-height: 3rem;
+    }
+
+    .main-content {
+      display: flex;
+      flex-flow: row wrap;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 96rem;
+      padding: 5rem 2rem;
+      grid-area: main;
+    }
+
+    .loader-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      flex: 0 1 33.3333%;
+      padding: 2rem 1rem;
+    }
+
+    .loader-title {
+      margin: 0;
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+    }
+
+    .loader-source {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0 none;
+      background-color: transparent;
+      color: #fff;
+      font-size: 1.4rem;
+    }
+
+    .loader-source:hover {
+      cursor: pointer;
+    }
+
+    .loader-source .icon {
+      margin-right: 0.5rem;
+    }
+
+    .loader-spin {
+      position: relative;
+      width: 6rem;
+      height: 6rem;
+    }
+
+    .main-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 2rem;
+      grid-area: footer;
+    }
+
+    .profile {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 4.5rem;
+      padding-left: 5rem;
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 2.1rem;
+    }
+
+    .profile::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0.2rem;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 100%;
+      background-image: url("https://pbs.twimg.com/profile_images/623441813756579840/pLlQ0Bcl.jpg");
+      background-position: center center;
+      background-size: 100%;
+      box-shadow: 0 0 0 0.2rem #fff;
+    }
+
+    .profile:hover .underline {
+      transform: scaleX(1);
+    }
+
+    .profile span:not(.underline) {
+      margin-left: 0.5rem;
+    }
+
+    .profile-link {
+      margin-left: 0.5rem;
+      color: #fff;
+      font-size: 1.6rem;
+    }
+
+    .profile .underline {
+      position: absolute;
+      display: block;
+      width: calc(100% - 5.5rem);
+      height: 0.2rem;
+      right: 0;
+      bottom: 0.8rem;
+      background-color: #fff;
+      transition: all 0.25s ease-in-out 0s;
+      transform: scaleX(0);
+    }
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90%;
+      height: 90%;
+      max-width: 60rem;
+      max-height: 60rem;
+      border: 0.2rem solid #2f3538;
+      background-color: #fff;
+      transform: translate(-50%, -50%);
+      z-index: 1050;
+    }
+
+    .modal code {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background-color: rgba(44, 62, 80, 0.75);
+    }
+
+    .modal pre {
+      margin: 0;
+      color: #fff;
+      font-size: 1.2rem;
+      line-height: 1.6rem;
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 1040;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      height: 4rem;
+      padding: 1rem;
+      border-bottom: 0.1rem solid #2f3538;
+    }
+
+    .modal-title {
+      margin: 0;
+      color: #2f3538;
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+    }
+
+    .modal-body {
+      height: calc(100% - 6.1rem);
+      margin: 1rem 0;
+      padding: 0 1rem;
+      color: #2f3538;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      overflow: auto;
+    }
+
+    .modal .close {
+      padding: 0;
+      border: 0 none;
+      background-color: transparent;
+    }
+
+    .modal .close:hover {
+      cursor: pointer;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .pulse {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      border-radius: 100%;
+      background-color: #fff;
+      opacity: 1;
+      -webkit-animation: pulse 1.5s infinite ease-in-out;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    .double-pulse {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      border-radius: 100%;
+      background-color: #fff;
+      opacity: 0.4;
+      -webkit-animation: double-pulse 1.5s infinite ease-out;
+      animation: double-pulse 1.5s infinite ease-out;
+    }
+
+    .double-pulse:nth-of-type(2) {
+      -webkit-animation-delay: -350ms;
+      animation-delay: -350ms;
+    }
+
+    .circle {
+      display: inline-block;
+      margin: 2.4rem;
+      outline: 0 none;
+      border-radius: 100%;
+      font-size: 1.2rem;
+      width: 1em;
+      height: 1em;
+      -webkit-animation: circle 1.5s infinite ease;
+      animation: circle 1.5s infinite ease;
+    }
+
+    .fade-circle {
+      display: inline-block;
+      margin: 2.4rem;
+      outline: 0 none;
+      border-radius: 100%;
+      font-size: 1.2rem;
+      width: 1em;
+      height: 1em;
+      -webkit-animation: fade-circle 1.5s infinite ease;
+      animation: fade-circle 1.5s infinite ease;
+    }
+
+    .rectangle {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      background-color: #fff;
+      -webkit-animation: rectangle 1.5s infinite ease-in-out;
+      animation: rectangle 1.5s infinite ease-in-out;
+    }
+
+    .rectangle-bounce {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      transition: all 300ms ease-in-out 0s;
+      z-index: 1;
+    }
+
+    .rectangle-bounce .rect-1,
+    .rectangle-bounce .rect-2,
+    .rectangle-bounce .rect-3,
+    .rectangle-bounce .rect-4,
+    .rectangle-bounce .rect-5 {
+      width: 15%;
+      height: 100%;
+      background-color: #fff;
+      -webkit-animation: rectangle-bounce 1.5s infinite ease-in-out;
+      animation: rectangle-bounce 1.5s infinite ease-in-out;
+    }
+
+    .rectangle-bounce .rect-2 {
+      -webkit-animation-delay: -1.4s;
+      animation-delay: -1.4s;
+    }
+
+    .rectangle-bounce .rect-3 {
+      -webkit-animation-delay: -1.3s;
+      animation-delay: -1.3s;
+    }
+
+    .rectangle-bounce .rect-4 {
+      -webkit-animation-delay: -1.2s;
+      animation-delay: -1.2s;
+    }
+
+    .rectangle-bounce .rect-5 {
+      -webkit-animation-delay: -1.1s;
+      animation-delay: -1.1s;
+    }
+
+    .threes {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+    }
+
+    .threes .three {
+      display: inline-flex;
+      width: 30%;
+      height: 30%;
+      border-radius: 100%;
+      background-color: #fff;
+      -webkit-animation: three 1.5s infinite ease-in-out both;
+      animation: three 1.5s infinite ease-in-out both;
+    }
+
+    .threes .three-1 {
+      -webkit-animation-delay: -320ms;
+      animation-delay: -320ms;
+    }
+
+    .threes .three-2 {
+      -webkit-animation-delay: -160ms;
+      animation-delay: -160ms;
+    }
+
+    .cubes {
+      position: relative;
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+      height: 100%;
+      transition: all 300ms ease-in-out 0s;
+      z-index: 1;
+    }
+
+    .cubes .cube {
+      width: 33.3333%;
+      height: 33.3333%;
+      background-color: #fff;
+      -webkit-animation: cubes 1.5s infinite ease-in-out;
+      animation: cubes 1.5s infinite ease-in-out;
+    }
+
+    .cubes .cube-1 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    .cubes .cube-2 {
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
+    .cubes .cube-3 {
+      -webkit-animation-delay: 0.4s;
+      animation-delay: 0.4s;
+    }
+
+    .cubes .cube-4 {
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
+    .cubes .cube-5 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    .cubes .cube-6 {
+      -webkit-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
+    .cubes .cube-7 {
+      -webkit-animation-delay: 0s;
+      animation-delay: 0s;
+    }
+
+    .cubes .cube-8 {
+      -webkit-animation-delay: 0.1s;
+      animation-delay: 0.1s;
+    }
+
+    .cubes .cube-9 {
+      -webkit-animation-delay: 0.2s;
+      animation-delay: 0.2s;
+    }
+
+    .diamonds {
+      display: flex;
+      flex-flow: row wrap;
+      width: 100%;
+      height: 100%;
+      transform: rotateZ(45deg);
+    }
+
+    .diamonds .diamond {
+      position: relative;
+      height: 50%;
+      flex-basis: 50%;
+      transform: scale(1.1);
+    }
+
+    .diamonds .diamond::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      -webkit-animation: diamond 2.4s infinite linear both;
+      animation: diamond 2.4s infinite linear both;
+      transform-origin: 100% 100%;
+    }
+
+    .diamonds .diamond-2 {
+      transform: scale(1.1) rotateZ(90deg);
+    }
+
+    .diamonds .diamond-2::before {
+      -webkit-animation-delay: 300ms;
+      animation-delay: 300ms;
+    }
+
+    .diamonds .diamond-3 {
+      transform: scale(1.1) rotateZ(180deg);
+    }
+
+    .diamonds .diamond-3::before {
+      -webkit-animation-delay: 600ms;
+      animation-delay: 600ms;
+    }
+
+    .diamonds .diamond-4 {
+      transform: scale(1.1) rotateZ(270deg);
+    }
+
+    .diamonds .diamond-4::before {
+      -webkit-animation-delay: 900ms;
+      animation-delay: 900ms;
+    }
+
+    @-webkit-keyframes pulse {
+      0% {
+        transform: scale(0);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(0);
+        opacity: 0.8;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    @-webkit-keyframes double-pulse {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes double-pulse {
+      0% {
+        transform: scale(0);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    @-webkit-keyframes circle {
+
+      0%,
+      100% {
+        box-shadow: 0em -2em 0em 0em #fff, 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), -2em 0em 0em 0em rgba(255, 255, 255, 0.6), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8);
+      }
+
+      12.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.8), 1.4em -1.4em 0em 0em #fff, 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.4), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6);
+      }
+
+      25% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.6), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8), 2em 0em 0em 0em #fff, 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4);
+      }
+
+      37.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.4), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6), 2em 0em 0em 0em rgba(255, 255, 255, 0.8), 1.4em 1.4em 0em 0em #fff, 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4), 2em 0em 0em 0em rgba(255, 255, 255, 0.6), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), 0em 2em 0em 0em #fff, -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      62.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.4), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), 0em 2em 0em 0em rgba(255, 255, 255, 0.8), -1.4em 1.4em 0em 0em #fff, -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      75% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), 0em 2em 0em 0em rgba(255, 255, 255, 0.6), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), -2em 0em 0em 0em #fff, -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      87.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.4), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), -2em 0em 0em 0em rgba(255, 255, 255, 0.8), -1.4em -1.4em 0em 0em #fff;
+      }
+    }
+
+    @keyframes circle {
+
+      0%,
+      100% {
+        box-shadow: 0em -2em 0em 0em #fff, 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), -2em 0em 0em 0em rgba(255, 255, 255, 0.6), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8);
+      }
+
+      12.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.8), 1.4em -1.4em 0em 0em #fff, 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.4), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6);
+      }
+
+      25% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.6), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8), 2em 0em 0em 0em #fff, 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4);
+      }
+
+      37.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.4), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6), 2em 0em 0em 0em rgba(255, 255, 255, 0.8), 1.4em 1.4em 0em 0em #fff, 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4), 2em 0em 0em 0em rgba(255, 255, 255, 0.6), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), 0em 2em 0em 0em #fff, -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      62.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.4), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), 0em 2em 0em 0em rgba(255, 255, 255, 0.8), -1.4em 1.4em 0em 0em #fff, -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      75% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), 0em 2em 0em 0em rgba(255, 255, 255, 0.6), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), -2em 0em 0em 0em #fff, -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      87.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.4), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), -2em 0em 0em 0em rgba(255, 255, 255, 0.8), -1.4em -1.4em 0em 0em #fff;
+      }
+    }
+
+    @-webkit-keyframes fade-circle {
+
+      0%,
+      100% {
+        box-shadow: 0em -2em 0em 0em #fff, 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0), 2em 0em 0em 0em rgba(255, 255, 255, 0), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), -2em 0em 0em 0em rgba(255, 255, 255, 0.6), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8);
+      }
+
+      12.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.8), 1.4em -1.4em 0em 0em #fff, 2em 0em 0em 0em rgba(255, 255, 255, 0), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), 0em 2em 0em 0em rgba(255, 255, 255, 0), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.4), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6);
+      }
+
+      25% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.6), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8), 2em 0em 0em 0em #fff, 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), 0em 2em 0em 0em rgba(255, 255, 255, 0), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4);
+      }
+
+      37.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.4), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6), 2em 0em 0em 0em rgba(255, 255, 255, 0.8), 1.4em 1.4em 0em 0em #fff, 0em 2em 0em 0em rgba(255, 255, 255, 0), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), -2em 0em 0em 0em rgba(255, 255, 255, 0), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4), 2em 0em 0em 0em rgba(255, 255, 255, 0.6), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), 0em 2em 0em 0em #fff, -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), -2em 0em 0em 0em rgba(255, 255, 255, 0), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0);
+      }
+
+      62.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.4), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), 0em 2em 0em 0em rgba(255, 255, 255, 0.8), -1.4em 1.4em 0em 0em #fff, -2em 0em 0em 0em rgba(255, 255, 255, 0), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0);
+      }
+
+      75% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), 0em 2em 0em 0em rgba(255, 255, 255, 0.6), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), -2em 0em 0em 0em #fff, -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0);
+      }
+
+      87.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0), 2em 0em 0em 0em rgba(255, 255, 255, 0), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.4), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), -2em 0em 0em 0em rgba(255, 255, 255, 0.8), -1.4em -1.4em 0em 0em #fff;
+      }
+    }
+
+    @keyframes fade-circle {
+
+      0%,
+      100% {
+        box-shadow: 0em -2em 0em 0em #fff, 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0), 2em 0em 0em 0em rgba(255, 255, 255, 0), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), 0em 2em 0em 0em rgba(255, 255, 255, 0.2), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), -2em 0em 0em 0em rgba(255, 255, 255, 0.6), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8);
+      }
+
+      12.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.8), 1.4em -1.4em 0em 0em #fff, 2em 0em 0em 0em rgba(255, 255, 255, 0), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), 0em 2em 0em 0em rgba(255, 255, 255, 0), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), -2em 0em 0em 0em rgba(255, 255, 255, 0.4), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6);
+      }
+
+      25% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.6), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.8), 2em 0em 0em 0em #fff, 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), 0em 2em 0em 0em rgba(255, 255, 255, 0), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), -2em 0em 0em 0em rgba(255, 255, 255, 0.2), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4);
+      }
+
+      37.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.4), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.6), 2em 0em 0em 0em rgba(255, 255, 255, 0.8), 1.4em 1.4em 0em 0em #fff, 0em 2em 0em 0em rgba(255, 255, 255, 0), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), -2em 0em 0em 0em rgba(255, 255, 255, 0), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0.2), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.4), 2em 0em 0em 0em rgba(255, 255, 255, 0.6), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), 0em 2em 0em 0em #fff, -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0), -2em 0em 0em 0em rgba(255, 255, 255, 0), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0);
+      }
+
+      62.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0.2), 2em 0em 0em 0em rgba(255, 255, 255, 0.4), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), 0em 2em 0em 0em rgba(255, 255, 255, 0.8), -1.4em 1.4em 0em 0em #fff, -2em 0em 0em 0em rgba(255, 255, 255, 0), -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0);
+      }
+
+      75% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0), 2em 0em 0em 0em rgba(255, 255, 255, 0.2), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.4), 0em 2em 0em 0em rgba(255, 255, 255, 0.6), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.8), -2em 0em 0em 0em #fff, -1.4em -1.4em 0em 0em rgba(255, 255, 255, 0);
+      }
+
+      87.5% {
+        box-shadow: 0em -2em 0em 0em rgba(255, 255, 255, 0), 1.4em -1.4em 0em 0em rgba(255, 255, 255, 0), 2em 0em 0em 0em rgba(255, 255, 255, 0), 1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.2), 0em 2em 0em 0em rgba(255, 255, 255, 0.4), -1.4em 1.4em 0em 0em rgba(255, 255, 255, 0.6), -2em 0em 0em 0em rgba(255, 255, 255, 0.8), -1.4em -1.4em 0em 0em #fff;
+      }
+    }
+
+    @-webkit-keyframes rectangle {
+      0% {
+        transform: perspective(12rem) rotateX(0deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: perspective(12rem) rotateX(-180.1deg) rotateY(0deg);
+      }
+
+      100% {
+        transform: perspective(12rem) rotateX(-180deg) rotateY(-179.9deg);
+      }
+    }
+
+    @keyframes rectangle {
+      0% {
+        transform: perspective(12rem) rotateX(0deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: perspective(12rem) rotateX(-180.1deg) rotateY(0deg);
+      }
+
+      100% {
+        transform: perspective(12rem) rotateX(-180deg) rotateY(-179.9deg);
+      }
+    }
+
+    @-webkit-keyframes rectangle-bounce {
+
+      0%,
+      40%,
+      100% {
+        transform: scaleY(0.4);
+      }
+
+      20% {
+        transform: scaleY(1);
+      }
+    }
+
+    @keyframes rectangle-bounce {
+
+      0%,
+      40%,
+      100% {
+        transform: scaleY(0.4);
+      }
+
+      20% {
+        transform: scaleY(1);
+      }
+    }
+
+    @-webkit-keyframes three {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+      }
+
+      40% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes three {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+      }
+
+      40% {
+        transform: scale(1);
+      }
+    }
+
+    @-webkit-keyframes cubes {
+
+      0%,
+      70%,
+      100% {
+        transform: scale3d(1, 1, 1);
+      }
+
+      35% {
+        transform: scale3d(0, 0, 1);
+      }
+    }
+
+    @keyframes cubes {
+
+      0%,
+      70%,
+      100% {
+        transform: scale3d(1, 1, 1);
+      }
+
+      35% {
+        transform: scale3d(0, 0, 1);
+      }
+    }
+
+    @-webkit-keyframes diamond {
+
+      0%,
+      10% {
+        transform: perspective(14rem) rotateX(-180deg);
+        opacity: 0;
+      }
+
+      25%,
+      75% {
+        transform: perspective(14rem) rotateX(0deg);
+        opacity: 1;
+      }
+
+      90%,
+      100% {
+        transform: perspective(14rem) rotateY(180deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes diamond {
+
+      0%,
+      10% {
+        transform: perspective(14rem) rotateX(-180deg);
+        opacity: 0;
+      }
+
+      25%,
+      75% {
+        transform: perspective(14rem) rotateX(0deg);
+        opacity: 1;
+      }
+
+      90%,
+      100% {
+        transform: perspective(14rem) rotateY(180deg);
+        opacity: 0;
+      }
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <!DOCTYPE html>
+  <html>
+
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <header class="main-header">
+        <h1 class="page-title">Single Element CSS Loaders</h1>
+      </header>
+      <main class="main-content">
+        <section class="loader-section">
+          <h2 class="loader-title">Pulse</h2>
+          <div class="loader-spin">
+            <div class="pulse"></div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="pulse"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Double pulse</h2>
+          <div class="loader-spin">
+            <div class="double-pulse"></div>
+            <div class="double-pulse"></div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="doublePulse"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Circle</h2>
+          <div class="loader-spin">
+            <div class="circle"></div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="circle"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Fade circle</h2>
+          <div class="loader-spin">
+            <div class="fade-circle"></div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="fadeCircle"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Rectangle</h2>
+          <div class="loader-spin">
+            <div class="rectangle"></div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="rectangle"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Rectangle bounce</h2>
+          <div class="loader-spin">
+            <div class="rectangle-bounce">
+              <div class="rect-1"></div>
+              <div class="rect-2"></div>
+              <div class="rect-3"></div>
+              <div class="rect-4"></div>
+              <div class="rect-5"></div>
+            </div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="rectangle-bounce"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Three</h2>
+          <div class="loader-spin">
+            <div class="threes">
+              <div class="three three-1"></div>
+              <div class="three three-2"></div>
+              <div class="three three-3"></div>
+            </div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="three"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Cubes</h2>
+          <div class="loader-spin">
+            <div class="cubes">
+              <div class="cube cube-1"></div>
+              <div class="cube cube-2"></div>
+              <div class="cube cube-3"></div>
+              <div class="cube cube-4"></div>
+              <div class="cube cube-5"></div>
+              <div class="cube cube-6"></div>
+              <div class="cube cube-7"></div>
+              <div class="cube cube-8"></div>
+              <div class="cube cube-9"></div>
+            </div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="cubes"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+        <section class="loader-section">
+          <h2 class="loader-title">Diamond</h2>
+          <div class="loader-spin">
+            <div class="diamonds">
+              <div class="diamond diamond-1"></div>
+              <div class="diamond diamond-2"></div>
+              <div class="diamond diamond-4"></div>
+              <div class="diamond diamond-3"></div>
+            </div>
+          </div>
+          <button class="loader-source" title="View source code" data-modal-id="diamond"><span class="icon">
+              <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+                <use class="icon-svg-reference" href="#icon-code" xlink:href="#icon-code"></use>
+              </svg></span><span>Source</span></button>
+        </section>
+      </main>
+      <footer class="main-footer">
+        <div class="profile"><span>Created by</span><a class="profile-link" href="https://twitter.com/karlwhite247" target="_blank"><strong>Karl White</strong></a><span>&hearts;</span><span class="underline"></span></div>
+      </footer>
+    </div>
+    <section class="modal hide" id="pulse">
+      <header class="modal-header">
+        <h3 class="modal-title">Pulse - Source code</h3>
+        <button class="close" title="Close" data-modal-id="pulse"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="pulse"&rsaquo;&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 1.5s;
+ 
+.pulse {
+   width: $loader-size;
+   height: $loader-size;
+   margin: 0 auto;
+   border-radius: 100%;
+   background-color: white;
+   opacity: 1;
+   animation: pulse $animation-duration infinite ease-in-out;
+}
+ 
+@keyframes pulse {
+  0% {
+    transform: scale(0);
+    opacity: .8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="doublePulse">
+      <header class="modal-header">
+        <h3 class="modal-title">Double pulse - Source code</h3>
+        <button class="close" title="Close" data-modal-id="doublePulse"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="loader"&rsaquo;
+  &lsaquo;div class="double-pulse"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="double-pulse"&rsaquo;&lsaquo;/div&rsaquo;
+&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 1.5s;
+ 
+.loader {
+  position: relative;
+}
+ 
+.double-pulse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: $loader-size;
+  height: $loader-size;
+  margin: 0 auto;
+  border-radius: 100%;
+  background-color: white;
+  opacity: .4;
+  animation: double-pulse $animation-duration infinite ease-out;
+ 
+  &:nth-of-type(2) {
+    animation-delay: -350ms;
+  }
+}
+ 
+@keyframes double-pulse {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="circle">
+      <header class="modal-header">
+        <h3 class="modal-title">Circle - Source code</h3>
+        <button class="close" title="Close" data-modal-id="circle"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="circle"&rsaquo;&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$animation-duration: 1.5s;
+ 
+.circle {
+  display: inline-block;
+  margin: 2.4rem;
+  outline: 0 none;
+  border-radius: 100%;
+  font-size: 1.2rem;
+  width: 1em;
+  height: 1em;
+  animation: circle $animation-duration infinite ease;
+}
+ 
+@keyframes circle {
+  0%,
+  100% {
+    box-shadow: 0em -2em 0em 0em white,
+                1.4em -1.4em 0em 0em rgba(white, 0.2),
+                2em 0em 0em 0em rgba(white, 0.2),
+                1.4em 1.4em 0em 0em rgba(white, 0.2),
+                0em 2em 0em 0em rgba(white, 0.2),
+                -1.4em 1.4em 0em 0em rgba(white, 0.4),
+                -2em 0em 0em 0em rgba(white, 0.6),
+                -1.4em -1.4em 0em 0em rgba(white, 0.8);
+  }
+  
+  12.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.8),
+                1.4em -1.4em 0em 0em white,
+                2em 0em 0em 0em rgba(white, 0.2),
+                1.4em 1.4em 0em 0em rgba(white, 0.2),
+                0em 2em 0em 0em rgba(white, 0.2),
+                -1.4em 1.4em 0em 0em rgba(white, 0.2),
+                -2em 0em 0em 0em rgba(white, 0.4),
+                -1.4em -1.4em 0em 0em rgba(white, 0.6);
+  }
+ 
+  25% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.6),
+                1.4em -1.4em 0em 0em rgba(white, 0.8),
+                2em 0em 0em 0em white,
+                1.4em 1.4em 0em 0em rgba(white, 0.2),
+                0em 2em 0em 0em rgba(white, 0.2),
+                -1.4em 1.4em 0em 0em rgba(white, 0.2),
+                -2em 0em 0em 0em rgba(white, 0.2),
+                -1.4em -1.4em 0em 0em rgba(white, 0.4);
+  }
+ 
+  37.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.4),
+                1.4em -1.4em 0em 0em rgba(white, 0.6),
+                2em 0em 0em 0em rgba(white, 0.8),
+                1.4em 1.4em 0em 0em white,
+                0em 2em 0em 0em rgba(white, 0.2),
+                -1.4em 1.4em 0em 0em rgba(white, 0.2),
+                -2em 0em 0em 0em rgba(white, 0.2),
+                -1.4em -1.4em 0em 0em rgba(white, 0.2);
+  }
+ 
+  50% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.2),
+                1.4em -1.4em 0em 0em rgba(white, 0.4),
+                2em 0em 0em 0em rgba(white, 0.6),
+                1.4em 1.4em 0em 0em rgba(white, 0.8),
+                0em 2em 0em 0em white,
+                -1.4em 1.4em 0em 0em rgba(white, 0.2),
+                -2em 0em 0em 0em rgba(white, 0.2),
+                -1.4em -1.4em 0em 0em rgba(white, 0.2);
+  }
+ 
+  62.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.2),
+                1.4em -1.4em 0em 0em rgba(white, 0.2),
+                2em 0em 0em 0em rgba(white, 0.4),
+                1.4em 1.4em 0em 0em rgba(white, 0.6),
+                0em 2em 0em 0em rgba(white, 0.8),
+                -1.4em 1.4em 0em 0em white,
+                -2em 0em 0em 0em rgba(white, 0.2),
+                -1.4em -1.4em 0em 0em rgba(white, 0.2);
+  }
+ 
+  75% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.2),
+                1.4em -1.4em 0em 0em rgba(white, 0.2),
+                2em 0em 0em 0em rgba(white, 0.2),
+                1.4em 1.4em 0em 0em rgba(white, 0.4),
+                0em 2em 0em 0em rgba(white, 0.6),
+                -1.4em 1.4em 0em 0em rgba(white, 0.8),
+                -2em 0em 0em 0em white,
+                -1.4em -1.4em 0em 0em rgba(white, 0.2);
+  }
+ 
+  87.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.2),
+                1.4em -1.4em 0em 0em rgba(white, 0.2),
+                2em 0em 0em 0em rgba(white, 0.2),
+                1.4em 1.4em 0em 0em rgba(white, 0.2),
+                0em 2em 0em 0em rgba(white, 0.4),
+                -1.4em 1.4em 0em 0em rgba(white, 0.6),
+                -2em 0em 0em 0em rgba(white, 0.8),
+                -1.4em -1.4em 0em 0em white;
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="fadeCircle">
+      <header class="modal-header">
+        <h3 class="modal-title">Fade circle - Source code</h3>
+        <button class="close" title="Close" data-modal-id="fadeCircle"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="fade-circle"&rsaquo;&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$animation-duration: 1.5s;
+ 
+.fade-circle {
+  display: inline-block;
+  margin: 2.4rem;
+  outline: 0 none;
+  border-radius: 100%;
+  font-size: 1.2rem;
+  width: 1em;
+  height: 1em;
+  animation: fade-circle $animation-duration infinite ease;
+}
+ 
+@keyframes fade-circle {
+  0%,
+  100% {
+    box-shadow: 0em -2em 0em 0em white,
+                1.4em -1.4em 0em 0em rgba(white, 0),
+                2em 0em 0em 0em rgba(white, 0),
+                1.4em 1.4em 0em 0em rgba(white, 0),
+                0em 2em 0em 0em rgba(white, 0.2),
+                -1.4em 1.4em 0em 0em rgba(white, 0.4),
+                -2em 0em 0em 0em rgba(white, 0.6),
+                -1.4em -1.4em 0em 0em rgba(white, 0.8);
+  }
+ 
+  12.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.8),
+                1.4em -1.4em 0em 0em white,
+                2em 0em 0em 0em rgba(white, 0),
+                1.4em 1.4em 0em 0em rgba(white, 0),
+                0em 2em 0em 0em rgba(white, 0),
+                -1.4em 1.4em 0em 0em rgba(white, 0.2),
+                -2em 0em 0em 0em rgba(white, 0.4),
+                -1.4em -1.4em 0em 0em rgba(white, 0.6);
+  }
+ 
+  25% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.6),
+                1.4em -1.4em 0em 0em rgba(white, 0.8),
+                2em 0em 0em 0em white,
+                1.4em 1.4em 0em 0em rgba(white, 0),
+                0em 2em 0em 0em rgba(white, 0),
+                -1.4em 1.4em 0em 0em rgba(white, 0),
+                -2em 0em 0em 0em rgba(white, 0.2),
+                -1.4em -1.4em 0em 0em rgba(white, 0.4);
+  }
+ 
+  37.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.4),
+                1.4em -1.4em 0em 0em rgba(white, 0.6),
+                2em 0em 0em 0em rgba(white, 0.8),
+                1.4em 1.4em 0em 0em white,
+                0em 2em 0em 0em rgba(white, 0),
+                -1.4em 1.4em 0em 0em rgba(white, 0),
+                -2em 0em 0em 0em rgba(white, 0),
+                -1.4em -1.4em 0em 0em rgba(white, 0.2);
+  }
+ 
+  50% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0.2),
+                1.4em -1.4em 0em 0em rgba(white, 0.4),
+                2em 0em 0em 0em rgba(white, 0.6),
+                1.4em 1.4em 0em 0em rgba(white, 0.8),
+                0em 2em 0em 0em white,
+                -1.4em 1.4em 0em 0em rgba(white, 0),
+                -2em 0em 0em 0em rgba(white, 0),
+                -1.4em -1.4em 0em 0em rgba(white, 0);
+  }
+ 
+  62.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0),
+                1.4em -1.4em 0em 0em rgba(white, 0.2),
+                2em 0em 0em 0em rgba(white, 0.4),
+                1.4em 1.4em 0em 0em rgba(white, 0.6),
+                0em 2em 0em 0em rgba(white, 0.8),
+                -1.4em 1.4em 0em 0em white,
+                -2em 0em 0em 0em rgba(white, 0),
+                -1.4em -1.4em 0em 0em rgba(white, 0);
+  }
+ 
+  75% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0),
+                1.4em -1.4em 0em 0em rgba(white, 0),
+                2em 0em 0em 0em rgba(white, 0.2),
+                1.4em 1.4em 0em 0em rgba(white, 0.4),
+                0em 2em 0em 0em rgba(white, 0.6),
+                -1.4em 1.4em 0em 0em rgba(white, 0.8),
+                -2em 0em 0em 0em white,
+                -1.4em -1.4em 0em 0em rgba(white, 0);
+  }
+ 
+  87.5% {
+    box-shadow: 0em -2em 0em 0em rgba(white, 0),
+                1.4em -1.4em 0em 0em rgba(white, 0),
+                2em 0em 0em 0em rgba(white, 0),
+                1.4em 1.4em 0em 0em rgba(white, 0.2),
+                0em 2em 0em 0em rgba(white, 0.4),
+                -1.4em 1.4em 0em 0em rgba(white, 0.6),
+                -2em 0em 0em 0em rgba(white, 0.8),
+                -1.4em -1.4em 0em 0em white;
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="rectangle">
+      <header class="modal-header">
+        <h3 class="modal-title">Rectangle - Source code</h3>
+        <button class="close" title="Close" data-modal-id="rectangle"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="rectangle"&rsaquo;&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 1.5s;
+ 
+.rectangle {
+  width: $loader-size;
+  height: $loader-size;
+  margin: 0 auto;
+  background-color: white;
+  animation: rectangle $animation-duration infinite ease-in-out;
+}
+ 
+@keyframes rectangle {
+  0% {
+    transform:perspective(12rem) rotateX(0deg) rotateY(0deg)
+  }
+  50% {
+    transform:perspective(12rem) rotateX(-180.1deg) rotateY(0deg)
+  }
+  100% {
+    transform:perspective(12rem) rotateX(-180deg) rotateY(-179.9deg)
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="rectangle-bounce">
+      <header class="modal-header">
+        <h3 class="modal-title">Rectangle bounce - Source code</h3>
+        <button class="close" title="Close" data-modal-id="rectangle-bounce"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="rectangle-bounce"&rsaquo;
+  &lsaquo;div class="rect-1"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="rect-2"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="rect-3"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="rect-4"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="rect-5"&rsaquo;&lsaquo;/div&rsaquo;
+&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 1.5s;
+ 
+.rectangle-bounce {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: $loader-size;
+  height: $loader-size;
+  transition: all 300ms ease-in-out 0s;
+  z-index: 1;
+ 
+  .rect-1,
+  .rect-2,
+  .rect-3,
+  .rect-4,
+  .rect-5 {
+    width: 15%;
+    height: 100%;
+    background-color: white;
+    animation: rectangle-bounce $animation-duration infinite ease-in-out;
+  }
+ 
+  .rect-2 {
+    animation-delay: -$animation-duration + .1;
+  }
+  .rect-3 {
+    animation-delay: -$animation-duration + .2;
+  }
+  .rect-4 {
+    animation-delay: -$animation-duration + .3;
+  }
+  .rect-5 {
+    animation-delay: -$animation-duration + .4;
+  }
+} 
+ 
+@keyframes rectangle-bounce {
+  0%, 40%, 100% {
+    transform:scaleY(0.4);
+  }
+  20% {
+    transform:scaleY(1);
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="three">
+      <header class="modal-header">
+        <h3 class="modal-title">Three - Source code</h3>
+        <button class="close" title="Close" data-modal-id="three"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="three"&rsaquo;
+  &lsaquo;div class="three-1"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="three-2"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="three-3"&rsaquo;&lsaquo;/div&rsaquo;
+&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 1.5s;
+ 
+.threes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: $loader-size;
+  height: $loader-size;
+ 
+  .three {
+    display: inline-flex;
+    width: 30%;
+    height: 30%;
+    border-radius: 100%;
+    background-color: white;
+    animation: three $animation-duration infinite ease-in-out both;
+ 
+    &-1 {
+      animation-delay: -320ms;
+    }
+ 
+    &-2 {
+      animation-delay: -160ms;
+    }
+  }
+}
+ 
+@keyframes three {
+  0%, 80%, 100% {
+    transform:scale(0)
+  }
+  40% {
+    transform:scale(1);
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="cubes">
+      <header class="modal-header">
+        <h3 class="modal-title">Cubes - Source code</h3>
+        <button class="close" title="Close" data-modal-id="cubes"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="cubes"&rsaquo;
+  &lsaquo;div class="cube cube-1"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-2"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-3"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-4"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-5"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-6"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-7"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-8"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="cube cube-9"&rsaquo;&lsaquo;/div&rsaquo;
+&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 1.5s;
+ 
+.cubes {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  width: $loader-size;
+  height: $loader-size;
+  transition: all 300ms ease-in-out 0s;
+  z-index: 1;
+ 
+  .cube {
+    width: 33.3333%;
+    height: 33.3333%;
+    background-color: white;
+    animation: cubes $animation-duration infinite ease-in-out;
+ 
+    &-1 {
+      animation-delay: .2s;
+    }
+ 
+    &-2 {
+      animation-delay: .3s;
+    }
+ 
+    &-3 {
+      animation-delay: .4s;
+    }
+ 
+    &-4 {
+      animation-delay: .1s;
+    }
+ 
+    &-5 {
+      animation-delay: .2s;
+    }
+ 
+    &-6 {
+      animation-delay: .3s;
+    }
+ 
+    &-7 {
+      animation-delay: 0s;
+    }
+ 
+    &-8 {
+      animation-delay: .1s;
+    }
+ 
+    &-9 {
+      animation-delay: .2s;
+    }
+  }
+}
+ 
+@keyframes cubes {
+  0%, 70%, 100% {
+    transform:scale3d(1, 1, 1);
+  }
+  35% {
+    transform:scale3d(0, 0, 1);
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <section class="modal hide" id="diamond">
+      <header class="modal-header">
+        <h3 class="modal-title">Diamond - Source code</h3>
+        <button class="close" title="Close" data-modal-id="diamond"><span class="icon">
+            <svg class="icon-svg" aria-hidden="true" focusable="false" role="img">
+              <use class="icon-svg-reference" href="#icon-close" xlink:href="#icon-close"></use>
+            </svg></span></button>
+      </header>
+      <div class="modal-body">
+        <h4>HTML code</h4><code>
+          <pre>&lsaquo;div class="diamonds"&rsaquo;
+  &lsaquo;div class="diamond diamond-1"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="diamond diamond-2"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="diamond diamond-3"&rsaquo;&lsaquo;/div&rsaquo;
+  &lsaquo;div class="diamond diamond-4"&rsaquo;&lsaquo;/div&rsaquo;
+&lsaquo;/div&rsaquo;</pre>
+        </code>
+        <h4>SCSS code</h4><code>
+          <pre>$loader-size: 5rem;
+$animation-duration: 2.4s;
+ 
+.diamonds {
+  display: flex;
+  flex-flow: row wrap;
+  width: $loader-size;
+  height: $loader-size;
+  transform: rotateZ(45deg);
+ 
+  .diamond {
+    position: relative;
+    height: 50%;
+    flex-basis: 50%;
+    transform: scale(1.1);
+ 
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $white;
+      animation: diamond $animation-duration infinite linear both;
+      transform-origin: 100% 100%;
+    }
+ 
+    &-2 {
+      transform: scale(1.1) rotateZ(90deg);
+ 
+      &::before {
+        animation-delay: 300ms;
+      }
+    }
+ 
+    &-3 {
+      transform: scale(1.1) rotateZ(180deg);
+ 
+      &::before {
+        animation-delay: 600ms;
+      }
+    }
+ 
+    &-4 {
+      transform: scale(1.1) rotateZ(270deg);
+ 
+      &::before {
+        animation-delay: 900ms;
+      }
+    }
+  }
+}
+ 
+@keyframes diamond {
+  0%, 10% {
+    transform:perspective(14rem) rotateX(-180deg);
+    opacity:0
+  }
+  25%, 75% {
+    transform:perspective(14rem) rotateX(0deg);
+    opacity:1
+  }
+  90%, 100% {
+    transform:perspective(14rem) rotateY(180deg);
+    opacity:0
+  }
+}</pre>
+        </code>
+      </div>
+    </section>
+    <div class="modal-backdrop hide"></div>
+    <svg class="icons-svg" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <symbol id="icon-code" viewBox="0 0 24 24">
+        <path d="M0 0h24v24H0V0z" fill="none"></path>
+        <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"></path>
+      </symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+      </symbol>
+    </svg>
+  </body>
+
+  </html>
+  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script id="rendered-js">
+    (function($) {
+      'use strict';
+      var $modal = $('.modal');
+      var $modalBackdrop = $('.modal-backdrop');
+      $(document).ready(function() {
+        $modalBackdrop.on('click', function() {
+          $modal.addClass('hide');
+          $modalBackdrop.toggleClass('hide');
+        });
+      });
+      $(document).on('click', '[data-modal-id]', function() {
+        var $modalId = $(this).attr('data-modal-id');
+        $('#' + $modalId).toggleClass('hide');
+        $modalBackdrop.toggleClass('hide');
+      });
+    })(jQuery);
+    //# sourceURL=pen.js
+  </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

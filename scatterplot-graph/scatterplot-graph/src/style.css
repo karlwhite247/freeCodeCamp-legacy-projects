@@ -1,0 +1,28 @@
+* {
+  margin: 10px;
+  padding: 10px;
+}
+
+.main {
+  position: center;
+  background-color: #ef974e;
+  height: 880px;
+  width: 1100px;
+  margin-left: 150px;
+}
+
+.container {
+  position: center;
+  height: 820px;
+  width: 1040px;
+  background-color: #fff;
+  flex-direction: column;
+  padding: 20px 20px 20px 20px;
+  align-self: center;
+  margin-left: 10px;
+}
+@media (min-width: 1000px) {
+  .main .container {
+    box-shadow: 2px 2px 20px;
+  }
+}

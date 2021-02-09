@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Treemap Diagram</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Treemap Diagram'</title>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <div class="main">
+
+    <div class="container">
+      <div id='title'>Movie Sales</div>
+      <p id="description">According to genre</p>
+
+      <div id="viz-container"></div>
+    </div>
+  </div>
+
+  <script src=&quot;https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js&quot;></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js'></script>
+  <script src='https://d3js.org/d3-color.v1.min.js'></script>
+  <script src='https://d3js.org/d3-interpolate.v1.min.js'></script>
+  <script src='https://d3js.org/d3-scale-chromatic.v1.min.js'></script>
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+
+  <script id=&quot;rendered-js&quot;>
+    var svg = d3.select( & quot; #viz - container & quot;).
+    append( & quot; svg & quot;).
+    attr( & quot; width & quot;, width).
+    attr( & quot; height & quot;, height);
+    // Define the div for the tooltip
+    var tooltip = d3.select( & quot; #viz - container & quot;).
+    append( & quot; div & quot;).
+    attr( & quot; class & quot;, & quot; tooltip & quot;).
+    attr( & quot; id & quot;, & quot; tooltip & quot;).
+    style( & quot; opacity & quot;, 0);
+    //color scale
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+    // treemap object
+    var treemap = d3.treemap().
+    size([width, height]).
+    paddingInner(1);
+    d3.json(movieSalesURL, function(err, data) {
+      var root = d3.hierarchy(data).
+      sum(function(d) {
+        return d.value;
+      }).
+      sort(function(a, b) {
+        return b.height - a.height || b.value - a.value;
+      });
+      treemap(root);
+      //set up box for genre
+      var genre = svg.selectAll( & quot; g & quot;).
+      data(root.leaves()).
+      enter().append( & quot; g & quot;).
+      attr( & quot; transform & quot;, function(d) {
+        return &quot;
+        translate( & quot; + d.x0 + & quot;, & quot; + d.y0 + & quot;) & quot;;
+      });
+      //add movies in genre
+      genre.append( & quot; rect & quot;).
+      attr( & quot; class & quot;, & quot; tile & quot;).
+      attr( & quot; width & quot;, function(d) {
+        return d.x1 - d.x0;
+      }).
+      attr( & quot; height & quot;, function(d) {
+        return d.y1 - d.y0;
+      }).
+      attr( & quot; data - name & quot;, function(d) {
+        return d.data.name;
+      }).
+      attr( & quot; data - category & quot;, function(d) {
+        return d.data.category;
+      }).
+      attr( & quot; data - value & quot;, function(d) {
+        return d.data.value;
+      }).
+      attr( & quot; fill & quot;, function(d) {
+          return color(d.data.category);
+        })
+        //add tool tip
+        .on( & quot; mousemove & quot;, function(d) {
+          tooltip.style( & quot; opacity & quot;, .8);
+          tooltip.html(
+            'Name: ' + d.data.name +
+            '<br>Category: ' + d.data.category +
+            '<br>Value: ' + d.data.value).
+          attr( & quot; data - value & quot;, d.data.value).
+          style( & quot; left & quot;, d3.event.pageX + 10 + & quot; px & quot;).
+          style( & quot; top & quot;, d3.event.pageY - 28 + & quot; px & quot;);
+        }).
+      on( & quot; mouseout & quot;, function(d) {
+        tooltip.style( & quot; opacity & quot;, 0);
+      });
+      //add text to genre
+      genre.append( & quot; text & quot;).
+      attr('class', 'movie-labels').
+      selectAll( & quot; tspan & quot;).
+      data(function(d) {
+        return d.data.name.split(/(?=[A-Z][^A-Z])/g);
+      }).
+      enter().append( & quot; tspan & quot;).
+      attr( & quot; x & quot;, 5).
+      attr( & quot; y & quot;, function(d, i) {
+        return 10 + i * 15;
+      }).
+      text(function(d) {
+        return d;
+      });
+      //legend
+      var legend = d3.select( & quot; #viz - container & quot;).
+      append( & quot; div & quot;).
+      attr( & quot; id & quot;, & quot; legend & quot;).
+      append( & quot; svg & quot;);
+      var categories = root.leaves().map(function(nodes) {
+        return nodes.data.category;
+      });
+      categories = categories.filter(function(category, index, self) {
+        return self.indexOf(category) === index;
+      });
+      var legendWidth = 300;
+      const LEGEND_OFFSET = 10;
+      const LEGEND_RECT_SIZE = 15;
+      const LEGEND_H_SPACING = 150;
+      const LEGEND_V_SPACING = 10;
+      const LEGEND_TEXT_X_OFFSET = 3;
+      const LEGEND_TEXT_Y_OFFSET = -2;
+      var legendElemsPerRow = Math.floor(legendWidth / LEGEND_H_SPACING);
+      var legendElem = legend.
+      append( & quot; g & quot;).
+      attr( & quot; transform & quot;, & quot; translate(60, & quot; + LEGEND_OFFSET + & quot;) & quot;).
+      selectAll( & quot; g & quot;).
+      data(categories).
+      enter().append( & quot; g & quot;).
+      attr( & quot; transform & quot;, function(d, i) {
+        return 'translate(' +
+          i % legendElemsPerRow * LEGEND_H_SPACING + ',' + (
+            Math.floor(i / legendElemsPerRow) * LEGEND_RECT_SIZE + LEGEND_V_SPACING * Math.floor(i / legendElemsPerRow)) + ')';
+      });
+      legendElem.append( & quot; rect & quot;).
+      attr('width', LEGEND_RECT_SIZE).
+      attr('height', LEGEND_RECT_SIZE).
+      attr('class', 'legend-item').
+      attr('fill', function(d) {
+        return color(d);
+      });
+      legendElem.append( & quot; text & quot;).
+      attr('x', LEGEND_RECT_SIZE + LEGEND_TEXT_X_OFFSET).
+      attr('y', LEGEND_RECT_SIZE + LEGEND_TEXT_Y_OFFSET).
+      text(function(d) {
+        return d;
+      });
+    });
+    //# sourceURL=pen.js
+  </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

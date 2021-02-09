@@ -1,0 +1,102 @@
+body {
+  text-align: center;
+  color: white;
+  margin: 0 auto;
+  letter-spacing: 0.5px;
+  font-family: Georgia, serif;
+  background: url("https://images.unsplash.com/photo-1487621167305-5d248087c724?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80");
+}
+/*** RADIO BTN ***/
+
+#offlineCh {
+  color: #ff3333;
+}
+
+#onlineCh {
+  color: #ff3333;
+}
+
+/*** HEADER ***/
+
+h1 {
+  margin: 50px auto 70px;
+  animation: grow 1.5s;
+}
+
+h2 {
+  transform: rotate(7deg);
+  margin-bottom: 25px;
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  80% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/*** STREAMS RESULTS ***/
+.streamers p {
+  max-width: 70%;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 1);
+  color: black;
+  border-radius: 5px;
+  transition: transform 0.5s;
+}
+
+.offline {
+  color: #ff3333;
+}
+
+.hidden {
+  display: none;
+}
+
+.streamers p:hover {
+  transform: scale(1.05);
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+  color: white;
+}
+
+a:hover {
+  color: #6441a5;
+}
+
+.streamers a {
+  text-decoration: none;
+}
+
+#logo {
+  margin-right: 5px;
+  height: 52px;
+  width: 52px;
+  border-radius: 100%;
+  float: left;
+}
+
+#channel_name {
+  font-size: 20px;
+}
+
+/*** FOOTER ***/
+footer {
+  margin-top: 50px;
+  font-size: 12px;
+}

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Pomodoro Clock</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+  <link href="//db.onlinewebfonts.com/c/f5d24d17d0da422551f86e3bd28ac391?family=Cartoon+Thin" rel="stylesheet" type="text/css" />
+
+</head>
+
+<style>
+  @font-face {
+    font-family: 'MyWebFont';
+    src: url('webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('webfont.eot?#iefix') format('embedded-opentype'),
+      /* IE6-IE8 */
+      url('webfont.woff2') format('woff2'),
+      /* Super Modern Browsers */
+      url('webfont.woff') format('woff'),
+      /* Pretty Modern Browsers */
+      url('webfont.ttf') format('truetype'),
+      /* Safari, Android, iOS */
+      url('webfont.svg#svgFontName') format('svg');
+    /* Legacy iOS */
+  }
+
+  body {
+    background: url(https://i.ytimg.com/vi/uOSbHJ3-uIA/maxresdefault.jpg) no-repeat;
+    background-size: 1550px 800px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+  }
+</style>
+
+<div id="pomodoro">
+  <div id="clock">
+    <div id="timer">
+      <div id="title">Ready?</div>
+      <div id="countdown">
+        <span id="minutes">30</span>
+        <span id="seconds">00</span>
+      </div>
+      <div id="controls" class="reset">
+        <div id="start"><i class="fas fa-play"></i> Start</div>
+        <div id="pause"><i class="fas fa-pause"></i> Pause</div>
+        <div id="reset"><i class="fas fa-sync-alt"></i> Reset</div>
+      </div>
+    </div>
+  </div>
+  <div id="options">
+    <div id="session">
+      <i id="incrSession" class="fas fa-angle-double-up"></i>
+      <span class="option-title">Session</span>
+      <input id="sessionInput" type="number" value="30" max="60" min="5">
+      <i id="decrSession" class="fas fa-angle-double-down"></i>
+    </div>
+    <div id="break">
+      <i id="incrBreak" class="fas fa-angle-double-up"></i>
+      <span class="option-title">Break</span>
+      <input id="breakInput" type="number" value="5" max="10" min="1">
+      <i id="decrBreak" class="fas fa-angle-double-down"></i>
+    </div>
+  </div>
+</div>
+<div id="audio-selector">
+  <div id="Yung Bae - Welcome to the Disco" class="theme">Yung Bae - Welcome <br> to the Disco</div>
+
+  <div id="Ikimono-gakari - Aoi Aoi Ano Sora" class="theme">Ikimono-gakari <br> - Aoi Aoi Ano Sora</div>
+
+  <div id="Flow - Hero" class="theme">Flow - Hero</div>
+
+  <div id="Shirō Sagisu - Final Getsuga Tenshou" class="theme">Shiro Sagisu <br> - Final Getsuga Tenshou</div>
+
+  <div id="Norihito Sumitomo - Kakarot Vs Broly" class="theme">Norihito Sumitomo <br> - Kakarot Vs Broly</div>
+</div>
+
+<audio loop autoplay="false" src="">
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script src='https://use.fontawesome.com/releases/v5.0.6/js/all.js'></script>
+  <script id="rendered-js">
+    $(() => {
+      let $audio = $("audio"), // from https://tide.moreless.io/en/
+        $theme = $(".theme"),
+        $title = $("#title"),
+        $controls = $("#controls"),
+        $options = $("#options"),
+        $minutes = $("#minutes"),
+        $seconds = $("#seconds"),
+        $start = $("#start"),
+        $pause = $("#pause"),
+        $reset = $("#reset"),
+        $incrSession = $("#incrSession"),
+        $sessionInput = $("#sessionInput"),
+        $decrSession = $("#decrSession"),
+        $incrBreak = $("#incrBreak"),
+        $breakInput = $("#breakInput"),
+        $decrBreak = $("#decrBreak"),
+        breakLength = 5 * 60,
+        breakMax = 10,
+        breakMin = 1,
+        sessionLength = 30 * 60,
+        sessionMax = 60,
+        sessionMin = 5,
+        sessionNum = 0,
+        countdown,
+        countType,
+        remainingTime = sessionLength;
+      init();
+
+      function init() {
+        $audio.prop("volume", 0);
+        $incrSession.click(() => incrSession());
+        $decrSession.click(() => decrSession());
+        $incrBreak.click(() => incrBreak());
+        $decrBreak.click(() => decrBreak());
+        $sessionInput.on("change", e => updateSession(e.target.value));
+        $breakInput.on("change", e => updateBreak(e.target.value));
+        $start.click(() => {
+          if (countType === "break") {
+            startBreak();
+          } else {
+            startSession();
+          }
+        });
+        $pause.click(() => pause());
+        $reset.click(() => reset());
+        $theme.click(e => audioSelect(e));
+      }
+
+      function startSession() {
+        sessionNum++;
+        countType = "session";
+        $options.slideUp(143);
+        $controls.removeClass().addClass("started");
+        $title.fadeOut(43, function() {
+          $(this).html("Session " + sessionNum).fadeIn();
+        });
+        $audio.animate({
+          volume: 1
+        }, 1000);
+        start(remainingTime || sessionLength);
+      }
+
+      function startBreak() {
+        countType = "break";
+        $title.fadeOut(43, function() {
+          $(this).html("Break " + sessionNum).fadeIn();
+        });
+        $audio.animate({
+          volume: 0
+        }, 5000);
+        start(remainingTime || breakLength);
+      }
+
+      function start(timeLeft) {
+        clearInterval(countdown);
+        countdown = setInterval(() => {
+          timeLeft--;
+          remainingTime = timeLeft;
+          let minLeft = Math.floor(timeLeft / 60),
+            secLeft = timeLeft - minLeft * 60;
+          updateMinutes(minLeft);
+          updateSeconds(secLeft < 10 ? "0" + secLeft : secLeft);
+          if (timeLeft < 1) {
+            if (countType === "session") {
+              startBreak(breakLength);
+            } else {
+              startSession();
+            }
+          }
+        }, 1000);
+      }
+
+      function pause() {
+        sessionNum--;
+        $audio.animate({
+          volume: 0
+        }, 1000);
+        clearInterval(countdown);
+        $options.slideDown(143);
+        $controls.removeClass().addClass("paused");
+        $title.fadeOut(43, function() {
+          $(this).html("Paused").fadeIn();
+        });
+      }
+
+      function reset() {
+        clearInterval(countdown);
+        updateMinutes(sessionLength / 60);
+        updateSeconds("00");
+        countType = undefined;
+        $controls.removeClass().addClass("reset");
+        $title.html("Ready?");
+        remainingTime = sessionLength;
+      }
+
+      function incrSession() {
+        let num = Number($sessionInput.val());
+        num = num + (num === sessionMax ? 0 : 1);
+        sessionLength = num * 60;
+        updateSession(num);
+        updateMinutes(num);
+        updateSeconds("00");
+        reset();
+      }
+
+      function decrSession() {
+        let num = Number($sessionInput.val());
+        num = num - (num === sessionMin ? 0 : 1);
+        sessionLength = num * 60;
+        updateSession(num);
+        updateMinutes(num);
+        updateSeconds("00");
+        reset();
+      }
+
+      function incrBreak() {
+        let num = Number($breakInput.val());
+        num = num + (num === breakMax ? 0 : 1);
+        breakLength = num * 60;
+        updateBreak(num);
+        reset();
+      }
+
+      function decrBreak() {
+        let num = Number($breakInput.val());
+        num = num - (num === breakMin ? 0 : 1);
+        breakLength = num * 60;
+        updateBreak(num);
+        reset();
+      }
+
+      function updateMinutes(num) {
+        $minutes.text(num);
+      }
+
+      function updateSeconds(num) {
+        $seconds.text(num);
+      }
+
+      function updateSession(num) {
+        num = num < sessionMin ? sessionMin : num > sessionMax ? sessionMax : num;
+        $sessionInput.val(num).blur();
+        updateMinutes(num);
+        updateSeconds("00");
+        sessionLength = num * 60;
+        reset();
+      }
+
+      function updateBreak(num) {
+        $breakInput.val(num < breakMin ? breakMin : num > breakMax ? breakMax : num).blur();
+        breakLength = num * 60;
+        reset();
+      }
+
+      function audioSelect(e) {
+        $theme.removeClass("selected");
+        $(e.target).addClass("selected");
+        switch (e.target.id) {
+          case "Yung Bae - Welcome to the Disco":
+            $audio.attr("src", "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/songs/1%20Yung%20Bae%20-%20Welcome%20to%20the%20Disco.mp3");
+            break;
+          case "Ikimono-gakari - Aoi Aoi Ano Sora":
+            $audio.attr("src", "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/songs/2%20Ikimono-gakari%20-%20Aoi%20Aoi%20Ano%20Sora.mp3");
+            break;
+          case "Flow - Hero":
+            $audio.attr("src", "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/songs/3%20Flow%20-%20Hero.mp3");
+            break;
+          case "Shirō Sagisu - Final Getsuga Tenshou":
+            $audio.attr("src", "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/songs/4%20Bleach%20-%20Final%20Getsuga%20Tenshou.mp3");
+            break;
+          case "Norihito Sumitomo - Kakarot Vs Broly":
+            $audio.attr("src", "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/songs/5%20-%20DBZ%20Broly%20VS%20Kakarot.mp3");
+            break;
+        }
+      }
+    });
+    //# sourceURL=pen.js
+  </script>
+  </body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp - Camper Leaderboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: #aaa;
+      text-align: center;
+    }
+
+    .entire-board {
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 3px;
+      background: #fafffa;
+    }
+
+    .title {
+      margin: 0;
+      padding: 10px;
+      border-radius: 3px 3px 0 0;
+      border-bottom: 5px solid #fff;
+      cursor: default;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+    }
+
+    .title,
+    .showing {
+      background: #006400;
+      color: #fff;
+    }
+
+    .title,
+    .sortable {
+      cursor: pointer;
+    }
+
+    table {
+      border-collapse: collapse;
+      cursor: default;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    th {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 53px;
+      font-size: 1.2em;
+      border-bottom: 5px solid #eee;
+      transition: background .2s, color .1s;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    th,
+    tr:nth-child(even) {
+      background: #eee;
+    }
+
+    tr {
+      transition: background .6s ease-out;
+    }
+
+    tr:hover {
+      background: rgba(0, 100, 0, .2);
+    }
+
+    .camper,
+    .recent {
+      border-right: 2px solid #eee;
+    }
+
+    .rank {
+      font-weight: bold;
+      font-size: 1.4em;
+      width: 10%;
+    }
+
+    .camper {
+      text-align: left;
+      white-space: nowrap;
+      width: 40%;
+    }
+
+    .camper span {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 75%;
+    }
+
+    .points {
+      width: 25%;
+    }
+
+    .avatar {
+      margin-right: 5px;
+      width: 50px;
+      max-width: 10vw;
+      vertical-align: middle;
+    }
+
+    a {
+      color: #006400;
+      font-weight: bold;
+      text-decoration: none;
+      transition: font-size .2s, text-shadow 2s;
+    }
+
+    a:hover {
+      font-size: 1.1em;
+      text-shadow: 0 0 40px #0a0;
+    }
+
+    .blinking {
+      -webkit-animation: blink .5s infinite;
+      animation: blink .5s infinite;
+    }
+
+    @-webkit-keyframes blink {
+      50% {
+        opacity: .5;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: .5;
+      }
+    }
+
+    @media (max-width: 500px) {
+      table {
+        font-size: .8em;
+      }
+
+      th {
+        font-size: 1em;
+      }
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <div id="app"></div>
+  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.23.0/polyfill.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react-dom.min.js'></script>
+  <script id="rendered-js">
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, {
+          value: value,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      } else {
+        obj[key] = value;
+      }
+      return obj;
+    } // Generate each table row of user data
+    const User = ({
+        rank,
+        username,
+        img,
+        recentPts,
+        alltimePts
+      }) => /*#__PURE__*/
+      React.createElement("tr", null, /*#__PURE__*/
+        React.createElement("td", {
+          className: "rank"
+        }, rank), /*#__PURE__*/
+        React.createElement("td", {
+            className: "camper"
+          }, /*#__PURE__*/
+          React.createElement("a", {
+              href: `https://www.freecodecamp.com/${username}`,
+              target: "_blank"
+            }, /*#__PURE__*/
+            React.createElement("img", {
+              className: "avatar",
+              src: img,
+              alt: username
+            }), /*#__PURE__*/
+            React.createElement("span", null, username))), /*#__PURE__*/
+        React.createElement("td", {
+          className: "points recent"
+        }, recentPts), /*#__PURE__*/
+        React.createElement("td", {
+          className: "points alltime"
+        }, alltimePts));
+    // Display table header
+    class TableHeader extends React.Component {
+      constructor(...args) {
+        super(...args);
+        _defineProperty(this, "handleClick",
+          e => {
+            if (e.target.className === 'sortable') this.props.onChangeDisplay();
+          });
+      }
+      render() {
+        return /*#__PURE__*/ (
+          React.createElement("thead", null, /*#__PURE__*/
+            React.createElement("tr", null, /*#__PURE__*/
+              React.createElement("th", null, "Rank"), /*#__PURE__*/
+              React.createElement("th", null, "Camper"), /*#__PURE__*/
+              React.createElement("th", {
+                className: this.props.showing === 'recent' && 'showing' || 'sortable',
+                onClick: this.handleClick
+              }, "Recent Pts."), /*#__PURE__*/
+              React.createElement("th", {
+                className: this.props.showing === 'alltime' && 'showing' || 'sortable',
+                onClick: this.handleClick
+              }, "All-Time Pts."))));
+      }
+    }
+    const Leaderboard = (props) => /*#__PURE__*/
+      React.createElement("div", null, /*#__PURE__*/
+        React.createElement("table", null, /*#__PURE__*/
+          React.createElement(TableHeader, {
+            onChangeDisplay: props.onChangeDisplay.bind(this),
+            showing: props.showing
+          }), /*#__PURE__*/
+          React.createElement("tbody", null,
+            // Generate all User components in body of table
+            props[props.showing].map((user, i) => /*#__PURE__*/
+              React.createElement(User, {
+                rank: i + 1,
+                img: user.img,
+                username: user.username,
+                recentPts: user.recent,
+                alltimePts: user.alltime
+              })))));
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        _defineProperty(this, "handleChangeDisplay",
+          () => {
+            this.setState({
+              showing: this.state.showing === 'alltime' ? 'recent' : 'alltime'
+            });
+            this.scrollToTop();
+          });
+        _defineProperty(this, "scrollToTop",
+          () => {
+            document.body.scrollTop = 0; // Chrome/Safari/Opera
+            document.documentElement.scrollTop = 0; // IE/Firefox
+          });
+        this.state = {
+          recent: null,
+          alltime: null,
+          showing: 'recent',
+          status: null
+        };
+      } // Fetch FCC user data via async/await
+      async componentDidMount() { // The FCC API is down, so we're pulling from mock endpoints
+        const apiRecent = 'https://api.npoint.io/df4d86c7cd7b69ad3603';
+        const apiAlltime = 'https://api.npoint.io/b56606bb3536eb445851';
+        let recent, alltime;
+        try {
+          recent = await (await fetch(apiRecent)).json();
+          alltime = await (await fetch(apiAlltime)).json();
+          this.setState({
+            recent,
+            alltime,
+            status: 'loaded'
+          });
+        } catch (e) {
+          this.setState({
+            status: 'error'
+          });
+        }
+      } // Change which list of users to display
+      render() {
+        return /*#__PURE__*/ (
+          React.createElement("div", {
+              className: "entire-board"
+            }, /*#__PURE__*/
+            React.createElement("h2", {
+              className: "title",
+              onClick: this.scrollToTop
+            }, "Camper Leaderboard"),
+            !this.state.status && /*#__PURE__*/ React.createElement("h1", {
+              className: "blinking"
+            }, "Retrieving data..."),
+            this.state.status === 'error' && /*#__PURE__*/ React.createElement("h2", null, "Could not retrieve data. Please try again later."),
+            this.state.status === 'loaded' && /*#__PURE__*/ React.createElement(Leaderboard, {
+              recent: this.state.recent,
+              alltime: this.state.alltime,
+              showing: this.state.showing,
+              onChangeDisplay: this.handleChangeDisplay
+            })));
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/ React.createElement(App, null), document.getElementById('app'));
+    //# sourceURL=pen.js
+  </script>
+
+</body>
+
+</html>

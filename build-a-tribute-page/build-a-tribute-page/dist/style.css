@@ -1,0 +1,61 @@
+.container {
+  position: relative;
+  text-align: center;
+}
+
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+@import url(//db.onlinewebfonts.com/c/de46a85464f3b146ec9a6788faf1802e?family=Edo+SZ);
+
+@font-face {
+  font-family: "Edo SZ";
+  src: url("//db.onlinewebfonts.com/t/de46a85464f3b146ec9a6788faf1802e.eot");
+  src: url("//db.onlinewebfonts.com/t/de46a85464f3b146ec9a6788faf1802e.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/de46a85464f3b146ec9a6788faf1802e.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/de46a85464f3b146ec9a6788faf1802e.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/de46a85464f3b146ec9a6788faf1802e.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/de46a85464f3b146ec9a6788faf1802e.svg#Edo SZ")
+      format("svg");
+}
+
+@import url(//db.onlinewebfonts.com/c/73fedd912ba11f583a359ce4c2e742ed?family=Ninja+Naruto);
+
+@font-face {
+  font-family: "Ninja Naruto";
+  src: url("//db.onlinewebfonts.com/t/73fedd912ba11f583a359ce4c2e742ed.eot");
+  src: url("//db.onlinewebfonts.com/t/73fedd912ba11f583a359ce4c2e742ed.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/73fedd912ba11f583a359ce4c2e742ed.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/73fedd912ba11f583a359ce4c2e742ed.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/73fedd912ba11f583a359ce4c2e742ed.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/73fedd912ba11f583a359ce4c2e742ed.svg#Ninja Naruto")
+      format("svg");
+}
+
+@import url(//db.onlinewebfonts.com/c/455e71159a2a11236fc9d0b6e030cb73?family=AllisonROB);
+
+@font-face {
+  font-family: "AllisonROB";
+  src: url("//db.onlinewebfonts.com/t/455e71159a2a11236fc9d0b6e030cb73.eot");
+  src: url("//db.onlinewebfonts.com/t/455e71159a2a11236fc9d0b6e030cb73.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/455e71159a2a11236fc9d0b6e030cb73.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/455e71159a2a11236fc9d0b6e030cb73.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/455e71159a2a11236fc9d0b6e030cb73.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/455e71159a2a11236fc9d0b6e030cb73.svg#AllisonROB")
+      format("svg");
+}

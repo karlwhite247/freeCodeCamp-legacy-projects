@@ -1,0 +1,128 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background: #aaa;
+  text-align: center;
+}
+
+.entire-board {
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 3px;
+  background: #fafffa;
+}
+
+.title {
+  margin: 0;
+  padding: 10px;
+  border-radius: 3px 3px 0 0;
+  border-bottom: 5px solid #fff;
+  cursor: default;
+  position: sticky;
+  top: 0;
+}
+
+.title,
+.showing {
+  background: #006400;
+  color: #fff;
+}
+
+.title,
+.sortable {
+  cursor: pointer;
+}
+
+table {
+  border-collapse: collapse;
+  cursor: default;
+  font-weight: 600;
+  width: 100%;
+}
+
+th {
+  position: sticky;
+  top: 53px;
+  font-size: 1.2em;
+  border-bottom: 5px solid #eee;
+  transition: background 0.2s, color 0.1s;
+  user-select: none;
+}
+
+th,
+tr:nth-child(even) {
+  background: #eee;
+}
+
+tr {
+  transition: background 0.6s ease-out;
+}
+
+tr:hover {
+  background: rgba(0, 100, 0, 0.2);
+}
+
+.camper,
+.recent {
+  border-right: 2px solid #eee;
+}
+
+.rank {
+  font-weight: bold;
+  font-size: 1.4em;
+  width: 10%;
+}
+
+.camper {
+  text-align: left;
+  white-space: nowrap;
+  width: 40%;
+}
+
+.camper span {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 75%;
+}
+
+.points {
+  width: 25%;
+}
+
+.avatar {
+  margin-right: 5px;
+  width: 50px;
+  max-width: 10vw;
+  vertical-align: middle;
+}
+
+a {
+  color: #006400;
+  font-weight: bold;
+  text-decoration: none;
+  transition: font-size 0.2s, text-shadow 2s;
+}
+
+a:hover {
+  font-size: 1.1em;
+  text-shadow: 0 0 40px #0a0;
+}
+
+.blinking {
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 500px) {
+  table {
+    font-size: 0.8em;
+  }
+  th {
+    font-size: 1em;
+  }
+}

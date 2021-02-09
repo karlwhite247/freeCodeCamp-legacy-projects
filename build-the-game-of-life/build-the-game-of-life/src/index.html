@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp - React Game of Life</title>
+  <link href="https://fonts.googleapis.com/css?family=Ravi+Prakash" rel="stylesheet">
+
+  <style>
+    div {
+      box-sizing: border-box;
+    }
+
+    a {
+      font-size: 1.4rem;
+      color: #6B4B24;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-family: DejaVu Sans Mono;
+      color: #1a81ad;
+      margin: 0;
+      font-size: 3.6rem;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-family: courier;
+      color: red;
+      text-shadow: 0px 2px 3px rgba(255, 255, 255, 0.5);
+      background: white;
+    }
+
+    header {
+      padding-top: 25px;
+      height: 5rem;
+    }
+
+    .game-container {
+      width: 840px;
+      margin: 0 auto;
+      font-size: 1.4rem;
+    }
+
+    .game-container .controls {
+      display: flex;
+      justify-content: center;
+    }
+
+    .game-container .controls .btn {
+      padding: 0 15px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .game-container .controls .btn:hover {
+      color: #D81F6F;
+    }
+
+    .game-container .controls .btn:active {
+      transform: translate(1px, 1px);
+    }
+
+    .board {
+      height: 480px;
+    }
+
+    .board .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .board .row .cell {
+      width: 12px;
+      height: 12px;
+      border: 1px solid gray;
+    }
+
+    .board .row .cell.alive {
+      background: #63b521;
+    }
+
+    .board .row .cell.alive.new {
+      background: #63b521;
+    }
+
+    footer {
+      margin: 15px 0;
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <header>
+    <h1><span class="text-important">R</span>eact Game of L<span class="text-important">i</span>fe</h1>
+  </header>
+
+  <div id="root" class="game-container">
+    <div class="controls">
+      <div class="btn">Run</div>
+      <div class="btn">Pause</div>
+      <div class="btn">Clear</div>
+      <div class="btn">Restart</div>
+    </div>
+    <div class="display">
+      Generation: 26
+    </div>
+    <div class="board">
+      <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="row">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <div class="row">
+        <div class="cell alive"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell alive"></div>
+        <div class="cell alive"></div>
+        <div class="cell alive new"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Code by Karl White<a class="text-important" </footer>
+
+      <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/classnames/2.2.5/dedupe.min.js'></script>
+      <script id="rendered-js">
+        function _extends() {
+          _extends = Object.assign || function(target) {
+            for (var i = 1; i < arguments.length; i++) {
+              var source = arguments[i];
+              for (var key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                  target[key] = source[key];
+                }
+              }
+            }
+            return target;
+          };
+          return _extends.apply(this, arguments);
+        }
+        class Game extends React.Component {
+          constructor() {
+            super();
+            this.state = {
+              boardData: [],
+              generation: 0,
+              timer: null
+            };
+          }
+          componentWillMount() {
+            this.setState({
+              boardData: this.createBoard('random')
+            });
+          }
+          componentDidMount() {
+            this.state.timer = setInterval(this.updateBoard.bind(this), this.props.delay);
+          }
+          componentWillUnmount() {
+            clearInterval(this.state.timer);
+          }
+          createBoard(type) {
+            let BoardData = [];
+            let {
+              NumOfRows,
+              NumOfCols
+            } = this.props;
+            for (let r = 0; r < NumOfRows; r++) {
+              let rowData = [];
+              let alive;
+              for (let c = 0; c < NumOfCols; c++) {
+                if (type == 'random') {
+                  alive = Math.round(Math.random()) === 0 ? false : true;
+                } else if (type == 'empty') {
+                  alive = false;
+                }
+                rowData.push({
+                  rowId: r,
+                  colId: c,
+                  alive: alive,
+                  isNew: false
+                });
+              }
+              BoardData.push(rowData);
+            }
+            return BoardData;
+          }
+          updateBoard() {
+            let newBoard = [];
+            let {
+              NumOfRows,
+              NumOfCols
+            } = this.props;
+            for (let r = 0; r < NumOfRows; r++) {
+              let rowData = [];
+              for (let c = 0; c < NumOfCols; c++) {
+                rowData.push(this.updateCell(r, c));
+              }
+              newBoard.push(rowData);
+            }
+            this.setState({
+              boardData: newBoard,
+              generation: this.state.generation + 1
+            });
+          }
+          updateCell(r, c) {
+            let {
+              NumOfRows,
+              NumOfCols
+            } = this.props;
+            let curBoard = this.state.boardData;
+            let activeNeighbour = 0;
+            let alive = curBoard[r][c].alive;
+            let isNew = curBoard[r][c].isNew;
+            let neighbourIndices = [
+              [r - 1, c - 1],
+              [r - 1, c],
+              [r - 1, c + 1],
+              [r, c - 1],
+              [r, c + 1],
+              [r + 1, c - 1],
+              [r + 1, c],
+              [r + 1, c + 1]
+            ];
+            // get all valid neighbours
+            neighbourIndices = neighbourIndices.filter(index => {
+              return index[0] >= 0 && index[0] != NumOfRows && index[1] >= 0 && index[1] != NumOfCols;
+            });
+            let neighbours = neighbourIndices.map(index => curBoard[index[0]][index[1]]);
+            // count activeNeighbour
+            neighbours.forEach(neighbour => {
+              if (neighbour.alive) {
+                activeNeighbour++;
+              }
+            });
+            // determine the alive and new status
+            if (alive) { // currently alive
+              isNew = false;
+              if (activeNeighbour === 2 || activeNeighbour === 3) {
+                alive = true;
+              } else {
+                alive = false;
+              }
+            } else { // currently dead
+              isNew = false;
+              if (activeNeighbour === 3) { // new-born
+                alive = true;
+                isNew = true;
+              }
+            }
+            return {
+              rowId: r,
+              colId: c,
+              alive: alive,
+              isNew: isNew
+            };
+          }
+          handleCellClick(coordinates) {
+            let boardData = this.state.boardData.slice();
+            let [r, c] = coordinates;
+            if (boardData[r][c].alive) {
+              boardData[r][c].alive = false;
+              boardData[r][c].isNew = false;
+            } else {
+              boardData[r][c].alive = true;
+              boardData[r][c].isNew = true;
+            }
+            this.setState({
+              boardData: boardData
+            });
+          }
+          handleWidgetClick(type) {
+            switch (type) {
+              case 'Run':
+                if (this.state.timer) { // to avoid setInterval's accumulation
+                  clearInterval(this.state.timer);
+                }
+                this.state.timer = setInterval(this.updateBoard.bind(this), this.props.delay);
+                break;
+              case 'Pause':
+                clearInterval(this.state.timer);
+                break;
+              case 'Clear':
+                clearInterval(this.state.timer);
+                this.setState({
+                  boardData: this.createBoard('empty'),
+                  generation: 0
+                });
+                break;
+              case 'Restart':
+                this.setState({
+                  boardData: this.createBoard('random'),
+                  generation: 0
+                });
+                if (this.state.timer) {
+                  clearInterval(this.state.timer);
+                }
+                this.state.timer = setInterval(this.updateBoard.bind(this), this.props.delay);
+                break;
+            }
+          }
+          render() {
+            return /*#__PURE__*/ (
+              React.createElement("div", null, /*#__PURE__*/
+                React.createElement("div", {
+                    className: "controls"
+                  }, /*#__PURE__*/
+                  React.createElement(Widget, {
+                    type: "Run",
+                    onWidgetClick: type => this.handleWidgetClick(type)
+                  }), /*#__PURE__*/
+                  React.createElement(Widget, {
+                    type: "Pause",
+                    onWidgetClick: type => this.handleWidgetClick(type)
+                  }), /*#__PURE__*/
+                  React.createElement(Widget, {
+                    type: "Clear",
+                    onWidgetClick: type => this.handleWidgetClick(type)
+                  }), /*#__PURE__*/
+                  React.createElement(Widget, {
+                    type: "Restart",
+                    onWidgetClick: type => this.handleWidgetClick(type)
+                  })), /*#__PURE__*/
+                React.createElement(Display, {
+                  generation: this.state.generation
+                }), /*#__PURE__*/
+                React.createElement(Board, {
+                  boardData: this.state.boardData,
+                  onCellClick: coordinates => this.handleCellClick(coordinates)
+                })));
+          }
+        }
+        const Widget = props => /*#__PURE__*/ React.createElement("div", {
+          className: "btn",
+          onClick: () => props.onWidgetClick(props.type)
+        }, props.type);
+        const Display = props => /*#__PURE__*/ React.createElement("div", {
+          className: "display"
+        }, "Generation: ", props.generation);
+        const Board = (props) => /*#__PURE__*/
+          React.createElement("div", {
+              className: "board"
+            },
+            props.boardData.map((row, index) => /*#__PURE__*/
+              React.createElement(Row, {
+                key: index,
+                rowData: row,
+                onCellClick: coordinates => props.onCellClick(coordinates)
+              })));
+        const Row = (props) => /*#__PURE__*/
+          React.createElement("div", {
+              className: "row"
+            },
+            props.rowData.map((cell) => /*#__PURE__*/
+              React.createElement(Cell, _extends({
+                key: cell.rowId + '-' + cell.colId
+              }, cell, {
+                onCellClick: coordinates => props.onCellClick(coordinates)
+              }))));
+        const Cell = props => {
+          let {
+            rowId,
+            colId,
+            alive,
+            isNew
+          } = props;
+          let className = classNames({
+            'cell': true,
+            'alive': alive,
+            'new': isNew
+          });
+          return /*#__PURE__*/ React.createElement("div", {
+            className: className,
+            onClick: () => props.onCellClick([rowId, colId])
+          });
+        };
+        ReactDOM.render( /*#__PURE__*/ React.createElement(Game, {
+          NumOfRows: 40,
+          NumOfCols: 70,
+          delay: 100
+        }), document.getElementById('root'));
+        //# sourceURL=pen.js
+      </script>
+
+</body>
+
+</html>

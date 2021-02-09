@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Build a Product Landing Page</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <link href="//db.onlinewebfonts.com/c/419f9a909ea75fd5eb1d85a9a8a349f0?family=Legothick" rel="stylesheet" type="text/css" />
+
+</head>
+
+<style>
+  @font-face {
+    font-family: 'MyWebFont';
+    src: url('webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('webfont.eot?#iefix') format('embedded-opentype'),
+      /* IE6-IE8 */
+      url('webfont.woff2') format('woff2'),
+      /* Super Modern Browsers */
+      url('webfont.woff') format('woff'),
+      /* Pretty Modern Browsers */
+      url('webfont.ttf') format('truetype'),
+      /* Safari, Android, iOS */
+      url('webfont.svg#svgFontName') format('svg');
+    /* Legacy iOS */
+  }
+
+    {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: calibri;
+  }
+
+  strong {
+    color: purple;
+    font-family: Legothick;
+    font-size: 70px;
+    text-align: left;
+  }
+
+  .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+  }
+
+  /* Remove extra left and right margins, due to padding */
+  .row {
+    margin: 0 -5px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  /* Responsive columns */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+    }
+  }
+
+  .container {
+    position: relative;
+    text-align: center;
+    color: purple;
+    font-family: calibri;
+    font-size: 40px;
+    font-style: bold;
+    font-weight 900;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #0f7605;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 20px;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+  }
+
+  button:hover,
+  a:hover {
+    opacity: 0.7;
+  }
+</style>
+
+<header id="header">
+  <nav id="nav-bar">
+    <div class="topnav">
+      <a class="active" href="#home">Home</a>
+      <a class="nav-link" href="#about-us" class="active">About Us</a>
+      <a class="nav-link" href="#popular-flights">Popular Flights</a>
+      <a class="nav-link" href="#vacation-packages">Vacation Packages</a>
+    </div>
+    <div class="container">
+      <img id="header-img" src="http://www.cashadvance6online.com/data/archive/img/1011254784.jpeg" alt="Clouds" style="height: 300px; width:1319px;">
+      <div class="centered"><strong><em>- Cloud Airlines -</em></div></strong>
+    </div>
+
+    </head>
+
+    <body>
+      <section class="anchor" id="hero">
+        <h1>Receive news updates and notice of special deals</h1>
+        <form id="form" action=" https://www.freecodecamp.com/email-submit">
+          <input name="email" id="email" type="email" placeholder="Enter your email address" required />
+          <input id="submit" type="submit" value="Subscribe" class="btn"></input>
+        </form>
+      </section>
+      <br>
+      <div id="container">
+        <section class="anchor" id="about-us">
+          <h1>About Us</h1>
+          <h2>Cloud Airlines is the flag carrier airline of Norway, headquartered in Oslo, Norway, near its main hub at Oslo Gardermoen Airport. It is the 2nd largest airline in Norway, based on fleet size and passengers carried. In January 2000 SA merged with Cambrian Airlines, creating the world's 7th-largest airline group in terms of annual revenue and the 6th-largest in Europe. It is listed on the Oslo Stock Exchange (OSE) and in the FTSE 100 Index.</h2>
+          <br><br>
+          <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/bIuPYWbHsjY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+          </iframe>
+          <section class="anchor" id="popular-flights">
+            <h1>Popular Flights</h1>
+            <div class="row">
+              <div class="column">
+                <div class="card">
+                  <h3>Egypt - Cairo</h3>
+                  <img src="https://cdn.scenicglobal.com/webfile/EMEE-v2.jpg" alt="egypt-cairo" style="width:270px;height:200px;">
+                  <h3 class="product-price">£350 <button class="btn">Select</button></h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="card">
+                    <h3>China - Shanghai</h3>
+                    <img src="https://ssq.com/dam/jcr:220744ad-71b7-4915-8a8a-e81bf6aeacdb/Shanghai.jpg" alt="china-shanghai" style="width:272px;height:200px;">
+                    <h3 class="product-price">£380 <button class="btn">Select</button></h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="column">
+                    <div class="card">
+                      <h3>Thailand - Bangkok</h3>
+                      <img src="https://a.cdn-hotels.com/gdcs/production6/d726/05cbcbb9-903e-4cdb-85a2-219d442b33f5.jpg" alt="thailand-bangkok" style="width:275px;height:200px;">
+                      <h3 class="product-price">£400 <button class="btn">Select</button></h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <h3>India - Agra</h3>
+                        <img src="https://excelmytrip.com/wp-content/uploads/2019/11/Agra-990x490.png" alt="india-agra" style="width:277px;height:200px;">
+                        <h3 class="product-price">£550 <button class="btn">Select</button></h3>
+                      </div>
+                    </div>
+          </section>
+          <br><br>
+          <section class="anchor" id="vacation-packages">
+            <h1>Vacation Packages</h1>
+            <div class="row">
+              <div class="column">
+                <div class="card">
+                  <h3>Nile Cruise</h3>
+                  <img src="https://www.goatsontheroad.com/wp-content/uploads/2017/12/Nile-River-Cruise.jpg" alt="nile-cruise" style="width:270px;height:200px;">
+                  <p>Return flight to Egypt + a guided tour of the major hotspots + 3 days at a 4 star hotel + a 5 day cruise down the Nile on a luxury ship
+                  <p>Cruise the life giving river Nile and taste the wonders of Alexandria, Cairo, Luxor and Aswan! View the incredib </p>
+                  <h3 class="product-price">£1,500<button class="btn">Select</button></h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="column">
+                  <div class="card">
+                    <h3>Mount Everest</h3>
+                    <img src="https://cosmosmagazine.com/wp-content/uploads/2020/02/190218-mount-full-1440x810.jpg" alt="mount-everest" style="width:272px;height:200px;">
+                    <p>Return flight to Bhutan + 7 days and nights at a 5 star hotel + a guided trek up the highest mountain in the world!</p>
+                    <p> Climb the most break taking peak known to man. Reach the record breaking 29,000 ft mountain that many can only dream of. This is a once in a life time adventure!</p>
+                    <h3 class="product-price">£2,500<button class="btn">Select</button></h3>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="column">
+                    <div class="card">
+                      <h3>Machu Picchu</h3>
+                      <img src="https://cdn.hswstatic.com/gif/machu-picchu-1.jpg" alt="machu-picchu" style="width:275px;height:200px;">
+                      <p>Return flight to Finland + 7 days and nights in the Kakslauttanen cabin that overlooks the spectacular aurora borealis!</p>
+                      <p>Travel to Peru and retrace the steps of the ancient Incan civilisation. Beginning in Lima, journey through the fertile heartland of the Sacred Valley, see the magnificent Ollantaytambo ruins before reaching Machu Picchu.</p>
+                      <h3 class="product-price">£1,000<button class="btn">Select</button></h3>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="column">
+                      <div class="card">
+                        <h3>Northern Lights</h3>
+                        <img src="https://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/Finland/kakslauttanen-cabins-arctic-resort-hotel-finland.jpg" alt="northern-lights" style="width:277px;height:200px;">
+                        <p>Return flight to Finland + 7 days and nights in a luxury cabin + skii the snowy + tour awe inspiring forests and lakes</p>
+                        <p>By day you can discover national parks by canoeing and hiking. Skii through the snowcaps, walk through frozen forests and . Snuggle up in our world famous, rustic log cabin and gaze at the most beautiful and natural light show the world has to offer - the Aurora Borealis!</p>
+                        <h3 class="product-price">£2,500<button class="btn">Select</button></h3>
+                      </div>
+                    </div>
+                  </div>
+                  <footer>
+                    <div class="contacts">
+                      <a class="footer-link" href="https://github.com/karlwhite247" target="_blank">
+                        <span class="icon"><i class="fab fa-github fa-2x"></i></span>
+                      </a>
+                      <a class="footer-link" href="https://codepen.io/dashboard/" target="_blank">
+                        <span class="icon"><i class="fab fa-codepen fa-2x"></i></span>
+                      </a>
+                      <a class="footer-link" href="https://www.freecodecamp.org/karlwhite247" target="_blank">
+                        <span class="icon"><i class="fab fa-free-code-camp fa-2x"></i></span>
+                      </a>
+                    </div>
+                    <div class="webmaster">
+                      <h3>Free Code Camp 'Product Landing Page' - created by Karl White</h3>
+                      <br>
+                    </div>
+                  </footer>
+    </body>
+
+    </html>
+<!-- partial -->
+  
+</body>
+</html>

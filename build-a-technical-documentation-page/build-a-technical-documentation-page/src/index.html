@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+  <title>CodePen - Build a Technical Documentation Page</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    reference {
+      text-align: center;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      font-family: arial;
+      text-align: justify;
+      text-size: 12px;
+      line-height: 1.6;
+      letter-spacing: -.01rem;
+      background-color: #f5f2e7;
+    }
+
+    #navbar {
+      height: 100vh;
+      min-width: 150px;
+      display: flex;
+      flex-direction: column;
+      color: #ed964d;
+    }
+
+    #title {
+      padding: 10px;
+      background-color: #ed964d;
+      color: white;
+      margin-bottom: 2px;
+      text-align: center;
+    }
+
+    h1 {
+      color: brown;
+      font-family: calibri;
+      font-size: 20px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    #navbar ul {
+      list-style: none;
+      margin-left: 10px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      display: block;
+      padding: 8px;
+      color: brown;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color: #a77b3f;
+      color: white;
+    }
+
+
+    #main-doc {
+      height: 100vh;
+      overflow-y: scroll;
+      padding: 0 0.8rem;
+    }
+
+    .section-header {
+      background-color: #ed964d;
+      color: white;
+      padding: 10px;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .javascript {
+      background-color: #313131;
+      border-radius: 10px;
+      color: #ccc;
+    }
+
+    code {
+      color: crimson;
+      background-color: #f1f1f1;
+      padding: 8px;
+      font-family: arial;
+      font-size: 110%;
+      font-style: bold;
+    }
+
+    .main-section article {
+      padding-left: 20px;
+      padding-top: 10px;
+    }
+
+    img {
+      position: left;
+      display: relative;
+    }
+
+    article ul {
+      margin-left: 40px;
+    }
+
+    @media only screen and (max-width: 500px) {
+      body {
+        display: grid;
+      }
+
+      p {
+        color: brown;
+        font-style: bold;
+        font-family: calibri;
+        font-size: 20px;
+        text-align: center;
+      }
+  </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <html>
+  <style>
+    .javascript {
+      background-color: #313131;
+      border-radius: 10px;
+      color: #ccc;
+  </style>
+  <nav id="navbar">
+    <header>
+      <h1 id="title">HTML</h1>
+    </header>
+    <ul>
+      <a class="nav-link" href="#What_is_HTML?" rel="internal">
+        <li>What is HTML?</li>
+      </a>
+      <a class="nav-link" href="#Anatomy_of_an_HTML_element" rel="internal">
+        <li>Anatomy of an HTML element</li>
+      </a>
+      <a class="nav-link" href="#Nesting_elements" rel="internal">
+        <li>Nesting elements</li>
+      </a>
+      <a class="nav-link" href="#Block_versus_inline_elements" rel="internal">
+        <li>Block versus inline elements</li>
+      </a>
+      <a class="nav-link" href="#Empty_elements" rel="internal">
+        <li>Empty elements</li>
+      </a>
+      <a class="nav-link" href="#Attributes" rel="internal">
+        <li>Attributes</li>
+      </a>
+      <a class="nav-link" href="#Boolean_attributes" rel="internal">
+        <li>Boolean attributes</li>
+      </a>
+      <a class="nav-link" href="#Reference" rel="internal">
+        <li>Reference</li>
+      </a>
+    </ul>
+  </nav>
+  </div>
+  <main id="main-doc">
+    <section class="main-section" id="What_is_HTML?">
+      <header class="section-header">What is HTML?</header>
+      <article>
+        <p> <strong>HTML (Hypertext Markup Language)</strong> is not a programming language. It is a <em>markup language</em> that tells web browsers how to structure the web pages you visit. It can be as complicated or as simple as the web developer wants it to be. HTML consists of a series of <em>elements</em>, which you use to enclose, wrap, or <em>mark up</em> different parts of content to make it appear or act in a certain way. The enclosing tags can make content into a hyperlink to connect to another page, italicize words, and so on. For example, consider the following line of text:</p>
+        <br>
+        <code class="javascript hljs">
+          My cat is very grumpy <span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        <br><br>
+        <p>If we wanted the text to stand by itself, we could specify that it is a paragraph by enclosing it in a paragraph<code>&lt;p&gt;</code>element:
+          <br><br>
+          <code class="javascript hljs">
+            <<span class="hljs-function">p<span class="hljs-keyword"></span>><span class="hljs-params"></span>My cat is very grumpy</span>
+              <<span class="hljs-keyword"></span>/p<span class="hljs-built_in"></span>>
+          </code>
+          <br><br>
+        <p><strong>Note</strong>: Tags in HTML are case-insensitive. This means they can be written in uppercase or lowercase. For example, a<code>&lt;title&gt;</code>tag could be written as<code>&lt;title&gt;</code>,<code>&lt;TITLE&gt;</code>,<code>&lt;Title&gt;</code>,<code>&lt;TiTlE&gt;</code>,etc., and it will work. However, it is best practice to write all tags in lowercase for consistency, readability, and other reasons.</p>
+        <br>
+        </pre>
+      </article>
+    </section>
+    <section class="main-section" id="Anatomy_of_an_HTML_element">
+      <header class="section-header">Anatomy of an HTML element</header>
+      <article>
+        <p>Let's further explore our paragraph element from the previous section:</p>
+        <br>
+        <img alt="" src="https://mdn.mozillademos.org/files/9347/grumpy-cat-small.png" style="display: left; height: 120x; margin: 0px auto; width: 370px;">
+        <br>
+        <br>
+        <p>The anatomy of our element is:</p>
+        <ul>
+          <li><strong>The opening tag:</strong> This consists of the name of the element (in this example, p for paragraph), wrapped in opening and closing angle brackets. This opening tag marks where the element begins or starts to take effect. In this example, it precedes the start of the paragraph text.
+            <br><br>
+          <li><strong>The content:</strong>This is the content of the element. In this example, it is the paragraph text.
+            <br><br>
+          <li><strong>The closing tag:</strong>This is the same as the opening tag, except that it includes a forward slash before the element name. This marks where the element ends. Failing to include a closing tag is a common beginner error that can produce peculiar results.
+        </ul>
+        <br>
+        <p>The element is the opening tag, followed by content, followed by the closing tag.</p>
+        <br>
+        </pre>
+      </article>
+    </section>
+    <section class="main-section" id="Nesting_elements">
+      <header class="section-header">Nesting elements</header>
+      <article>
+        <p>Elements can be placed within other elements. This is called <em>nesting</em>. If we wanted to state that our cat is <strong>very</strong> grumpy, we could wrap the word <em>very</em> in a<code>&lt;strong&gt;</code>element, which means that the word is to have strong(er) text formatting:
+          <br><br>
+          <code class="javascript hljs">
+            &lt;p&gt;My cat is &lt;strong&gt;very&lt;/strong&gt; grumpy.&lt;/p&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+          <br><br>
+        <p>There is a right and wrong way to do nesting. In the example above, we opened the<code>p</code>element first, then opened the<code>strong</code>element. For proper nesting, we should close the<code>strong</code>element first, before closing the<code>p</code>.</p>
+        <br>
+        <p>The following is an example of the <em>wrong</em> way to do nesting:</p>
+        <br>
+        <code class="javascript hljs">
+          &lt;p&gt;My cat is &lt;strong&gt;very grumpy.&lt;/p&gt;&lt;/strong&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        <br><br>
+        <p>The tags have to open and close in a way that they are inside or outside one another. With the kind of overlap in the example above, the browser has to guess at your intent. This kind of guessing can result in unexpected results.</p>
+        <br>
+        </pre>
+      </article>
+    </section>
+    <section class="main-section" id="Block_versus_inline_elements">
+      <header class="section-header">Block versus inline elements</header>
+      <article>
+        <p>There are two important categories of elements to know in HTML: block-level elements and inline elements.</p>
+        <br>
+        <ul>
+          <li><strong>Block-level elements</strong> form a visible block on a page. A block-level element appears on a new line following the content that precedes it. Any content that follows a block-level element also appears on a new line. Block-level elements are usually structural elements on the page. For example, a block-level element might represent paragraphs, lists, navigation menus, or footers. A block-level element wouldn't be nested inside an inline element, but it might be nested inside another block-level element.</li>
+          <br>
+          <li><strong>Inline elements</strong>are contained within block-level elements, and surround only small parts of the document’s content. (not entire paragraphs or groupings of content) An inline element will not cause a new line to appear in the document. It is typically used with text. For example, as an<code>&lt;a></code>element (hyperlink) or emphasis elements such as<code>&lt;em></code>or<code>&lt;strong></code></li>
+        </ul>
+        <br>
+        Consider the following example:
+        <br><br>
+        <code class="javascript hljs">&lt;em&gt;first&lt;/em&gt;&lt;em&gt;second&lt;/em&gt;&lt;em&gt;third&lt;/em&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        <br><br>
+        <code class="javascript hljs">&lt;p&gt;fourth&lt;/p&gt;&lt;p&gt;fifth&lt;/p&gt;&lt;p&gt;sixth&lt;/p&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        </pre>
+        <br><br>
+        <p><code>&lt;em></code>is an inline element. As you see below, the first three elements sit on the same line, with no space in between. On the other hand,<code>
+            <p>
+          </code>is a block-level element. Each <code>p</code> element appears on a new line, with space above and below. (The spacing is due to default CSS styling that the browser applies to paragraphs.)</p>
+        <br>
+        </pre>
+      </article>
+    </section>
+    <section class="main-section" id="Empty_elements">
+      <header class="section-header">Empty elements</header>
+      <article>
+        <p>Not all elements follow the pattern of an opening tag, content, and a closing tag. Some elements consist of a single tag, which is typically used to insert/embed something in the document. For example, the<code>&lt;img&gt;</code>element embeds an image file onto a page:</p>
+        <br>
+        <code class="javascript hljs">&lt;img src="https://raw.githubusercontent.com/mdn/beginner-html-site/gh-pages/images/firefox-icon.png"&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        <br><br>
+        This would output the following:
+        <img src="https://raw.githubusercontent.com/mdn/beginner-html-site/gh-pages/images/firefox-icon.png" style="display: left; height: 130px; margin: 0px auto; width: 130px;">
+        <br>
+        <br>
+        </pre>
+      </article>
+    </section>
+    <section class="main-section" id="Attributes">
+      <header class="section-header">Attributes</header>
+      <article>
+        <p>Elements can also have attributes. Attributes look like this:</p>
+        <br>
+        <img alt="&amp;amp;amp;amp;amp;amp;amp;amp;lt;p class=&quot;editor-note&quot;>My cat is very grumpy&amp;amp;amp;amp;amp;amp;amp;amp;lt;/p>" src="https://mdn.mozillademos.org/files/9345/grumpy-cat-attribute-small.png" style="display: left; height: 70px; margin: 0px auto; width: 550px;"></p>
+        <br>
+        <p>Attributes contain extra information about the element that won't appear in the content. In this example, the <strong><code>class</code></strong> attribute is an identifying name used to target the element with style information. An attribute should have:</p>
+        <br>
+        <ul>
+          <li>A space between it and the element name. (For an element with more than one attribute, the attributes should be separated by spaces too.)</li>
+          <br>
+          <li>The attribute name, followed by an equal sign.</li>
+          <br>
+          <li>An attribute value, wrapped with opening and closing quote marks.</li>
+        </ul>
+        <br>
+        </pre>
+      </article>
+    </section>
+    <section class="main-section" id="Boolean_attributes">
+      <header class="section-header">Boolean attributes</header>
+      <article>
+        <p>Sometimes you will see attributes written without values. This is entirely acceptable. These are called Boolean attributes. Boolean attributes can only have one value, which is generally the same as the attribute name. For example, consider the disabled attribute, which you can assign to form input elements. (You use this to <em>disable</em> the form input elements so the user can't make entries. The disabled elements typically have a grayed-out appearance). For example:</p>
+        <br>
+        <code class="javascript hljs">&lt;input type="text" disabled="disabled"&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        <br><br>
+        <p>As shorthand, it is acceptable to write this as follows:</p>
+        <br>
+        <code class="javascript hljs">&lt;!-- using the disabled attribute prevents the end user from entering text into the input box --&gt;&lt;input type="text" disabled&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        <br><br>
+        <code class="javascript hljs">&lt;!-- text input is allowed, as it doesn't contain the disabled attribute --&gt;&lt;input type="text"&gt;<span class="hljs-function"><span class="hljs-keyword"></span><span class="hljs-params"></span></span><span class="hljs-keyword"></span><span class="hljs-built_in"></span></code>
+        </pre>
+        <br><br>
+        <p>For reference, the example above also includes a non-disabled form input element.The HTML from the example above produces this result:</p>
+        <br>
+        <p><iframe class="live-sample-frame hide-codepen-jsfiddle" frameborder="0" height="100" id="frame_Boolean_attributes" src="https://mdn.mozillademos.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started$samples/Boolean_attributes?revision=1634853" width="700"></iframe></p>
+      </article>
+    </section>
+    <section class="main-section" id="Reference">
+      <header class="section-header">Reference</header>
+      <br>
+      <h1>All the documentation in this page is taken from <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started" target="_blank">MDN</a></h1>
+      <hr>
+      <h1>Free Code Camp 'Technical Documentation Page' - created by Karl White</h1><br>
+      </article>
+    </section>
+  </main>
+
+  </html>
+</body>
+
+</html>

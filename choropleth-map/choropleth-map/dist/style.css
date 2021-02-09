@@ -1,0 +1,28 @@
+#viz-container {
+  margin-left: 200px;
+}
+
+#description {
+  text-align: center;
+  display: center;
+  font-weight: bold;
+  font-family: verdana;
+}
+
+#tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  font-family: calibri;
+  background: lightgreen;
+  color: #09234c;
+  box-shadow: 1px 1px 1px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.1;
+  width: 120px;
+  height: 60px;
+}

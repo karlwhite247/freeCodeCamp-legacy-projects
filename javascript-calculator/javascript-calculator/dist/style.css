@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css?family=Graduate");
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  height: 100%;
+  background-image: url(https://ssaavic.com.au/wp-content/uploads/2016/09/AdobeStock_69287640.jpeg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Graduate", cursive;
+}
+
+.calc-block {
+  width: 300px;
+  height: 430px;
+  background-color: #364a7d;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  -webkit-box-shadow: inset 16px 15px 10px -10px rgba(84, 95, 107, 1),
+    inset -14px 4px 101px -10px rgba(84, 95, 107, 1);
+  -moz-box-shadow: -15px -4px 74px -2px rgba(0, 0, 0, 0.65),
+    inset 0px 0px 0px 1px rgba(0, 0, 0, 0);
+  box-shadow: -15px -4px 74px -2px rgba(0, 0, 0, 0.65),
+    inset 1px 0px 120px 30px rgba(0, 0, 0, 0.34);
+}
+
+.top-block {
+  border-radius: 15px 15px 0px 0px;
+  background-color: #364a7d;
+  padding-bottom: 10px;
+  -webkit-box-shadow: inset 16px 15px 10px -10px rgba(84, 95, 107, 1),
+    inset -14px 4px 101px -10px rgba(84, 95, 107, 1);
+  -moz-box-shadow: -15px -4px 74px -2px rgba(0, 0, 0, 0.65),
+    inset 0px 0px 0px 1px rgba(0, 0, 0, 0);
+  box-shadow: -15px -4px 74px -2px rgba(0, 0, 0, 0.65),
+    inset 1px 0px 120px 30px rgba(0, 0, 0, 0.34);
+}
+
+.top-block .title {
+  color: #ecf0f1;
+  padding-top: 8px;
+}
+
+.title-block {
+  text-align: center;
+  font-size: 25px;
+}
+
+.output-block {
+  background-color: #c3c5b1;
+  border: 5px solid #5b656f;
+  width: 90%;
+  height: 80px;
+  margin: auto;
+  border-radius: 15px;
+  margin: 10px 10px 10px 10px;
+}
+
+.result p {
+  text-align: right;
+  font-size: 45px;
+  padding-right: 5px;
+}
+
+.history p {
+  text-align: right;
+  font-size: 20px;
+  padding-right: 5px;
+  color: #8e9394;
+}
+
+button {
+  border: none;
+  height: 40px;
+  width: 52px;
+  margin: 8px 0px 0px 15px;
+  background-color: #6d7a8a;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 25px;
+  font-family: "Graduate", cursive;
+  -webkit-box-shadow: 0 20px 0 0 #586575,
+    inset 0px -42px 68px -28px rgba(161, 183, 209, 1);
+  box-shadow: 0 4px 0 0 #586575,
+    inset 0px -32px 10px -28px rgba(161, 183, 209, 1);
+  -moz-box-shadow: inset 0px -42px 68px -28px rgba(161, 183, 209, 1);
+}
+
+.red {
+  background-color: #df4928;
+  -webkit-box-shadow: 0 20px 0 0 rgba(161, 44, 21, 1),
+    inset 0px -42px 68px -28px rgba(230, 94, 67, 1);
+  box-shadow: 0 4px 0 0 rgba(161, 44, 21, 1),
+    inset 0px -32px 10px -28px rgba(230, 94, 67, 1);
+  -moz-box-shadow: inset 0px -42px 68px -28px rgba(230, 94, 67, 1);
+}
+
+.btn-zero {
+  position: relative;
+  width: 125px;
+}
+
+.btn-equal {
+  height: 88px;
+  position: absolute;
+}
+
+.hide {
+  display: none;
+}
+
+.footer {
+  text-align: center;
+  font-size: 11px;
+  padding-top: 10px;
+}

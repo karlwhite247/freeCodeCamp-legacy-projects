@@ -1,0 +1,40 @@
+{
+  "name": "image-search-abstraction-layer",
+  "version": "1.0.0",
+  "description": "Image Search Abstractio Layer (FreeCodeCamp Project)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "client": "cd client && yarn start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlwhite247/image-search-abstraction-layer.git"
+  },
+  "author": "Sarah Schneider",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/karlwhite247/image-search-abstraction-layer/issues"
+  },
+  "homepage": "https://github.com/karlwhite247/image-search-abstraction-layer#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "es6-promise": "^4.2.2",
+    "express": "^4.16.2",
+    "isomorphic-fetch": "^2.2.1",
+    "mongoose": "^5.0.1",
+    "node-bing-api": "^3.2.2",
+    "path": "^0.12.7",
+    "pug": "^2.0.0-rc.4",
+    "request-promise": "^4.2.2",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0"
+  }
+}

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Build a Wikipedia Viewer'</title>
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif:700,700i|Roboto" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: silver;
+      font: normal 16px / 24px sans-serif;
+      min-width: 160px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      padding: 0 16px 16px;
+      text-align: center;
+      transition: padding .28s;
+    }
+
+    #logo a {
+      margin: auto;
+      max-width: 484px;
+      width: 100%;
+    }
+
+    #logo a img {
+      max-width: 270px;
+      min-width: 135px;
+      width: 67%;
+    }
+
+    #search {
+      display: flex;
+      margin: 16px auto 0;
+      max-width: 484px;
+    }
+
+    #search input {
+      border: 1px solid #AAB;
+      border-radius: 3px 0 0 3px;
+      border-right-width: 0;
+      flex-basis: 80%;
+      font: 16px / 24px sans-serif;
+      margin-left: auto;
+      max-width: 80%;
+      outline: 0;
+      padding: 8px 12px 7px;
+      transition: all .43s;
+    }
+
+    #search input:hover {
+      border-color: #889;
+    }
+
+    #search input:focus {
+      border-color: #36c;
+      flex-basis: 100%;
+      max-width: 100%;
+      transition: all .84s;
+    }
+
+    #search input::-webkit-input-placeholder {
+      color: #999;
+    }
+
+    #search input:-ms-input-placeholder {
+      color: #999;
+    }
+
+    #search input::-moz-placeholder {
+      color: #999;
+    }
+
+    #search input:-moz-placeholder {
+      color: #999;
+    }
+
+    #search button {
+      background: green;
+      border: 1px solid #258;
+      border-radius: 0 3px 3px 0;
+      color: white;
+      font: bold 20px / 24px sans-serif;
+      margin-right: auto;
+      max-width: 30%;
+      outline: 0;
+      padding: 8px 21px;
+      text-shadow: 1px 1px 2px #258, 1px 1px 3px #258;
+      transition: all .43s;
+    }
+
+    #search button:hover {
+      background: lightgreen;
+      border-color: #36c;
+      text-shadow: 1px 1px 2px #36c, 1px 1px 3px #36c;
+    }
+
+    #search button:focus {
+      box-shadow: 0 0 0 1px #fff inset;
+    }
+
+    #random {
+      font: normal 12px / 14px sans-serif;
+      margin: 9px 0 24px;
+    }
+
+    #random a:hover span {
+      text-decoration: underline;
+    }
+
+    #random span {
+      display: inline-block;
+      max-width: 50px;
+      opacity: 1;
+      position: relative;
+      transition: all .43s;
+      white-space: nowrap;
+      z-index: -1;
+    }
+
+    #random span:first-child {
+      max-width: 184px;
+    }
+
+    #articles {
+      margin: 0 auto;
+      max-width: 684px;
+    }
+
+    #articles ul {
+      list-style-type: none;
+      padding-left: 0;
+      text-align: left;
+    }
+
+    #articles ul li a {
+      background: linear-gradient(#efefef, #f6f6f6);
+      border-radius: 4px;
+      border-left: 5px solid #ccc;
+      display: block;
+      margin: 0 0 5px;
+      padding: 10px 20px 10px 15px;
+      text-decoration: none;
+      transition: font-size .28s, line-height .28s;
+    }
+
+    #articles ul li a:after {
+      clear: both;
+      content: "";
+      display: table;
+    }
+
+    #articles ul li a:hover {
+      background: linear-gradient(#e6e6e6, #efefef);
+      border-left: 5px solid #358bc7;
+      transition: border .43s;
+    }
+
+    #articles ul li a:hover h1 {
+      color: #257bb7;
+    }
+
+    #articles ul li a:hover p {
+      color: #161616;
+    }
+
+    #articles ul li a:hover img {
+      border-color: #358bc7;
+    }
+
+    #articles ul li a h1 {
+      color: #434343;
+      font-family: "PT Serif", serif;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: -1px;
+      line-height: 137.5%;
+      margin: 5px 0 0;
+      transition: all .28s;
+    }
+
+    #articles ul li a h2,
+    #articles ul li a h3,
+    #articles ul li a h4,
+    #articles ul li a h5,
+    #articles ul li a h6,
+    #articles ul li a br {
+      display: none;
+    }
+
+    #articles ul li a blockquote {
+      padding: 0;
+    }
+
+    #articles ul li a div,
+    #articles ul li a p {
+      color: #282828;
+      font: normal 14px / 18px Roboto, sans-serif;
+      margin-top: 15px;
+      text-align: justify;
+      text-indent: 18px;
+      transition: all .28s;
+    }
+
+    #articles ul li a div:empty,
+    #articles ul li a p:empty {
+      display: none;
+    }
+
+    #articles ul li a img {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      float: right;
+      margin: 0 0 3px 17px;
+      max-width: 150px;
+      padding: 2px;
+      position: relative;
+      transition: all .28s;
+      width: 33%;
+    }
+
+    #articles ul li a .searchmatch {
+      background: #ffd;
+      border-radius: 2px;
+      color: #660;
+      font-weight: bold;
+      padding: 0 3px 0 2px;
+    }
+
+    @media all and (max-width: 450px) {
+      body {
+        padding: 0 12px 12px;
+      }
+
+      #search {
+        margin: 12px auto 0;
+        transition: all .28s;
+      }
+
+      #search input {
+        font: 12px / 18px sans-serif;
+        max-width: 70%;
+        padding: 6px 8px;
+        transition: all .28s;
+      }
+
+      #search input:focus {
+        max-width: 75%;
+      }
+
+      #search button {
+        font: 16px / 18px sans-serif;
+        padding: 5px 13px;
+        transition: all .28s;
+      }
+
+      #random {
+        margin: 8px 0 20px;
+        transition: font-size .28s;
+      }
+
+      #random span {
+        max-width: 0 !important;
+        opacity: 0;
+      }
+
+      #articles ul li a {
+        border-left: 4px solid #ccc;
+        padding: 7px 19px 7px 15px;
+      }
+
+      #articles ul li a:hover {
+        border-left: 4px solid #358bc7;
+      }
+
+      #articles ul li a h1 {
+        font-size: 25px;
+        line-height: 140%;
+      }
+
+      #articles ul li a div,
+      #articles ul li a p {
+        font-size: 12px;
+        line-height: 18px;
+        margin-top: 11px;
+        text-indent: 15px;
+      }
+
+      #articles ul li a img {
+        margin-left: 15px;
+        width: 50%;
+      }
+    }
+
+    @media all and (max-width: 343px) {
+      body {
+        padding: 0 0 7px;
+      }
+
+      #search {
+        margin: 8px 8px 0;
+      }
+
+      #search * {
+        border-width: 0;
+      }
+
+      #search *:focus {
+        border-color: #aab !important;
+      }
+
+      #search:hover * {
+        border-color: #555 !important;
+      }
+
+      #search:hover *:focus {
+        border-color: #555 !important;
+      }
+
+      #search input {
+        border-color: #aab;
+        font: 11px / 16px sans-serif;
+        padding: 0 0 0 5px;
+      }
+
+      #search input:focus {
+        max-width: 80%;
+      }
+
+      #search button {
+        background: #fff;
+        border-color: #aab;
+        border-left-width: 0;
+        color: #777;
+        font: 16px / 16px sans-serif;
+        overflow: hidden;
+        padding: 3px 5px 4px 5px;
+        text-shadow: none;
+      }
+
+      #search button:hover {
+        background: #fff;
+        border-color: #555 !important;
+        color: #555;
+        text-shadow: none;
+      }
+
+      #random {
+        margin: 5px 0 16px;
+      }
+
+      #random a {
+        font: normal 11px / 13px sans-serif !important;
+      }
+
+      #articles ul li a {
+        border-left: 3px solid #ccc;
+        border-radius: 0;
+        padding: 9px 18px 9px 15px;
+      }
+
+      #articles ul li a:hover {
+        border-left: 3px solid #358bc7;
+      }
+
+      #articles ul li a h1 {
+        font-size: 21px;
+        line-height: 126%;
+      }
+
+      #articles ul li a div,
+      #articles ul li a p {
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 7px;
+        word-spacing: 1px;
+        text-align: left;
+      }
+
+      #articles ul li a img {
+        margin: 10px 0;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <h1 id="logo">
+    <a class="wikipedia" href="https://en.wikipedia.org">
+      <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png" alt="Wikipedia, The Free Encyclopedia" title="Wikipedia, The Free Encyclopedia">
+    </a>
+  </h1>
+  <form id="search">
+    <input id="input" type="text" placeholder="Search Wikipedia">
+    <button type="submit" value="submit">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </button>
+  </form>
+  <p id="random">
+    <span>Random Search?&nbsp;</span><a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">Show me random articles</a><span></span>
+  </p>
+  <div id="articles">
+    <ul>
+
+    </ul>
+  </div>
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js'></script>
+  <script id="rendered-js">
+    $(() => {
+      const articles = $("#articles ul"),
+        input = $("input"),
+        random = $("#random a"),
+        search = $("#search"),
+        Wikipedia = "https://en.wikipedia.org",
+        WP_API = Wikipedia + "/w/api.php";
+      search.on("submit", e => {
+        input.blur();
+        e.preventDefault();
+        getArticles(input.val());
+      });
+      random.click(e => {
+        e.preventDefault();
+        getArticles();
+      });
+
+      function getArticles(searchTerm = undefined) {
+        if (searchTerm) {
+          $.ajax({
+            data: {
+              action: "query",
+              format: "json",
+              list: "search",
+              srlimit: 43,
+              srsearch: searchTerm,
+              srwhat: "text"
+            },
+            dataType: "jsonp",
+            success: data => data.query.search.reverse().forEach(result => getDetails(result, searchTerm)),
+            url: WP_API
+          });
+        } else {
+          $.getJSON(WP_API + "?action=query&format=json&list=random&rnnamespace=0&rnlimit=28&titles=&callback=?", data => {
+            $.map(data.query.random, result => getDetails(result));
+          });
+        }
+      }
+
+      function getDetails(result) {
+        $.ajax({
+          data: {
+            action: "query",
+            exchars: "884",
+            format: "json",
+            pilimit: 43,
+            piprop: "thumbnail",
+            pithumbsize: 680,
+            prop: "extracts|pageimages",
+            titles: result.title
+          },
+          dataType: "jsonp",
+          success: data => {
+            for (var id in data.query.pages) {
+              if (data.query.pages.hasOwnProperty(id)) {
+                var title = data.query.pages[id].title,
+                  stuff = data.query.pages[id].extract,
+                  image = data.query.pages[id].thumbnail.source || undefined;
+                displayResults(title, stuff, image ? image : undefined);
+              }
+            }
+          },
+          url: WP_API
+        });
+      }
+
+      function displayResults(title, extract, image = undefined) {
+        var li = $('<li>');
+        li.append($("<a>").attr("href", Wikipedia + "/wiki/" + title).attr("target", "_blank").append($("<h1>").html(title)).append($("<p>").html("<br>")).append(image ? $("<img>").attr("src", image) : "").append($("<div>").html(extract)));
+        articles.prepend(li.hide().delay().slideDown(284));
+        if (articles.children().length > 10) {
+          $("#articles ul li:nth-child(n + 10)").delay().slideUp(284, () => $(this).remove());
+        }
+      }
+    });
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

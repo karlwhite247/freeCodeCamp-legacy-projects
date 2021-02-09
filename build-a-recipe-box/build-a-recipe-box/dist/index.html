@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Build a Recipe Box</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>CodePen - Build a Recipe Box</title>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+
+  <style>
+    body {
+      margin-bottom: 60px;
+      font-family: Tahoma, sans-serif;
+      background: url(https://www.unamericanaincucina.com/wp-content/uploads/2019/06/cherry-pie.jpg);
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+    }
+
+    .addButton {
+      margin-left: 500px;
+      margin-top: 15px;
+      font-size: 24px;
+      text-align: center;
+      cursor: pointer;
+      outline: none;
+      color: #fff;
+      background-color: lightblue;
+      border: none;
+      border-radius: 15px;
+    }
+
+    .addButton:hover {
+      background-color: darkblue;
+      color: #fcd735;
+    }
+
+    .addButton:active {
+      background-color: blue;
+      transform: translateY(4px);
+      color: red;
+    }
+
+    .img-recipe {
+      max-height: 150px;
+      max-width: 230px;
+    }
+
+    .address {
+      font-size: 37px;
+      text-decoration: underline;
+      padding-bottom: 10px;
+    }
+
+    div.list-group-item {
+      height: auto;
+      min-height: 420px;
+      border-left: 10px solid lightgreen;
+      border-right: 10px solid lightblue;
+    }
+
+    div.list-group-item:hover,
+    div.list-group-item:focus {
+      border-left: 10px solid lightblue;
+      border-right: 10px solid lightgreen;
+    }
+
+    .recipeButton {
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+
+    .toggle-display {
+      display: none;
+    }
+
+    .list-group-item-heading {
+      color: black;
+    }
+
+    .list-group-item {
+      color: grey;
+      font-style: italic;
+      font-size: 17px;
+      letter-spacing: 3px;
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <div id="root"></div>
+  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js'></script>
+  <script id="rendered-js">
+    class Recipe extends React.Component {
+      constructor(props) {
+        super(props);
+        if (localStorage.getItem('recipes_project') == undefined) {
+          localStorage.setItem('recipes_project', JSON.stringify([{
+            title: "Cherry Pie",
+            method: "1.Cook the juicy fillings for 10 minutes. 2.Brush the bottom crust with egg wash to create a protective barrier between the raw dough and the filling. Then, brush the remaining egg wash onto the top crust for a shiny, golden finish.3.Make a lattice or heavily vented crust with a double crust for good ventilation. Use a small cookie cutter to make circular, decorative vent holes, instead.4.Bake the pie on a preheated baking sheet. A blast of heat on the bottom of your pie pan will quickly help brown and cook the bottom crust.",
+            ingredients: "For the filling: granulated sugar, cornstarch, fresh sweet cherries (stemmed and pitted), vanilla extract, kosher salt. For the pie: package prepared or homemade pie crusts, egg, water, coarse sugar.",
+            img: "http://siftingthroughlife.com/wp-content/uploads/2017/09/Cherry-Pie-18-1024x683.jpg"
+          }]));
+        }
+        var initialRecipe = JSON.parse(localStorage.getItem("recipes_project"));
+        this.state = {
+          recipes: initialRecipe,
+          recipe: {
+            title: '',
+            method: '',
+            ingredients: '',
+            img: ''
+          }
+        };
+      }
+      updateLocalStorage(recipes) {
+        this.setState({
+          recipes: recipes
+        });
+        localStorage.setItem('recipes_project', JSON.stringify(recipes));
+      }
+      toggle_panel() {
+        event.preventDefault();
+        $('.add-recipe, .list-recipe').toggleClass('toggle-display');
+      }
+      deleteRecipe(index) {
+        let recipes = this.state.recipes.slice();
+        recipes.splice(index, 1);
+        this.setState({
+          recipes
+        });
+        this.updateLocalStorage(recipes);
+        //console.log(index)
+      }
+      saveRecipe(event) {
+        event.preventDefault();
+        this.state.recipes.push(this.state.recipe);
+        this.updateLocalStorage(this.state.recipes);
+        this.setState({
+          recipe: {
+            title: '',
+            method: '',
+            ingredients: '',
+            img: ''
+          }
+        });
+        this.toggle_panel(event);
+      }
+      updateRecipe(event) {
+        var field = event.target.name;
+        var value = event.target.value;
+        this.state.recipe[field] = value;
+        this.setState({
+          recipe: this.state.recipe
+        });
+      }
+      editRecipe(title, event) {
+        event.preventDefault();
+        for (var i = 0; i < this.state.recipes.length; i++) {
+          if (window.CP.shouldStopExecution(0)) break;
+          if (this.state.recipes[i].title == title) {
+            console.log(this.state.recipes[i]);
+            this.setState = {
+              recipe: this.state.recipes[i]
+            };
+            this.toggle_panel(event);
+            break;
+          }
+        }
+        window.CP.exitedLoop(0);
+      }
+      render() {
+        var createList = (recipe, index) => {
+          return /*#__PURE__*/ (
+            React.createElement("div", {
+                className: "list-group-item",
+                key: recipe.title
+              }, /*#__PURE__*/
+              React.createElement("div", {
+                  className: "media col-md-3 left panel"
+                }, /*#__PURE__*/
+                React.createElement("p", {
+                    className: "lead recipeTitle"
+                  },
+                  recipe.title), /*#__PURE__*/
+                React.createElement("figure", {
+                    className: "pul-left"
+                  }, /*#__PURE__*/
+                  React.createElement("img", {
+                    className: "img-recipe",
+                    src: recipe.img
+                  })), /*#__PURE__*/
+                React.createElement("button", {
+                  type: "button",
+                  className: "recipeButton btn btn-primary",
+                  onClick: this.editRecipe.bind(this, recipe.title)
+                }, "Edit"), /*#__PURE__*/
+                React.createElement("button", {
+                  type: "button",
+                  className: "recipeButton btn btn-danger",
+                  onClick: this.deleteRecipe.bind(this, index)
+                }, "Delete")), /*#__PURE__*/
+              React.createElement("div", {
+                  className: "col-md-5"
+                }, /*#__PURE__*/
+                React.createElement("h4", {
+                  className: "list-group-item-heading"
+                }, "Method"), /*#__PURE__*/
+                React.createElement("p", {
+                    className: "list-group-item-text"
+                  },
+                  recipe.method)), /*#__PURE__*/
+              React.createElement("div", {
+                  className: "col-md-4"
+                }, /*#__PURE__*/
+                React.createElement("h4", {
+                  className: "list-group-item-heading"
+                }, "Ingredients"), /*#__PURE__*/
+                React.createElement("p", {
+                    className: "list-group-item-text"
+                  },
+                  recipe.ingredients))));
+        };
+        return /*#__PURE__*/ (
+          React.createElement("div", null, /*#__PURE__*/
+            React.createElement(Header, {
+              onClick: this.toggle_panel
+            }), /*#__PURE__*/
+            React.createElement("div", {
+                className: "container"
+              }, /*#__PURE__*/
+              React.createElement("div", {
+                  className: "row list-recipe"
+                }, /*#__PURE__*/
+                React.createElement("div", {
+                    className: "list-group"
+                  },
+                  this.state.recipes.map(createList, this))), /*#__PURE__*/
+              React.createElement("div", {
+                  className: "row add-recipe toggle-display"
+                }, /*#__PURE__*/
+                React.createElement("div", {
+                    className: "row col-md-6 col-md-offset-3"
+                  }, /*#__PURE__*/
+                  React.createElement("form", null, /*#__PURE__*/
+                    React.createElement("div", {
+                        className: "form-group"
+                      }, /*#__PURE__*/
+                      React.createElement("label", null, "Recipe Name"), /*#__PURE__*/
+                      React.createElement("input", {
+                        required: true,
+                        className: "form-control",
+                        placeholder: "Name",
+                        name: "title",
+                        value: this.state.recipe.title,
+                        onChange: this.updateRecipe.bind(this)
+                      })), /*#__PURE__*/
+                    React.createElement("div", {
+                        className: "form-group"
+                      }, /*#__PURE__*/
+                      React.createElement("label", null, "Method"), /*#__PURE__*/
+                      React.createElement("textarea", {
+                        required: true,
+                        className: "form-control",
+                        placeholder: "Method",
+                        name: "method",
+                        value: this.state.recipe.method,
+                        onChange: this.updateRecipe.bind(this)
+                      })), /*#__PURE__*/
+                    React.createElement("div", {
+                        className: "form-group"
+                      }, /*#__PURE__*/
+                      React.createElement("label", null, "Ingredients"), /*#__PURE__*/
+                      React.createElement("textarea", {
+                        required: true,
+                        className: "form-control",
+                        placeholder: "Ingredients",
+                        name: "ingredients",
+                        value: this.state.recipe.ingredients,
+                        onChange: this.updateRecipe.bind(this)
+                      })), /*#__PURE__*/
+                    React.createElement("div", {
+                        className: "form-group"
+                      }, /*#__PURE__*/
+                      React.createElement("label", null, "Recipe Image"), /*#__PURE__*/
+                      React.createElement("input", {
+                        required: true,
+                        className: "form-control",
+                        placeholder: "Name",
+                        name: "img",
+                        value: this.state.recipe.img,
+                        onChange: this.updateRecipe.bind(this)
+                      })), /*#__PURE__*/
+                    React.createElement("button", {
+                      type: "submit",
+                      className: "btn btn-default",
+                      onClick: this.saveRecipe.bind(this)
+                    }, "Save"), /*#__PURE__*/
+                    React.createElement("button", {
+                      type: "submit",
+                      className: "btn btn-default",
+                      onClick: this.toggle_panel
+                    }, "Return")))))));
+      }
+    }
+    class Header extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      //under construction :-
+      /*  handleSearch(event){
+       var searchQuery=event.target.value.toLowerCase();
+       var displayedContacts=initialRecipe.filter(function(el){
+         var searchValue = el.title.toLowerCase();
+         searchValue.indexOf(searchQuery) !=-1;
+         console.log(searchValue)
+       }) */
+      render() {
+        return /*#__PURE__*/ (
+          React.createElement("div", null, /*#__PURE__*/
+            React.createElement("nav", {
+                className: "navbar navbar-dafault"
+              }, /*#__PURE__*/
+              React.createElement("div", {
+                  className: "container"
+                }, /*#__PURE__*/
+                React.createElement("div", {
+                  className: "navbar-header"
+                }), /*#__PURE__*/
+                React.createElement("ul", {
+                    className: "nav navbar-nav"
+                  }, /*#__PURE__*/
+                  React.createElement("button", {
+                    className: "addButton ",
+                    onClick: this.props.onClick
+                  }, "Add Recipe"))))));
+      }
+    };
+    React.render( /*#__PURE__*/
+      React.createElement(Recipe, null),
+      document.getElementById('root'));
+    //# sourceURL=pen.js
+  </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

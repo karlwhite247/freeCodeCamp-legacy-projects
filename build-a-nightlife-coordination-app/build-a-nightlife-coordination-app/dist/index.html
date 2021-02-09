@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Build a NightLife Coordination App</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp - 'Nightlife Coordination App'</title>
+  <script src="https://use.fontawesome.com/8a07c863c9.js"></script>
+
+  <style>
+    /*Google Fonts */
+
+    @import url(https://fonts.googleapis.com/css?family=Pacifico|Work+Sans:400,600);
+
+    /*Font Awesome Fonts */
+
+    @import url(https://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css);
+
+    /* General Styles */
+
+    body {
+      background-color: #EEEEEE;
+      color: black;
+      font-family: 'Work Sans';
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h2,
+    h3,
+    nav li {
+      font-weight: 600;
+    }
+
+    /* Header Navigation Elements */
+
+    header nav {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.36);
+      background-color: #d5ee3a;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2
+    }
+
+    header nav ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 0;
+      list-style: none;
+      padding: 0 25px;
+    }
+
+    header nav a {
+      color: #212121;
+      text-decoration: none;
+    }
+
+    header nav li {
+      padding: 23px 18px 20px;
+    }
+
+    header nav li:hover {
+      background-color: rgba(255, 241, 112, 1);
+      border-bottom: 3px solid #00E676;
+      padding-bottom: 18px;
+      cursor: pointer;
+    }
+
+    /* Nav Bar Logo */
+
+    header nav .logo-txt {
+      padding: 17px 18px 18px 0;
+      transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg)
+    }
+
+    header nav .logo-txt:hover {
+      background-color: rgba(0, 0, 0, 0);
+      border-bottom: none;
+      padding-bottom: 18px
+    }
+
+    /* Body Content */
+
+    .bodyContent {
+      align-items: center;
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* Hero Image */
+
+    .heroWrapper {
+      width: 100%;
+    }
+
+    .hero {
+      background: url("https://images.unsplash.com/photo-1556869573-129d12ba4d36?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80");
+      background-repeat: no-repeat;
+      background-position: 50% 30%;
+      background-size: cover;
+      height: 600px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .hero .fullLogo {
+      padding-top: 5px;
+    }
+
+    .hero .logo-txt {
+      font-size: 8em;
+      z-index: 1;
+      margin-top: 200px;
+    }
+
+    .hero .slogan {
+      color: #EEE;
+      font-size: 1.85em;
+      font-weight: 600;
+      margin-top: -110px;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Logo */
+
+    .fullLogo {
+      align-content: center;
+      align-items: center;
+      color: #8ae32b;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo-txt {
+      font-family: Pacifico;
+      font-weight: 400;
+    }
+
+    .fullLogo .fa-paper-plane-o {
+      -ms-transform: rotate(-1deg) -webkit-transform: rotate(-1deg);
+      /* Chrome, Safari, Opera */
+      transform: rotate(-1deg);
+      margin-top: 20px;
+      margin-left: 20px;
+      font-size: 42px;
+      z-index: 1;
+    }
+
+    .planeWrap {
+      transform: translateX(200px) translateY(-200px);
+      -webkit-transform: translateX(200px) translateY(-200px);
+      -moz-transform: translateX(200px) translateY(-200px);
+      -o-transform: translateX(200px) translateY(-200px);
+
+      transition: all 1500ms cubic-bezier(0.380, 0.005, 0.450, 1.000);
+      -webkit-transition: all 1500ms cubic-bezier(0.380, 0.005, 0.450, 1.000);
+      -moz-transition: all 1500ms cubic-bezier(0.380, 0.005, 0.450, 1.000);
+      -o-transition: all 1500ms cubic-bezier(0.380, 0.005, 0.450, 1.000);
+    }
+
+    .planeWrap .fa-paper-plane-o {
+      transform: scale(0.25);
+      -webkit-transform: scale(0.25);
+      -moz-transform: scale(0.25);
+      -o-transform: scale(0.25);
+
+      transition: all 1000ms linear;
+      -webkit-transition: all 1000ms linear;
+      -moz-transition: all 1000ms linear;
+      -o-transition: all 1000ms linear;
+    }
+
+    /* Search Bar */
+
+    .search {
+      display: block;
+      flex-grow: 1;
+      margin: 65px;
+      position: relative;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* TODO: Need to add media tags for this and hero */
+    .searchBar {
+      background-color: rgba(0, 0, 0, 0);
+      border: 0px solid;
+      border-bottom: 3px solid #00E676;
+      font-family: 'Work Sans';
+      height: 30px;
+      max-width: 400px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .searchBar:focus {
+      outline: none;
+    }
+
+    /* Bar Grid */
+    .bar {
+      width: 100%;
+      overflow: auto;
+      display: flex;
+      margin-bottom: 60px
+    }
+
+    .bar:hover {
+      background-color: #E0E0E0;
+    }
+
+    .barGrid {
+      margin-top: 75px;
+      max-width: 750px;
+      width: 70%
+    }
+
+    .barImage {
+      padding-right: 15px;
+    }
+
+    .barHeader {
+      margin-top: 0px;
+    }
+
+    /* Tool/Animation Classes */
+
+    /* *
+ * NOTE: Vertical block requires that the parent
+ * level's position be set to relative.
+ * */
+
+    .verticalBlock {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+    }
+
+    .noGrow {
+      flex-grow: 0;
+    }
+
+    .moveUp {
+      animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) moveUp;
+      -webkit-animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) moveUp;
+      -moz-animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) moveUp;
+      -o-animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) moveUp;
+    }
+
+    .repositionForm {
+      animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) reposition;
+      -webkit-animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) reposition;
+      -moz-animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) reposition;
+      -o-animation: 1.2s cubic-bezier(.27, -0.46, .72, 1.09) reposition;
+      animation-fill-mode: forwards;
+    }
+
+    .fadeAndShrink {
+      animation: 0.5s ease-in fadeAndShrink;
+      -webkit-animation: 0.5s ease-in fadeAndShrink;
+      -moz-animation: 0.5s ease-in fadeAndShrink;
+      -o-animation: 0.5s ease-in fadeAndShrink;
+      animation-fill-mode: forwards;
+    }
+
+    /* Animation key frames */
+
+    @keyframes fadeAndShrink {
+      from {
+        opacity: 0;
+        transform: scale(1.25);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes moveUp {
+      from {
+        margin-top: 0;
+      }
+
+      to {
+        margin-top: -400px
+      }
+    }
+
+    @keyframes reposition {
+      from {
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 0;
+      }
+
+      to {
+        top: 0%;
+        transform: translateY(0%);
+        padding-top: 30px;
+      }
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <div id="shudl">
+  </div>
+  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js'></script>
+  <script id="rendered-js">
+    let user = {
+      authenticated: true,
+      lastSearch: 'Portland, OR',
+      id: 1
+    };
+    let bars = [{
+        id: 1,
+        usersGoing: [0, 1, 2, 3, 4]
+      },
+      {
+        id: 2,
+        usersGoing: [0, 1, 4]
+      },
+      {
+        id: 3,
+        usersGoing: [0, 1, 2]
+      }
+    ];
+    let exampleData = [{
+        name: 'Jazz Cafe',
+        address: 'St Mary Street',
+        img: "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/images/photo-1554118811-1e0d58224f24.webp",
+        id: 1
+      },
+      {
+        name: 'Frankies',
+        address: 'Rulers Way',
+        img: "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/images/photo-1577169995124-d7be4d4d9df0.webp",
+        id: 2
+      },
+      {
+        name: 'Bowling',
+        address: 'Lexington Avenue',
+        img: "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/images/photo-1518620025093-fbca064bdd9a.webp",
+        id: 3
+      }
+    ];
+    //Component - TODO: When plugging into router set inner routes as children. 
+    class Home extends React.Component {
+      constructor(props) {
+        super(props);
+        //Todo: Replace body with simply the hero moving up.
+        this.state = {
+          user: this.props.user,
+          ui: {
+            plane: '',
+            hero: 'hero',
+            search: 'verticalBlock',
+            searchWrap: 'search'
+          },
+          display: 'home'
+        };
+        this.toggleAuth = this.toggleAuth.bind(this);
+        this.updateUI = this.updateUI.bind(this);
+        this.removeUI = this.removeUI.bind(this);
+        this.addElement = this.addElement.bind(this);
+        this.containsStr = this.containsStr.bind(this);
+        this.updateDisplay = this.updateDisplay.bind(this);
+      }
+      //Simulated authentication. In production, this would be done
+      //using an authentication middleware, like passport.js. However,
+      //this is suitable for the purpose of mocking up the front-end.
+      updateDisplay(display) {
+        this.setState({
+          display: display
+        });
+      }
+      toggleAuth() {
+        user.authenticated = !user.authenticated;
+        this.setState({
+          user: this.props.user
+        });
+      }
+      //Tests whether a value is an object.
+      isObject(value) {
+        if (typeof value !== 'object') return false;
+        if (value instanceof Array) return false;
+        if (value === null) return false;
+        return true;
+      }
+      //Tests whether a string contains a substring.
+      containsStr(string, substr) {
+        if (string.indexOf(substr) === -1) {
+          return false;
+        }
+        return true;
+      }
+      //Updates 
+      addElement(element, value, updatedUI = {
+        ...this.state.ui
+      }) {
+        if (typeof updatedUI[element] === 'undefined') updatedUI[element] = '';
+        if (value instanceof Array) {
+          value = value.filter(val => !this.containsStr(updatedUI[element], val)).
+          join(' ');
+        } else {
+          if (this.containsStr(updatedUI[element], value)) return updatedUI;
+        }
+        if (typeof value === 'string') {
+          updatedUI[element] = updatedUI[element].
+          concat(' ', value).trim();
+        }
+        if (updatedUI[element] === '') delete updatedUI[element];
+        return updatedUI;
+      }
+      updateUI(element, value) {
+        const add = this.addElement;
+        let newUi;
+        if (typeof element === 'string' && typeof value === 'string') {
+          newUi = add(element, value);
+        }
+        if (typeof value === 'undefined' && this.isObject(element)) {
+          newUi = Object.keys(element).reduce((prev, next) => {
+            return add(next, element[next], prev);
+          }, {
+            ...this.state.ui
+          });
+        }
+        this.setState({
+          ui: newUi
+        });
+      }
+      removeUI(element, value) {
+        let ui = {
+          ...this.state.ui
+        };
+        ui[element] = ui[element].replace(value, '');
+        this.setState({
+          ui: ui
+        });
+      }
+      render() {
+        const ui = this.state.ui;
+        const display = this.state.display;
+        const updateDisplay = this.updateDisplay;
+        const toggleAuth = this.toggleAuth;
+        const user = this.props.user;
+        return /*#__PURE__*/ (
+          React.createElement("div", null, /*#__PURE__*/
+            React.createElement(Nav, {
+              user: user,
+              toggleAuth: toggleAuth
+            }), /*#__PURE__*/
+            React.createElement("div", {
+                className: "bodyContent"
+              }, /*#__PURE__*/
+              React.createElement(Hero, {
+                ui: ui,
+                display: display
+              }), /*#__PURE__*/
+              React.createElement(Search, {
+                updateUI: this.updateUI,
+                removeUI: this.removeUI,
+                display: display,
+                updateDisplay: updateDisplay,
+                ui: ui
+              }),
+              display === 'showBars' ? /*#__PURE__*/ React.createElement(BarDisplay, {
+                bars: this.props.bars,
+                data: this.props.data,
+                display: display
+              }) : null)));
+      }
+    }
+    /* *
+     * NAVIGATION COMPONENTS & CONTAINERS
+     * */
+    //Container - TODO: Need to split this into a sub component.
+    class Nav extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      login() {
+        const authenticatedUser = this.props.user.authenticated;
+        return authenticatedUser ? 'LOGOUT' : 'LOGIN';
+      }
+      render() {
+        const toggleAuth = this.props.toggleAuth;
+        return /*#__PURE__*/ (
+          React.createElement("header", null, /*#__PURE__*/
+            React.createElement("nav", null, /*#__PURE__*/
+              React.createElement("ul", null, /*#__PURE__*/
+                React.createElement("a", {
+                  href: "/"
+                }, /*#__PURE__*/ React.createElement("li", {
+                  className: "logo-txt"
+                }, "Fireflies")), /*#__PURE__*/
+                React.createElement("span", null, /*#__PURE__*/
+                  React.createElement("a", {
+                    href: "#",
+                    onClick: toggleAuth
+                  }, /*#__PURE__*/ React.createElement("li", null, " ", this.login())))))));
+      }
+    }
+    /* *
+     * HERO IMAGE COMPONENTS
+     * */
+    //Component
+    class Hero extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      heroDisplay() {
+        const ui = this.props.ui;
+        const display = this.props.display;
+        if (display === 'home') {
+          return /*#__PURE__*/ (
+            React.createElement("div", {
+                className: ui.hero
+              }, /*#__PURE__*/
+              React.createElement(FullLogo, {
+                ui: ui
+              }), /*#__PURE__*/
+              React.createElement("p", {
+                className: "slogan"
+              }, "Meet, Mix, Mingle ")));
+        }
+        if (display === 'search') {
+          return;
+        }
+      }
+      render() {
+        const ui = this.props.ui;
+        const display = this.props.display;
+        return /*#__PURE__*/ (
+          React.createElement("div", {
+              className: "heroWrapper"
+            },
+            this.heroDisplay()));
+      }
+    }
+    //Component
+    class FullLogo extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      render() {
+        const ui = this.props.ui;
+        return /*#__PURE__*/ (
+          React.createElement("div", {
+              className: "fullLogo"
+            }, /*#__PURE__*/
+            React.createElement("h1", {
+              className: "logo-txt"
+            }, "Fireflies"), /*#__PURE__*/
+            React.createElement("div", {
+                className: ui.plane
+              }, /*#__PURE__*/
+              React.createElement("i", {
+                className: "fa fa-paper-plane-o"
+              }))));
+      }
+    }
+    /* *
+     * SEARCH
+     * */
+    //Conatiner
+    class Search extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          search: {
+            topic: ''
+          }
+        };
+        this.onSearchChange = this.onSearchChange.bind(this);
+        this.onSearchSubmit = this.onSearchSubmit.bind(this);
+      }
+      onSearchChange(value) {
+        const search = this.state.search;
+        if (typeof value === 'string') {
+          this.setState({
+            search: {
+              ...search,
+              topic: value
+            }
+          });
+        }
+      }
+      onSearchSubmit(value) {
+        const updateUI = this.props.updateUI;
+        const updateDisplay = this.props.updateDisplay;
+        const search = value.trim();
+        const removeUI = this.props.removeUI;
+        updateUI({
+          plane: 'planeWrap'
+        });
+        setTimeout(() => {
+          updateUI({
+            hero: 'moveUp',
+            search: 'repositionForm'
+          });
+        }, 750);
+        setTimeout(() => {
+          updateDisplay('search');
+        }, 1950);
+        setTimeout(() => {
+          updateUI('searchWrap', 'noGrow');
+          updateDisplay('showBars');
+        }, 2150);
+      }
+      componentDidMount() {
+        /*ReactDOM.findDOMNode(this.refs.search).focus(); */
+      }
+      render() {
+        const search = this.state.search;
+        const ui = this.props.ui;
+        return /*#__PURE__*/ (
+          React.createElement(SearchForm, {
+            onSearchChange: this.onSearchChange,
+            onSearchSubmit: this.onSearchSubmit,
+            value: search.topic,
+            ui: ui
+          }));
+      }
+    }
+    //Component - Handles change and form submits
+    class SearchForm extends React.Component {
+      constructor(props) {
+        super(props);
+        this.onChange = this.onChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+      onChange(e) {
+        const onSearchChange = this.props.onSearchChange;
+        onSearchChange(e.target.value);
+      }
+      handleSubmit(e) {
+        e.preventDefault();
+        const submitSearch = this.props.onSearchSubmit;
+        submitSearch(this.props.value);
+      }
+      render() {
+        return /*#__PURE__*/ (
+          React.createElement("div", {
+              className: this.props.ui.searchWrap
+            }, /*#__PURE__*/
+            React.createElement("form", {
+                className: this.props.ui.search,
+                onSubmit: this.handleSubmit
+              }, /*#__PURE__*/
+              React.createElement("input", {
+                className: "searchBar",
+                ref: "search",
+                type: "text",
+                placeholder: "Search for your city, state, or neighborhood to get going.",
+                onChange: this.onChange,
+                value: this.props.value
+              }), /*#__PURE__*/
+              React.createElement("input", {
+                type: "submit",
+                hidden: true
+              }))));
+      }
+    }
+    /* *
+     * Bar Display
+     * */
+    class BarDisplay extends React.Component {
+      constructor(props) {
+        super(props);
+        this.barGrid = this.barGrid.bind(this);
+      }
+      barGrid() {
+        return this.props.data.map(bar => {
+          return /*#__PURE__*/ (
+            React.createElement("div", {
+                className: "bar fadeAndShrink"
+              }, /*#__PURE__*/
+              React.createElement("img", {
+                className: "barImage",
+                src: bar.img
+              }), /*#__PURE__*/
+              React.createElement("div", {
+                  className: "barDetails"
+                }, /*#__PURE__*/
+                React.createElement("h3", {
+                  className: "barHeader"
+                }, bar.name), /*#__PURE__*/
+                React.createElement("p", {
+                  className: "barAddress"
+                }, bar.address))));
+        });
+      }
+      render() {
+        return /*#__PURE__*/ (
+          React.createElement("div", {
+              className: "barGrid"
+            },
+            this.barGrid()));
+      }
+    }
+    ReactDOM.render( /*#__PURE__*/ React.createElement(Home, {
+      bars: bars,
+      data: exampleData,
+      user: user
+    }), document.getElementById('shudl'));
+    //# sourceURL=pen.js
+  </script>
+
+</body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>

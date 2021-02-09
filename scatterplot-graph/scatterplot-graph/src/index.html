@@ -1,0 +1,218 @@
+<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp 'Scatterplot'</title>
+
+  <style>
+    .body {
+      background-color: #f6faa8;
+    }
+
+    .main .container #title {
+      text-align: center;
+      font-size: 2.2em;
+      color: #ef974e;
+      font-family: mv boli;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .main .container #sub-title {
+      text-align: center;
+      font-weight: bold;
+      font-family: calibri;
+      font-size: 22px;
+    }
+
+    #tooltip {
+      text-align: center;
+      font-weight: bold;
+      color: #09234c;
+      box-shadow: 1px 1px 10px;
+      border-radius: 2px;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .info {
+      font-size: 18px;
+      font-family: arial;
+      color: #09234c;
+    }
+
+    .dot {
+      stroke: #000;
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <div class="main">
+    <div class="container">
+      <div id='title'>Doping in Professional Bicycle Racing</div>
+      <p id="sub-title">35 Fastest times up Alpe d'Huez</p>
+      <div class="vizHolder"></div>
+    </div>
+  </div>
+
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js'></script>
+
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+
+  <script id="rendered-js">
+    var margin = {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50
+      },
+      width = 960 - margin.left - margin.right,
+      height = 650 - margin.top - margin.bottom;
+    var url = "https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/src/data/cyclist_data/cyclist_data.json";
+    var xScale = d3.scaleLinear().
+    range([0, width]);
+    var yScale = d3.scaleTime().
+    range([0, height]);
+    var xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
+    var yAxis = d3.axisLeft(yScale).tickFormat(d3.timeFormat("%M:%S"));
+    var xValue = function(d) {
+      return d["Year"];
+    };
+    var yValue = function(d) {
+      var t = d["Time"].split(":");
+      return new Date(1970, 0, 1, 0, t[0], t[1]);
+    };
+    var xMap = function(d) {
+      return xScale(xValue(d));
+    };
+    var yMap = function(d) {
+      return yScale(yValue(d));
+    };
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
+    var cValue = function(d) {
+      return d["Doping"] != "";
+    };
+    var svg = d3.select('.vizHolder').
+    append('svg').
+    attr("width", width + margin.left + margin.right).
+    attr("height", height + margin.top + margin.bottom).
+    append("g").
+    attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var tooltip = d3.select(".vizHolder").append("div").
+    attr("class", "tooltip").
+    attr("id", "tooltip").
+    style("opacity", 0);
+    d3.json(url, function(err, data) {
+      xScale.domain([d3.min(data, xValue), d3.max(data, xValue)]);
+      yScale.domain(d3.extent(data, yValue));
+      // x-axis
+      svg.append("g").
+      call(xAxis).
+      attr("id", "x-axis").
+      attr("transform", "translate(0," + height + ")");
+      svg.append("text").
+      attr("x", width / 2).
+      attr("y", height + 35).
+      text("Year");
+      // y-axis
+      svg.append("g").
+      call(yAxis).
+      attr("id", "y-axis");
+      svg.append("text").
+      attr("transform", "rotate(-90)").
+      attr("x", -(height / 2)).
+      attr("y", -40).
+      text("Best Time (minutes)");
+      svg.selectAll(".dot").
+      data(data).
+      enter().append("circle").
+      attr("r", 5).
+      attr("class", "dot").
+      attr("cx", xMap).
+      attr("cy", yMap).
+      style("fill", function(d) {
+        return color(cValue(d));
+      }).
+      attr("data-xvalue", xValue).
+      attr("data-yvalue", yValue).
+      on("mouseover", function(d, i) {
+        tooltip.transition().
+        duration(200).
+        style("opacity", .9);
+        tooltip.html(d["Name"] + ": " + d["Nationality"] + "<br/>" +
+          "Year: " + xValue(d) + ", Time: " + data[i]["Time"] +
+          "<br/><br/>" + d["Doping"]).
+        style("left", d3.event.pageX + 5 + "px").
+        style("top", d3.event.pageY - 28 + "px").
+        attr("data-year", xValue(d));
+      }).
+      on("mouseout", function(d) {
+        tooltip.transition().
+        duration(500).
+        style("opacity", 0);
+      });
+      // draw legend
+      var legend = svg.selectAll(".legend").
+      data(color.domain()).
+      enter().append("g").
+      attr("class", "legend").
+      attr("transform", function(d, i) {
+        return "translate(0," + i * 20 + ")";
+      });
+      // draw legend colored rectangles
+      legend.append("rect").
+      attr("id", "legend").
+      attr("x", width - 18).
+      attr("width", 18).
+      attr("height", 18).
+      style("fill", color);
+      // draw legend text
+      legend.append("text").
+      attr("x", width - 24).
+      attr("y", 9).
+      attr("dy", ".35em").
+      style("text-anchor", "end").
+      text(function(d) {
+        if (d) {
+          return "Riders with doping allegations";
+        }
+        return "No doping allegations";
+      }).
+      attr("class", "info");
+    });
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

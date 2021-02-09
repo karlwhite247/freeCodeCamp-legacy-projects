@@ -1,0 +1,912 @@
+<html>
+<html lang='en' class=''>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>CodePen Demo</title>
+  <meta name="robots" content="noindex">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+  <link rel="canonical" href="https://codepen.io/karl-white/pen/rNeNePr">
+  <style class="INLINE_PEN_STYLESHEET_ID">
+    @import url('https://fonts.googleapis.com/css?family=Montserrat|Prata');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .list-unstyled {
+      list-style: none;
+    }
+
+    #navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 45px;
+      background-color: var(--theme-background-color);
+      color: var(--theme-color);
+      z-index: 10;
+    }
+
+    #navbar header {
+      padding: 5px;
+      font-family: var(--header-font-family);
+    }
+
+    #link-to-top {
+      text-decoration: none;
+      color: var(--theme-color);
+    }
+
+    #navbar ul {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+    }
+
+    .nav-link {
+      color: var(--theme-color);
+      font-size: 25px;
+      font-weight: bold;
+      font-family: calibri;
+      padding: 10px;
+      margin-left: 15px;
+      text-decoration: none;
+      letter-spacing: auto;
+      word-spacing: auto;
+    }
+
+    .nav-link:hover {
+      background-color: var(--theme-color);
+      color: var(--theme-background-color);
+    }
+
+    #welcome-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 75vh;
+      background-color: var(--theme-background-color);
+      color: var(--theme-color);
+      font-size: 1.5em;
+      font-family: lobster;
+    }
+
+    #pic {
+      width: 220px;
+      height: 215px;
+      border-radius: 100%;
+      border: 5px solid var(--theme-color);
+      margin-bottom: 5px;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10%;
+    }
+
+    .li-social-links {
+      padding: 8px;
+    }
+
+    .social {
+      color: white;
+      text-decoration: none;
+    }
+
+    #portfolio-link {
+      border-radius: 4px;
+      background-color: var(--header-font-color);
+      color: white;
+      text-decoration: none;
+      padding: 8px;
+      font-size: 0.6em;
+      font-family: verdana;
+    }
+
+    #portfolio-link:hover {
+      background-color: var(--info-font-color)
+    }
+
+    #down-arrow {
+      margin-top: auto;
+      text-align: center;
+      color: orange;
+    }
+
+    #down-arrow span a {
+      color: orange;
+    }
+
+    #content {
+      width: 100%;
+      margin: auto;
+    }
+
+    section {
+      margin-bottom: 20px;
+      margin-top: 20px;
+      padding: 20px;
+      background-color: var(--theme-color);
+      border-radius: 5px;
+      color: var(--info-font-color);
+      position: relative;
+    }
+
+    section .target {
+      position: absolute;
+      left: 0px;
+      top: -50px;
+    }
+
+    section h2 {
+      font-size: 27px;
+      margin: 10px;
+      font-color: teal;
+      margin-bottom: 5px;
+      margin-left: 50px;
+      font-family: var(--header-font-family);
+    }
+
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .col-4 {
+      width: 33.33;
+    }
+
+    .col-8 {
+      width: 73.67%;
+    }
+
+    .skills-container h3 {
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    .bold {
+      color: var(--header-font-color);
+      font-weight: bold;
+    }
+
+    p,
+    .about-item {
+      margin-left: 60px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    tr {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+      padding-bottom: 15px;
+    }
+
+    td {
+      text-size: 15px;
+      width: 100%;
+      margin-right: 25px;
+    }
+
+    .experience-company {
+      margin-left: -200px;
+      width: 46%;
+    }
+
+    .experience-duration,
+    .experience-title {
+      font-size: 17px;
+      margin-left: 60px;
+    }
+
+    .edu-type,
+    .experience-header {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .education-school {
+      margin-left: -240px;
+      width: 65%;
+    }
+
+    .education-description {
+      margin-right: 40px;
+      width: 120%;
+    }
+
+    .language-name {
+      display: inline-block;
+      width: 8rem;
+    }
+
+    .lang-star {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 2px;
+      margin-top: -3px;
+      vertical-align: middle;
+      border-radius: 50%;
+      border: 1px solid #d8d8d8;
+    }
+
+    .lang-star-filled {
+      background-color: var(--theme-background-color);
+    }
+
+    .skillset {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin-left: 20px;
+    }
+
+    .skills {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-top: 20px;
+      padding: 15px;
+    }
+
+    .skills-list {
+      list-style-type: square;
+    }
+
+    .list-title {
+      list-style-type: none;
+      text-decoration: underline;
+      text-align: center;
+    }
+
+    .skills-container {
+      margin: 5px;
+    }
+
+    .education-order {
+      font-size: 1.75em;
+      width: 100px;
+      margin-right: 30px;
+    }
+
+    #project-grid {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .project-image {
+      display: flex;
+      width: 350px;
+      height: 250px;
+    }
+
+    .project-caption {
+      text-align: center;
+      font-weight: bold;
+      background-color: #4a4a4a;
+      color: #e6e6e6;
+      font-size: 19px;
+    }
+
+    .project-description-section {
+      /*display: none;*/
+      width: 100%;
+      padding-bottom: 25px;
+    }
+
+    .project-description-section p {
+      height: 2rem;
+    }
+
+    .project-view {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    .project-view a {
+      text-decoration: underline;
+      color: black;
+      font-weight: bold;
+      padding-top: 10px;
+    }
+
+    .contact-social-links a {
+      color: black;
+    }
+
+    .contact-social-links a i {
+      padding-left: 60px;
+    }
+
+    #contact-form {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    input,
+    textarea {
+      padding: 10px;
+      margin: 5px;
+      max-width: 500px;
+      margin-left: 50px;
+    }
+
+    #submit-button {
+      align-self: center;
+      padding: 8px;
+      border-radius: 11%;
+      font-size: 1em;
+      font-family: verdana;
+      background-color: #e18537;
+      color: var(--theme-color);
+      margin-left: 50px;
+    }
+
+    footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #up-arrow {
+      background-color: white;
+      padding: 10px;
+      border-radius: 100%;
+    }
+
+    #up-arrow a {
+      color: var(--theme-background-color);
+    }
+
+    @media only screen and (max-width: 500px) {
+      tr {
+        flex-wrap: wrap;
+      }
+
+      .row,
+      .skills {
+        flex-wrap: wrap;
+      }
+
+      .language-name {
+        width: 5rem;
+      }
+
+      #navbar {
+        min-height: 400px;
+      }
+
+      #toggle {
+        position: fixed;
+        top: 0px;
+        display: flex;
+      }
+
+      #navbar {
+        display: none;
+      }
+
+      #nav {
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      .skills-list {
+        text align: justify;
+      }
+
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    @media only screen and (max-width: 500px) {
+  </style>
+  <script src="https://static.codepen.io/assets/editor/iframe/iframeConsoleRunner-7f4d47902dc785f30dedcac9c996b9f31d4dfcc33567cc48f0431bc918c2bf05.js"></script>
+  <script src="https://static.codepen.io/assets/editor/iframe/iframeRefreshCSS-e03f509ba0a671350b4b363ff105b2eb009850f34a2b4deaadaa63ed5d970b37.js"></script>
+  <script src="https://static.codepen.io/assets/editor/iframe/iframeRuntimeErrors-29f059e28a3c6d3878960591ef98b1e303c1fe1935197dae7797c017a3ca1e82.js"></script>
+</head>
+
+<body>
+  <html>
+  <style>
+    :root {
+      --theme-background-color: teal;
+      --theme-color: #e6e6e6;
+      --info-font-color: #000000;
+      --header-font-color: #212121;
+      --info-font-family: corbel;
+      --header-font-family: calibri;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: justify;
+      background-color: #F4F4F4;
+      font-family: verdana;
+    }
+
+    h1 {
+      font-size: 50px;
+      font-family: calibri;
+    }
+
+    h2 {
+      color: teal;
+      text-align: justify;
+      font-family: calibri;
+      font-size: 25px;
+      padding: 10px;
+    }
+
+    h3 {
+      color: teal;
+      text-align: center;
+      font-family: calibri;
+      font-size: 20px;
+      padding: 10px;
+    }
+
+    h4 {
+      align-txt: center;
+      margin-bottom: 10px;
+    }
+  </style>
+  <nav id="navbar">
+    <ul id="nav" class="list-unstyled">
+      <a class="nav-link" href="#about-me" rel="internal">
+        <li>About Me</li>
+      </a>
+      <a class="nav-link" href="#education" rel="internal">
+        <li>Education</li>
+      </a>
+      <a class="nav-link" href="#experience" rel="internal">
+        <li>Experience</li>
+      </a>
+      <a class="nav-link" href="#skills" rel="internal">
+        <li>Skills</li>
+      </a>
+      <a class="nav-link" href="#projects-section" rel="internal">
+        <li>Projects</li>
+      </a>
+      <a class="nav-link" href="#contact-me" rel="internal">
+        <li>Contact Me</li>
+      </a>
+    </ul>
+  </nav>
+  <div id="container">
+    <header id="welcome-section">
+      <div class="hero-text">
+        <img id="pic" src="https://avatars0.githubusercontent.com/u/69147466?s=400&u=f2e6a7d3ad71a2ee43d73cec07dc27d7e165dfdb&v=4" alt="">
+        <h1>Karl White</h1>
+        <h4>Aspiring web developer & digital artist</h4>
+        <a id="portfolio-link" href="#projects">View Portfolio</a>
+      </div>
+      <ul class="ul-social">
+        <li class="li-social-links list-unstyled">
+          <a class="social" href="https://github.com/karlwhite247" target="_blank"><i class="fab fa-github fa-2x" aria-hidden="true"></i></a>
+        </li>
+        <li class="li-social-links list-unstyled">
+          <a class="social" href="https://www.linkedin.com/in/karl-white-46b1061a7/" target="_blank"><i class="fab fa-linkedin fa-2x" aria-hidden="true"></i></a>
+        </li>
+        <li class="li-social-links list-unstyled">
+          <a class="social" href="https://twitter.com/karlwhite247" target="_blank"><i class="fab fa-twitter fa-2x" aria-hidden="true"></i></a>
+        </li>
+        <li class="li-social-links list-unstyled">
+          <a class="social" href="https://www.facebook.com/karl.white2020/" target="_blank"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+      <div id="down-arrow">
+        <span><a href="#about">
+            <i class="fa fa-chevron-down" aria-hidden="true"></i></a>
+        </span>
+      </div>
+    </header>
+    <main id="content">
+      <section>
+        <a id="about-me" class="target"></a>
+        <h2>About Me</h2>
+        <div class="row">
+          <div class="col-8">
+            <p>Hello! Welcome to my personal website. My name is Karl White, I'm an aspiring web developer and digital artist from the United Kingdom. I am deeply interested in Technology, Art and the Sciences!</p>
+            <br>
+            <p>This pursuit presents a big leap for me, especially since I come from a teaching background. Nonetheless, I've been studying front-end and back-end web development for the past 2 months and I'm already starting to realise and enjoy the power of coding. There is a lot to explore but that doesn't put me off at all. I'm excited by the potential of using this newfound knowledge and set of skills to transform businesses worldwide!</p>
+          </div>
+          <div class="col-4">
+            <ul class="about-list list-unstyled">
+              <li class="about-item">
+                <class="bold"><b>Nationality:</b> British
+              </li>
+              <li class="about-item">
+                <class="bold"><b>Language:</b> English
+              </li>
+              <li class="about-item">
+                <class="bold"><b>Experience:</b> 2 months
+              </li>
+              <li class="about-item">
+                <class="bold"><b>Location:</b> United Kingdom
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <a id="education" class="target"></a>
+        <h2>Education</h2>
+        <table>
+          <tbody>
+            <tr>
+            <tr>
+              <td class="education-order"></td>
+              <td class="education-year"><b>2005 - 2008<b></td>
+              <td class="education-school">University of South Wales</td>
+              <td class="education-description">
+                Bachelor of Arts (BA) in Business Management.</td>
+            </tr>
+            <tr>
+              <td class="education-order"></td>
+              <td class="education-year"><b>2003 - 2005</b></td>
+              <td class="education-school">Glamorgan College</td>
+              <td class="education-description">
+                A-Level English Literature, AS-Level Sociology and Law.</td>
+            </tr>
+            <tr>
+              <td class="education-order"></td>
+              <td class="education-year"><b>1998 - 2003</b></td>
+              <td class="education-school">Hawthorn High School</td>
+              <td class="education-description">
+                8 GCSEs (i.e. Maths, English and Science).</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <a id="experience" class="target"></a>
+        <h2>Experience</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div class="experience-header">
+                  <b class="experience-duration">January 2015 - February 2020</b>
+                  <span class="experience-title">Business English Coach</span>
+                </div>
+              </td>
+              <span class="experience-bullet"></span></td>
+              <td class="experience-company">Abdullah Trading</td>
+              <td>
+                <ul class="list-unstyled">
+                  <li>Created and revised course content, materials and methods of instruction.</li>
+                  <li>Promoted active listening, speaking, reading and writing performances.</li>
+                  <li>Adapted personalised development plans for each employee - student.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="experience-header">
+                  <b class="experience-duration">July 2013 - August 2014</b>
+                  <span class="experience-title">Kindergarten Teacher</span>
+                </div>
+              </td>
+              <span class="experience-bullet"></span></td>
+              <td class="experience-company">Okiki Bilingual Kindergarten</td>
+              <td>
+                <ul class="list-unstyled">
+                  <li>Designed collaborative lesson plans in line with learner’s needs and abilities.</li>
+                  <li>Answered weekly parent - teacher communication journals and dealt with customer enquiries.</li>
+                  <li>Attended and participated in staff meetings to support administration of the school.</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="experience-header">
+                  <b class="experience-duration">June 2012 - June 2013</b>
+                  <span class="experience-title">English Language Teacher</span>
+                </div>
+              </td>
+              <span class="experience-bullet"></span></td>
+              <td class="experience-company">Best learning</td>
+              <td>
+                <ul class="list-unstyled">
+                  <li>Delivered creative and engaging presentations to various age groups.</li>
+                  <li>Promoted independent learning, developed motivation and study skills.</li>
+                  <li>Built and maintained great, long-lasting relationships with students.</li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <a id="skills" class="target"></a>
+        <h2>Skills</h2>
+        <div class="row skillset">
+          <div class="skills-container">
+            <li class="bold list-title">Languages</li><br>
+            <ul class="list-unstyled language-list">
+              <li class="language-item">
+                <span class="language-name" aria-label="HTML, 7/10 points">HTML</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="CSS, 7/10 points">CSS</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="Javascript, 5/10 points">Javascript</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="Python, 5/10 points">Python</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="SQL, 4/10 points">SQL</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="skills-container">
+            <ul class="frameworks list-unstyled" aria-label="Frameworks">
+              <li class="bold list-title">Frameworks</li><br>
+              <li class="language-item">
+                <span class="language-name" aria-label="Node.js, 6/10 points">Node.js</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="React.js, 6/10 points">React.js</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="Django, 5/10 points">Django</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+              <li class="language-item">
+                <span class="language-name" aria-label="Pandas, 4/10 points">Pandas</span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star lang-star-filled" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+                <span class="lang-star" aria-hidden="true"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="skills">
+          <ul class="skills-list list-unstyled">
+            <li class="bold list-title">Tooling</li><br>
+            <li>CodePen</li>
+            <li>Webpack</li>
+            <li>GitHub</li>
+          </ul>
+          <ul class="skills-list list-unstyled">
+            <li class="bold list-title">BackEnd</li><br>
+            <li>Express.js</li>
+            <li>MongoDB</li>
+            <li>Django</li>
+          </ul>
+          <ul class="skills-list list-unstyled">
+            <li class="bold list-title">Others</li><br>
+            <li>Responsive Design</li>
+            <li>Linux & Windows</li>
+          </ul>
+        </div>
+      </section>
+      <section id="projects">
+        <a id="projects-section" class="target"></a>
+        <h2>Projects</h2>
+        <div id="project-grid">
+          <div class="project-tile">
+            <figure class="project-frame">
+              <img class="project-image" src="https://raw.githubusercontent.com/karlwhite247/freeCodeCamp-projects/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Tribute%20Page/images/tribute-page.png" alt="tribute page image">
+              <figcaption class="project-caption">Tribute Page</figcaption>
+            </figure>
+            <div class="project-description-section">
+              <div class="project-view">
+                <a target="_blank" href="https://codepen.io/karl-white/pen/jOqOGZy">Project</a>
+                <a target="_blank" href="https://github.com/karlwhite247/freeCodeCamp-projects/tree/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Tribute%20Page">Code</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-tile">
+            <figure class="project-frame">
+              <img class="project-image" src="https://raw.githubusercontent.com/karlwhite247/freeCodeCamp-projects/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Survey%20Form/images/survey-form.png" alt="survey form image">
+              <figcaption class="project-caption">Survey Form</figcaption>
+            </figure>
+            <div class="project-description-section">
+              <div class="project-view">
+                <a target="_blank" href="https://codepen.io/karl-white/pen/jOWoazP">Project</a>
+                <a target="_blank" href="https://github.com/karlwhite247/freeCodeCamp-projects/tree/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Survey%20Form">Code</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-tile">
+            <figure class="project-frame">
+              <img class="project-image" src="https://raw.githubusercontent.com/karlwhite247/freeCodeCamp-projects/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Product%20Landing%20Page/images/product-landing-page.png" alt="product landing page image">
+              <figcaption class="project-caption">Product Landing Page</figcaption>
+            </figure>
+            <div class="project-description-section">
+              <div class="project-view">
+                <a target="_blank" href="https://codepen.io/karl-white/pen/dyMyVdr">Project</a>
+                <a target="_blank" href="https://github.com/karlwhite247/freeCodeCamp-projects/tree/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Product%20Landing%20Page">Code</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-tile">
+            <figure class="project-frame">
+              <img class="project-image" src="https://raw.githubusercontent.com/karlwhite247/freeCodeCamp-projects/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Technical%20Documentation%20Page/images/technical-documentation.png" alt="technical documentation page image">
+              <figcaption class="project-caption">Technical Documentation</figcaption>
+            </figure>
+            <div class="project-description-section">
+              <div class="project-view">
+                <a target="_blank" href="https://codepen.io/karl-white/pen/wvMbPjV">Project</a>
+                <a target="_blank" href="https://github.com/karlwhite247/freeCodeCamp-projects/tree/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Technical%20Documentation%20Page">Code</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-tile">
+            <figure class="project-frame">
+              <img class="project-image" src="https://raw.githubusercontent.com/karlwhite247/freeCodeCamp-projects/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Personal%20Portfolio%20Webpage/images/personal-portfolio-webpage.png" alt="portfolio page image">
+              <figcaption class="project-caption">Portfolio Page</figcaption>
+            </figure>
+            <div class="project-description-section">
+              <div class="project-view">
+                <a target="_blank" href="https://codepen.io/karl-white/pen/rNeNePr">Project</a>
+                <a target="_blank" href="https://github.com/karlwhite247/freeCodeCamp-projects/tree/master/01%20-%20Responsive%20Web%20Design%20Projects/Build%20a%20Personal%20Portfolio%20Webpage">Code</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <a id="contact-me" class="target"></a>
+        <h2>Contact Me</h2>
+        <div class="row">
+          <div class="col-6">
+            <p>If you want to get in touch, please feel free to get in touch. <br> I will get back to you as soon as possible. Thank you.</p>
+            <br>
+            <ul class="list-unstyled">
+              <li class="contact-social-links">
+                <a class="social" href="https://www.linkedin.com/in/karl-white-46b1061a7/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i><u>LinkedIn</u></a>
+              </li>
+              <br>
+              <li class="contact-social-links">
+                <a class="social" href="https://twitter.com/karlwhite247" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i><u>Twitter</u></a>
+              </li>
+              <br>
+              <li class="contact-social-links list-unstyled">
+                <a class="social" href="https://www.facebook.com/karl.white2020/" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i><u>Facebook</u></a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-6">
+            <form id="contact-form" action="index.html" method="post">
+              <input type="text" name="name" value="" placeholder="name*">
+              <input type="email" name="email" value="" placeholder="email*">
+              <textarea name="message" rows="8" cols="80" placeholder="message*"></textarea>
+              <button type="submit" name="button" id="submit-button">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div id="up-arrow">
+        <span><a href="#top"><i class="fa fa-chevron-up fa-2x" aria-hidden="true"></i></a></span>
+      </div>
+      <hr>
+      <h3>'Build a Personal Portfolio Webpage' created by Karl White</h3>
+    </footer>
+</body>
+
+</html>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script id="INLINE_PEN_JS_ID">
+  //# sourceURL=pen.js
+</script>
+</body>
+
+</html>

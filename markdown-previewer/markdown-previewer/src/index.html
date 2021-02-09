@@ -1,0 +1,300 @@
+<html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Markdown Previewer'</title>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+  <style>
+    body {
+      margin: auto 0px;
+      background-color: #d2a8d4;
+    }
+
+    .editorBox {
+      width: 50%;
+      margin: 30px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: extend;
+      font-family: calibri;
+    }
+
+    .editorBox #editor {
+      border: 1px solid black;
+      height: 100%;
+      resize: vertical;
+      padding: 10px;
+      background-color: #F7E0EB;
+      font-family: calibri;
+      font-size: 15px;
+    }
+
+    .previewerBox {
+      width: 80%;
+      margin: 20px auto;
+      font-family: calibri;
+      font-size: 15px;
+    }
+
+    .previewerBox #preview {
+      padding: 10px;
+      height: 600px;
+      position: relative;
+      overflow-y: scroll;
+      border: 1px solid black;
+      background-color: #F7E0EB;
+      font-family: calibri;
+      font-size: 15px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .maximize {
+      height: 99vh;
+      width: 90%;
+    }
+
+    #toolbar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 30px;
+      border: 1px solid black;
+      background-color: #403F4C;
+      color: white;
+      font-weight: bold;
+      text-size: 30px;
+    }
+
+    #toolbar .fa-free-code-camp {
+      margin: 5px;
+    }
+
+    #toolbar .toolbar-title {
+      font-size: 1em;
+      text-align: left;
+      margin: 5px;
+    }
+
+    #toolbar .fa-arrows-alt,
+    #toolbar .fa-compress {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+
+</head>
+
+<body translate="no">
+  <div id="root">
+  </div>
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/16.8.1/umd/react.production.min.js'></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.1/umd/react-dom.production.min.js'></script>
+
+  <script src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
+
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+
+  <script id="rendered-js">
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, {
+          value: value,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      } else {
+        obj[key] = value;
+      }
+      return obj;
+    }
+    const domContainer = document.getElementById('root');
+    // ALLOWS LINE BREAKS WITH RETURN BUTTON
+    marked.setOptions({
+      breaks: true
+    });
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        _defineProperty(this, "handleChange",
+          e => {
+            this.setState({
+              markdown: e.target.value
+            });
+          });
+        _defineProperty(this, "handleEditorMaximize",
+          e => {
+            this.setState({
+              editorMaximized: !this.state.editorMaximized
+            });
+          });
+        _defineProperty(this, "handlePreviewerMaximize",
+          e => {
+            this.setState({
+              previewerMaximized: !this.state.previewerMaximized
+            });
+          });
+        this.state = {
+          markdown: placeholder,
+          editorMaximized: false,
+          previewerMaximized: false
+        };
+      }
+      render() {
+        const classes = this.state.editorMaximized ? ['editorBox maximize', 'previewerBox hide', 'fa fa-compress'] :
+          this.state.previewerMaximized ? ['editorBox hide', 'previewerBox maximize', 'fa fa-compress'] : ['editorBox', 'previewerBox', 'fa fa-arrows-alt'];
+        return (
+          React.createElement("div", {
+              className: "container"
+            },
+            React.createElement("div", {
+                className: classes[0]
+              },
+              React.createElement(Toolbar, {
+                title: "Editor",
+                icon: classes[2],
+                onClick: this.handleEditorMaximize
+              }),
+              React.createElement(Editor, {
+                markdown: this.state.markdown,
+                onChange: this.handleChange
+              })),
+            React.createElement("div", {
+                className: classes[1]
+              },
+              React.createElement(Toolbar, {
+                title: "Previewer",
+                icon: classes[2],
+                onClick: this.handlePreviewerMaximize
+              }),
+              React.createElement(Previewer, {
+                markdown: this.state.markdown
+              }))));
+      }
+    }
+    /**
+           Toolbar Component
+         */
+    const Toolbar = props => {
+      return (
+        React.createElement("div", {
+            id: "toolbar"
+          },
+          React.createElement("i", {
+            className: "fa fa-free-code-camp"
+          }),
+          React.createElement("span", {
+            className: "toolbar-title"
+          }, props.title),
+          React.createElement("i", {
+            onClick: props.onClick,
+            className: props.icon
+          })));
+    };
+    /**
+         Editor Component
+       */
+    const Editor = props => {
+      return (
+        React.createElement("textarea", {
+          id: "editor",
+          rows: "20",
+          value: props.markdown,
+          onChange: props.onChange,
+          type: "text"
+        }));
+    };
+    /**
+         Previewer Component
+       */
+    const Previewer = props => {
+      return (
+        React.createElement("div", {
+          id: "preview",
+          dangerouslySetInnerHTML: {
+            __html: marked(props.markdown)
+          }
+        }));
+    };
+    const placeholder =
+      `# Welcome to my Markdown Previewer!
+
+## This is a sub-heading...
+### And here's some other cool stuff:
+  
+Heres some code, \`<div></div>\`, between 2 backticks.
+
+\`\`\`
+// this is multi-line code:
+
+function anotherExample(firstLine, lastLine) {
+  if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+    return multiLineCode;
+  }
+}
+\`\`\`
+  
+You can also make text **bold**... whoa!
+Or _italic_.
+Or... wait for it... **_both!_**
+And feel free to go crazy ~~crossing stuff out~~.
+
+There's also [links](https://www.freecodecamp.com), and
+> Block Quotes!
+
+And if you want to get really crazy, even tables:
+
+Wild Header | Crazy Header | Another Header?
+------------ | ------------- | ------------- 
+Your content can | be here, and it | can be here....
+And here. | Okay. | I think we get it.
+
+- And of course there are lists.
+  - Some are bulleted.
+     - With different indentation levels.
+        - That look like this.
+
+
+1. And there are numbererd lists too.
+1. Use just 1s if you want! 
+1. But the list goes on...
+- Even if you use dashes or asterisks.
+* And last but not least, let's not forget embedded images:
+
+![React Logo w/ Text](https://goo.gl/Umyytc)
+`;
+    ReactDOM.render(React.createElement(App, null), domContainer);
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

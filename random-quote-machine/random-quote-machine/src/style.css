@@ -1,0 +1,76 @@
+a,
+a:focus,
+a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn,
+.btn:hover,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #fff;
+  text-shadow: none;
+  outline: none;
+}
+
+.quote {
+  font-size: 30px;
+  font-weight: 600;
+}
+
+html,
+body {
+  height: 100%;
+  background-image: url("https://gamespot1.cbsistatic.com/uploads/original/1579/15792183/3342806-vlcsnap-2018-01-19-10h19m37s061.png");
+  background-size: cover;
+}
+
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; /* For at least Firefox */
+  min-height: 100%;
+  -webkit-box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+}
+
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.inner {
+  padding: 30px;
+}
+
+.cover {
+  padding: 0 20px;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+@media (min-width: 768px) {
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+  .cover-container {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .cover-container {
+    width: 700px;
+  }
+}

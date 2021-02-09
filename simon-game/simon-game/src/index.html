@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>CodePen - Build a Simon Game (React, Redux)</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Luckiest+Guy'>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    ::-moz-selection {
+      background: transparent;
+    }
+
+    ::selection {
+      background: transparent;
+    }
+
+    body {
+      background: #fce3be;
+      color: #fff;
+      font-family: 'Luckiest Guy', cursive;
+      text-align: center;
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    h1 {
+      margin: .9em 0 .1em;
+      font-size: 10vmin;
+    }
+
+    button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .simon {
+      position: relative;
+      width: 80vmin;
+      max-width: 100%;
+      margin: auto auto;
+      display: inline-block;
+      text-align: center;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1vmin #333;
+    }
+
+    .soundtile {
+      float: left;
+      width: 40vmin;
+      height: 40vmin;
+      max-width: 50%;
+      max-height: 50%;
+      border: 2vmin solid #333;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .soundtile--0 {
+      background: #4caf50;
+      border-top-left-radius: 100%;
+    }
+
+    .soundtile--0.active,
+    .soundtile--0:active:not(.disabled) {
+      background: #b5dfb7;
+      box-shadow: 0 0 10em rgba(76, 175, 80, 0.7) inset;
+    }
+
+    .soundtile--1 {
+      background: #f44336;
+      border-top-right-radius: 100%;
+    }
+
+    .soundtile--1.active,
+    .soundtile--1:active:not(.disabled) {
+      background: #fccbc7;
+      box-shadow: 0 0 10em rgba(244, 67, 54, 0.7) inset;
+    }
+
+    .soundtile--2 {
+      background: #ffc107;
+      border-bottom-left-radius: 100%;
+    }
+
+    .soundtile--2.active,
+    .soundtile--2:active:not(.disabled) {
+      background: #ffe7a0;
+      box-shadow: 0 0 10em rgba(255, 193, 7, 0.7) inset;
+    }
+
+    .soundtile--3 {
+      background: #2196f3;
+      border-bottom-right-radius: 100%;
+    }
+
+    .soundtile--3.active,
+    .soundtile--3:active:not(.disabled) {
+      background: #b2dbfb;
+      box-shadow: 0 0 10em rgba(33, 150, 243, 0.7) inset;
+    }
+
+    .controls {
+      width: 40vmin;
+      height: 40vmin;
+      display: block;
+      border-radius: 50%;
+      background: #333;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      text-align: center;
+    }
+
+    .controls__label {
+      font-size: 2vmin;
+    }
+
+    .controls__button {
+      font-size: 5vmin;
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      border-radius: 50%;
+      border: 3px solid #222;
+      margin: .2em;
+      background: currentColor;
+    }
+
+    .controls__button--start {
+      color: #48d555;
+    }
+
+    .controls__button--start:active {
+      background: #2cbe39;
+    }
+
+    .controls__button--start.active {
+      box-shadow: 0 0 1em rgba(72, 213, 85, 0.5);
+      color: #5dda68;
+    }
+
+    .controls__button--strict {
+      color: #ffeb3b;
+    }
+
+    .controls__button--strict:active {
+      background: #ffe608;
+    }
+
+    .controls__button--strict.active {
+      box-shadow: 0 0 1em rgba(255, 235, 59, 0.5);
+      color: #ffee55;
+    }
+
+    .status {
+      font-size: 2.5vmin;
+      width: 2em;
+      height: 2em;
+      margin: .5em;
+      display: inline-block;
+      border-radius: 50%;
+      background: #444;
+      display: -webkit-inline-box;
+      display: inline-flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      line-height: 1em;
+    }
+
+    .status--1:before {
+      content: '\01F3C6';
+      text-shadow: 0 0 1em #FFC107;
+    }
+
+    .status--0 {
+      color: #f44336;
+      text-shadow: 0 0 1em #f44336;
+    }
+
+    .flex-center {
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+    }
+
+    .disabled {
+      cursor: not-allowed;
+    }
+  </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <div id="root"></div>
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.0.2/react.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js'></script>
+  <script src='https://npmcdn.com/redux@latest/dist/redux.min.js'></script>
+  <script id="rendered-js">
+    function _extends() {
+      _extends = Object.assign || function(target) {
+        for (var i = 1; i < arguments.length; i++) {
+          if (window.CP.shouldStopExecution(0)) break;
+          var source = arguments[i];
+          for (var key in source) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        window.CP.exitedLoop(0);
+        return target;
+      };
+      return _extends.apply(this, arguments);
+    }
+    /**
+                                                                                                                                                                                                                                                                                                                                                                                        1. Wait for the player to click start
+                                                                                                                                                                                                                                                                                                                                                                                        2. Add a random number to the sequence
+                                                                                                                                                                                                                                                                                                                                                                                        3. Play the sequence to the player
+                                                                                                                                                                                                                                                                                                                                                                                        4. Enable player interaction and register any clicks on Simon buttons
+                                                                                                                                                                                                                                                                                                                                                                                        5. Wait for player input while the number of clicks is less than 20
+                                                                                                                                                                                                                                                                                                                                                                                        6. Notify of error is player presses the wrong button, and start that series of button presses again
+                                                                                                                                                                                                                                                                                                                                                                                        7. Notify of victory if the player answers 20 steps correct
+                                                                                                                                                                                                                                                                                                                                                                                        */
+    const sounds = [
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3'),
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'),
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3'),
+      new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3')
+    ];
+    // Create a Redux store holding the state of your app.
+    // Its API is { subscribe, dispatch, getState }.   
+    const store = Redux.createStore(app);
+
+    function app(state, action) {
+      const initialState = {
+        sequence: [],
+        playerSequence: [],
+        simon: [0, 1, 2, 3],
+        active: [false, false, false, false],
+        win: 20,
+        turn: 0,
+        start: false,
+        interaction: false,
+        playing: false,
+        notice: false,
+        strict: false
+      };
+      if (typeof state === 'undefined') {
+        return initialState;
+      }
+      switch (action.type) {
+        case 'TILE_CLICK':
+          if (!state.interaction) return state; // interaction is disabled
+          let isCorrect = state.sequence[state.playerSequence.length] == action.id;
+          if (isCorrect) {
+            if (state.playerSequence.length != state.turn) {
+              // Wait for player input while number of clicks is less than sequence length
+              return Object.assign({}, state, {
+                playerSequence: state.playerSequence.concat(action.id)
+              });
+            } else
+            if (state.sequence.length == state.win) {
+              // Victory
+              return Object.assign({}, state, {
+                notice: {
+                  code: 1,
+                  message: ''
+                },
+                interaction: false
+              });
+            }
+            // Start next turn
+            return Object.assign({}, state, {
+              turn: state.turn + 1,
+              playerSequence: [],
+              interaction: false
+            });
+          }
+          // Notify of error
+          return Object.assign({}, state, {
+            notice: {
+              code: 0,
+              message: '!!'
+            },
+            playerSequence: [],
+            interaction: false
+          });
+        case 'TOGGLE_TILE':
+          let active = [0, 0, 0, 0];
+          active[action.id] = !state.active[action.id];
+          return Object.assign({}, state, {
+            active: active
+          });
+        case 'START_PLAYING':
+          return Object.assign({}, state, {
+            playing: true
+          });
+        case 'STOP_PLAYING':
+          return Object.assign({}, state, {
+            playing: false
+          });
+        case 'START_SEQUENCE':
+          return Object.assign({}, state, {
+            sequence: state.sequence.concat([getRandomArrayItem(state.simon)])
+          });
+        case 'ENABLE_INTERACTION':
+          return Object.assign({}, state, {
+            interaction: true
+          });
+        case 'DISABLE_INTERACTION':
+          return Object.assign({}, state, {
+            interaction: false
+          });
+        case 'TOGGLE_START':
+          if (state.start) return initialState;
+          return Object.assign({}, state, {
+            sequence: state.sequence.concat([getRandomArrayItem(state.simon)]),
+            start: true
+          });
+        case 'TOGGLE_STRICT':
+          return Object.assign({}, state, {
+            strict: !state.strict
+          });
+        case 'CLEAR_NOTICE':
+          return Object.assign({}, state, {
+            notice: false
+          });
+        case 'RESET_GAME':
+          return initialState;
+        default:
+          return state;
+      }
+    }
+    const getRandomArrayItem = arr => arr[Math.floor(Math.random() * arr.length)];
+    const Controls = ({
+        start,
+        onStartStop,
+        toggleStrict,
+        active,
+        notice,
+        turn,
+        strict
+      }) =>
+      React.createElement("div", {
+          className: "controls"
+        },
+        React.createElement("h1", null, "SIMON"),
+        React.createElement("div", {
+            className: "flex-center"
+          },
+          React.createElement("span", {
+            className: "controls__label"
+          }, "start"),
+          React.createElement("button", {
+            className: "controls__button controls__button--start " + (start ? "active" : "inactive"),
+            onClick: onStartStop
+          }),
+          React.createElement("span", {
+            className: "controls__label"
+          }, "strict"),
+          React.createElement("button", {
+            className: "controls__button controls__button--strict " + (strict ? "active" : "inactive"),
+            onClick: toggleStrict
+          })),
+        React.createElement("div", null,
+          React.createElement("div", {
+              className: "status status--" + (notice ? notice.code : "turn-" + turn)
+            },
+            notice ? notice.message : start ? turn + 1 : '--')));
+    class Soundtile extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      playSound(id) {
+        sounds[id].currentTime = 0;
+        sounds[id].play();
+      }
+      shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.active !== this.props.active || nextProps.interaction != this.props.interaction;
+      }
+      render() {
+        if (this.props.interaction) {
+          return (
+            React.createElement("div", {
+              className: "soundtile soundtile--" + this.props.id,
+              onClick: () => {
+                this.playSound(this.props.id);
+                this.props.onClick();
+              }
+            }));
+        } else {
+          return (
+            React.createElement("div", {
+              className: "disabled soundtile soundtile--" + this.props.id + (this.props.active ? ' active' : '')
+            }));
+        }
+      }
+    }
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+      }
+      playSequenceRecursive(sequence, acceleration) {
+        if (sequence.length) {
+          setTimeout(
+            () => {
+              let item = sequence.shift();
+              sounds[item].play();
+              this.props.toggleTile(item);
+              setTimeout(() => {
+                this.props.toggleTile(item);
+              }, 500 * acceleration);
+              if (sequence.length) {
+                this.playSequenceRecursive(sequence, acceleration);
+              } else {
+                // activate player interaction
+                setTimeout(() => {
+                  this.props.enableInteraction();
+                }, 500 * acceleration);
+                setTimeout(() => {
+                  this.props.stopPlaying();
+                }, 500 * acceleration);
+              }
+            },
+            1000 * acceleration);
+        }
+      }
+      getAcceleration() {
+        let turn = this.props.data.turn;
+        return turn <= 5 ? 1 :
+          turn <= 9 ? 0.8 :
+          turn <= 13 ? 0.6 :
+          0.5;
+      }
+      startPlaying() {
+        this.props.startPlaying();
+        this.playSequenceRecursive(this.props.data.sequence.slice(), this.getAcceleration());
+      }
+      render() {
+        const data = this.props.data;
+        if (!data.playing && !data.interaction && data.start) {
+          const turn = data.turn,
+            sequenceLength = data.sequence.length,
+            playerMoves = data.playerSequence.length;
+          // Notify of error is player presses the wrong button, and start that series of button presses again
+          if (data.notice && data.notice.code == 0) {
+            if (data.strict) {
+              setTimeout(() => {
+                this.props.resetGame();
+              }, 2000);
+            } else {
+              this.startPlaying();
+              setTimeout(() => {
+                this.props.clearNotice();
+              }, sequenceLength * 1000);
+            }
+          }
+          // Notify of victory if the player answers 20 steps correct
+          else if (data.notice && data.notice.code == 1) {
+            setTimeout(() => {
+              this.props.resetGame();
+            }, 3000);
+          }
+          // User interaction done; start new sequence
+          else if (0 == playerMoves && turn == sequenceLength) {
+            this.props.startSequence();
+          }
+          // Play the sequence to the player
+          else if (sequenceLength > turn) {
+            this.startPlaying();
+          }
+        }
+        return (
+          React.createElement("div", {
+              className: "simon"
+            },
+            data.simon.map((tile, i) =>
+              React.createElement(Soundtile, _extends({
+                  id: i,
+                  active: data.active[i],
+                  interaction: data.interaction
+                },
+                tile, {
+                  onClick: () => this.props.onTileClick(i)
+                }))),
+            React.createElement(Controls, {
+              start: data.start,
+              onStartStop: () => this.props.onStartStop(),
+              toggleStrict: () => this.props.toggleStrict(),
+              notice: data.notice,
+              turn: data.turn,
+              strict: data.strict
+            })));
+      }
+    }
+
+    function render() {
+      ReactDOM.render(React.createElement(
+          App, {
+            data: store.getState(),
+            onTileClick: (id) =>
+              store.dispatch({
+                type: 'TILE_CLICK',
+                id: id
+              }),
+            toggleTile: (id) =>
+              store.dispatch({
+                type: 'TOGGLE_TILE',
+                id: id
+              }),
+            onStartStop: () =>
+              store.dispatch({
+                type: 'TOGGLE_START'
+              }),
+            toggleStrict: () =>
+              store.dispatch({
+                type: 'TOGGLE_STRICT'
+              }),
+            enableInteraction: () =>
+              store.dispatch({
+                type: 'ENABLE_INTERACTION'
+              }),
+            disableInteraction: () =>
+              store.dispatch({
+                type: 'DISABLE_INTERACTION'
+              }),
+            startSequence: () =>
+              store.dispatch({
+                type: 'START_SEQUENCE'
+              }),
+            startPlaying: () =>
+              store.dispatch({
+                type: 'START_PLAYING'
+              }),
+            stopPlaying: () =>
+              store.dispatch({
+                type: 'STOP_PLAYING'
+              }),
+            clearNotice: () =>
+              store.dispatch({
+                type: 'CLEAR_NOTICE'
+              }),
+            resetGame: () =>
+              store.dispatch({
+                type: 'RESET_GAME'
+              })
+          }),
+        document.getElementById('root'));
+    }
+    render();
+    store.subscribe(render);
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

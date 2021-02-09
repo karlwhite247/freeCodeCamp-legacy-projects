@@ -1,0 +1,38 @@
+.main .container #title {
+  text-align: center;
+  font-size: 1.75em;
+  color: crimson;
+  font-weight: bold;
+  font-family: ninja naruto;
+}
+
+.main .container #description {
+  text-align: center;
+  font-weight: bold;
+  font-family: edo sz;
+  font-size: 1.3em;
+  color: brown;
+}
+
+#tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  width: 200px;
+  background: lightyellow;
+  font-family: calibri;
+  padding: 5px;
+  color: #09234c;
+  box-shadow: 1px 1px 10px;
+  border-radius: 2px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+tspan {
+  font-size: 11px;
+  font-family: calibri;
+}

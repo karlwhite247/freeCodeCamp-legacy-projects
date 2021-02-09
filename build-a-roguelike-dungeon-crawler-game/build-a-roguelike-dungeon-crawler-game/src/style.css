@@ -1,0 +1,109 @@
+body {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  font-family: "Cabin Condensed", sans-serif;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 5px;
+  p {
+    padding: 0;
+    margin: 0;
+    line-height: 30px;
+  }
+}
+
+button {
+  background: #222;
+  color: #fff;
+  border: 2px solid #0066ff;
+  border-radius: 5px;
+  width: 120px;
+  height: 30px;
+  padding: 5px;
+  margin: 0 50px;
+  transition-duration: 0.3s;
+  &:hover {
+    cursor: pointer;
+    background: #0066ff;
+  }
+  &:focus {
+    outline: 0;
+  }
+}
+
+.dungeon {
+  display: flex;
+  justify-content: center;
+  &:focus {
+    outline: 0;
+  }
+}
+
+.row {
+  display: inline-block;
+}
+
+.cell {
+  width: 8px;
+  height: 8px;
+  margin: 0;
+}
+
+.wall {
+  @extend .cell;
+  background: #7a7a7a;
+}
+.space {
+  @extend .cell;
+  background: #fff;
+}
+.player {
+  @extend .cell;
+  background: #0066ff;
+}
+.health {
+  @extend .cell;
+  background: #33cc33;
+}
+.item {
+  @extend .cell;
+  background: #cfd300;
+}
+.enemy {
+  @extend .cell;
+  background: #913535;
+}
+.boss {
+  @extend .cell;
+  background: #ff0000;
+}
+
+.hiddenCell {
+  @extend .cell;
+  background: #222;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  p {
+    margin: 7px;
+  }
+}
+
+.display-none {
+  display: none;
+}
+
+.enemy-stats {
+  color: red;
+}
+
+.health-stat {
+  color: #3f9e5b;
+}

@@ -1,0 +1,476 @@
+<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Drum Machine'</title>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+
+  <style>
+    body {
+      margin: 0px;
+      color: white;
+      font-family: calibri;
+    }
+
+    #root {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      align-items: center;
+      background-color: #bce049;
+    }
+
+    .container {
+      border: 2px solid black;
+      padding: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: #479b31;
+    }
+
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0);
+    }
+
+    .logo {
+      align-self: flex-end;
+      font-weight: bold;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background-color: #479b31;
+    }
+
+    .keyboard {
+      min-width: 290px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      color: #fff;
+    }
+
+    .drum-pad {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin: 5px;
+      background-color: #479b31;
+      -webkit-box-shadow: 0px -1px 11px 2px rgba(10, 9, 9, 1);
+      -moz-box-shadow: 0px -1px 11px 2px rgba(10, 9, 9, 1);
+      box-shadow: 0px -1px 11px 2px rgba(10, 9, 9, 1);
+      cursor: pointer;
+    }
+
+    .drum-pad:active {
+      transform: scale(0.9);
+      transition: .3s;
+    }
+
+    .key:hover {
+      -webkit-box-shadow: -2px 2px 19px 2px rgba(214, 26, 26, 1);
+      -moz-box-shadow: -2px 2px 19px 2px rgba(214, 26, 26, 1);
+      box-shadow: -2px 2px 19px 2px rgba(214, 26, 26, 1);
+      background-color: #ffe8e8;
+      border: none;
+      cursor: pointer;
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      margin: 10px;
+      padding: 10px;
+      border: 3px solid b;
+      border-radius: 10px;
+      border: 2px solid black;
+      -webkit-box-shadow: 0px -1px 4px 1px rgba(3, 3, 3, 1);
+      -moz-box-shadow: 0px -1px 4px 1px rgba(3, 3, 3, 1);
+      box-shadow: 0px -1px 4px 1px rgba(3, 3, 3, 1);
+    }
+
+    .power {
+      margin: 5px;
+      font-size: 2em;
+      color: white;
+      font-weight: bold;
+    }
+
+    .power:hover {
+      cursor: pointer;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 20%;
+      width: 95%;
+      margin: 2px;
+      border: 1px solid black;
+      font-weight: bold;
+      background-color: silver;
+    }
+
+    .volumecontainer {
+      width: 100%;
+    }
+
+    .volume {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 4px;
+      margin-top: 15px;
+      background: #d3d3d3;
+      outline: black;
+      opacity: 0.8;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+      border: 0.5px solid black;
+      -webkit-box-shadow: 0px -1px 4px 1px rgba(3, 3, 3, 1);
+      -moz-box-shadow: 0px -1px 4px 1px rgba(3, 3, 3, 1);
+      box-shadow: 0px -1px 4px 1px rgba(3, 3, 3, 1);
+    }
+
+    .volume:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    .volume::-webkit-slider-thumb {
+      appearance: none;
+      width: 10px;
+      height: 20px;
+      background: black;
+      cursor: pointer;
+    }
+
+    .volume::-moz-range-thumb {
+      width: 10px;
+      height: 20px;
+      background: #3a792a;
+      cursor: pointer;
+    }
+
+    .bankContainer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .bank {
+      height: 15px;
+      min-width: 35px;
+      border: 2px solid black;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 5px;
+    }
+
+    .bank:hover {
+      cursor: pointer;
+    }
+
+    .toggle {
+      width: 50%;
+      height: 100%;
+      background-color: silver;
+      margin: 1px;
+    }
+
+    .left {
+      align-self: flex-start;
+    }
+
+    .right {
+      align-self: flex-end;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .board {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .keyboard {
+        max-width: 250px;
+      }
+
+      .pane {
+        min-height: 200px;
+      }
+
+      .display {
+        min-height: 20px;
+      }
+
+    }
+  </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <div id="root">
+  </div>
+
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/16.8.4/umd/react.production.min.js'></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.8.4/umd/react-dom.production.min.js'></script>
+
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+
+  <script id="rendered-js">
+    function _defineProperty(obj, key, value) {
+      if (key in obj) {
+        Object.defineProperty(obj, key, {
+          value: value,
+          enumerable: true,
+          configurable: true,
+          writable: true
+        });
+      } else {
+        obj[key] = value;
+      }
+      return obj;
+    }
+    const domContainer = document.getElementById("root");
+    const keyMap = {
+      Q: {
+        names: ['Heater 1', 'Chord 1'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3']
+      },
+      W: {
+        names: ['Heater 2', 'Chord 2'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3']
+      },
+      E: {
+        names: ['Heater 3', 'Chord 3'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3']
+      },
+      A: {
+        names: ['Heater 4', 'Shaker'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3']
+      },
+      S: {
+        names: ['Clap', 'Open-HH'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3']
+      },
+      D: {
+        names: ['Clap', 'Open-HH'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3']
+      },
+      Z: {
+        names: ["Kick-n'-Hat", 'Punchy-Kick'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3']
+      },
+      X: {
+        names: ["Kick", 'Side-Stick'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3']
+      },
+      C: {
+        names: ["Closed-HH", 'Snare'],
+        urls: ['https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3', 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3']
+      }
+    };
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        _defineProperty(this, "handlePowerSwitch",
+          e => {
+            this.setState({
+              power: !this.state.power,
+              key: '',
+              text: ''
+            });
+          });
+        _defineProperty(this, "handleVolumeChange",
+          e => {
+            this.setState({
+              volume: e.target.value,
+              text: this.state.power ? 'Volume: ' + e.target.value : ''
+            });
+          });
+        _defineProperty(this, "handleVolumeRelease",
+          e => {
+            this.setState({
+              text: '',
+              volume: e.target.value
+            });
+          });
+        _defineProperty(this, "handleKeyClicked",
+          (keyName, e) => {
+            if (this.state.power) {
+              this.setState({
+                key: keyName
+              }, () => {
+                let url = keyMap[this.state.key].urls[this.state.bank];
+                let name = keyMap[this.state.key].names[this.state.bank];
+                console.log(url, name, keyName);
+                this.setState({
+                  text: name,
+                  url: url
+                }, () => {
+                  let audio = document.getElementById(keyName);
+                  audio.play();
+                });
+              });
+            }
+          });
+        _defineProperty(this, "handleBankToggle",
+          e => {
+            this.setState({
+              bank: this.state.bank ? 0 : 1,
+              text: !this.state.power ? '' : this.state.bank ? 'Heater Kit' : 'Smooth Piano Kit'
+            });
+            console.log(this.state.bank, this.state.text);
+          });
+        this.state = {
+          power: true,
+          bank: 0,
+          volume: 30,
+          key: '',
+          text: '',
+          url: ''
+        };
+      }
+      render() {
+        return (
+          React.createElement("div", {
+              id: "drum-machine",
+              className: "container"
+            },
+            React.createElement("div", {
+                className: "logo"
+              },
+              React.createElement("i", {
+                className: "fa fa-free-code-camp"
+              })),
+            React.createElement("div", {
+                className: "board"
+              },
+              React.createElement(Keyboard, {
+                keys: ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'],
+                onKeyPress: this.handleKeyClicked,
+                onClick: this.handleKeyClicked,
+                volume: this.state.volume,
+                bank: this.state.bank,
+                url: this.state.url
+              }),
+              React.createElement("div", {
+                  className: "pane"
+                },
+                React.createElement("div", {
+                    className: this.state.power ? "power" : "power red",
+                    onClick: this.handlePowerSwitch
+                  },
+                  React.createElement("i", {
+                    className: "fa fa-power-off"
+                  })),
+                React.createElement("div", {
+                    id: "display",
+                    className: "display"
+                  },
+                  this.state.text),
+                React.createElement("div", {
+                    class: "volumecontainer"
+                  },
+                  React.createElement("input", {
+                    type: "range",
+                    min: "1",
+                    max: "100",
+                    value: this.state.volume,
+                    className: "volume",
+                    id: "myRange",
+                    onChange: this.handleVolumeChange,
+                    onMouseUp: this.handleVolumeRelease
+                  })),
+                React.createElement("div", {
+                    className: "bankContainer"
+                  },
+                  React.createElement("p", null, "Bank:"),
+                  React.createElement("div", {
+                      className: "bank",
+                      onClick: this.handleBankToggle
+                    },
+                    React.createElement("div", {
+                      className: this.state.bank ? "toggle right" : "toggle left"
+                    })))))));
+      }
+    }
+    /**
+    Key Component
+    */
+    const Key = props => {
+      return (
+        React.createElement("div", {
+            id: props.name + "-drumpad",
+            className: "drum-pad",
+            onClick: props.onClick,
+            onKeyPress: props.onKeyPress
+          },
+          props.name,
+          React.createElement("audio", {
+            className: "clip",
+            id: props.name,
+            volume: props.volume,
+            src: props.url,
+            type: "audio/mp3"
+          })));
+    };
+    /**
+    Keyboard Component
+    */
+    const Keyboard = props => {
+      return (
+        React.createElement("div", {
+            className: "keyboard"
+          },
+          props.keys.map(
+            (k, index) => React.createElement(Key, {
+              key: index,
+              name: k,
+              volume: props.volume,
+              url: keyMap[k].urls[props.bank],
+              onClick: e => props.onClick(k, e),
+              onKeyPress: e => props.onKeyPress(k, e)
+            }))));
+    };
+    ReactDOM.render(React.createElement(App, null), domContainer);
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

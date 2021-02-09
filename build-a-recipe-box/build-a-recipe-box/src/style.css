@@ -1,0 +1,69 @@
+body {
+  margin-bottom: 60px;
+  font-family: Tahoma, sans-serif;
+  background: url(https://www.unamericanaincucina.com/wp-content/uploads/2019/06/cherry-pie.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.addButton {
+  margin-left: 500px;
+  margin-top: 15px;
+  //padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: lightblue;
+  border: none;
+  border-radius: 15px;
+}
+
+.addButton:hover {
+  background-color: darkblue;
+  color: #fcd735;
+}
+
+.addButton:active {
+  background-color: blue;
+  transform: translateY(4px);
+  color: red;
+}
+
+.img-recipe {
+  max-height: 130px;
+  max-width: 230px;
+}
+
+.address {
+  font-size: 37px;
+  text-decoration: underline;
+  padding-bottom: 10px;
+}
+
+div.list-group-item {
+  height: auto;
+  min-height: 250px;
+  border-left: 10px solid lightgreen;
+  border-right: 10px solid lightblue;
+}
+
+div.list-group-item:hover,
+div.list-group-item:focus {
+  border-left: 10px solid lightblue;
+  border-right: 10px solid lightgreen;
+}
+.recipeButton {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+.toggle-display {
+  display: none;
+}
+.list-group-item-heading {
+  color: black;
+}
+.list-group-item {
+}

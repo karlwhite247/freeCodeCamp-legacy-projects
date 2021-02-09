@@ -1,0 +1,57 @@
+.chart text {
+  fill: #fff;
+  font: 20px "verdana";
+}
+
+.axis path {
+  stroke: #fff;
+}
+
+.chart .mouseover {
+  fill: #000 !important;
+}
+
+.tooltip {
+  position: absolute;
+  opacity: 0;
+  padding: 0.5em;
+  color: #480048;
+  background-color: #fff;
+  border-radius: 0.2em;
+  text-align: left;
+}
+
+.range {
+  width: 400px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.legend {
+  width: 300px;
+  height: 30px;
+  background: linear-gradient(
+    90deg,
+    #add8e6,
+    #9da7ef,
+    #8477f5,
+    #5b43fb,
+    #4a1af6,
+    #a860ca,
+    #d59d9b,
+    #f3da5e,
+    #fff600,
+    #ffde00,
+    #ffc700,
+    #ffaf00,
+    #ff9500,
+    #ff7800,
+    #ff5600,
+    #ff1f00,
+    #c51708,
+    #811b0c,
+    #421509,
+    #000000
+  );
+}

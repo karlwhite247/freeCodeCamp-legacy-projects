@@ -1,0 +1,197 @@
+<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Heat Map'</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <style>
+    body {
+      height: 100%;
+      text-align: center;
+      background: #765a4c;
+      color: #f1e273;
+      font-family: calibri;
+      font-size: 19px;
+    }
+
+    h1 {
+      margin: 0.5em 0 0;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-family: calibri;
+      font-weight: 700;
+      margin-bottom: 0.3em;
+    }
+
+    p {
+      font-size: 1em;
+    }
+
+    .chart text {
+      fill: #fff;
+      font: 20px calibri;
+    }
+
+    .axis path {
+      stroke: #fff;
+    }
+
+    .chart .mouseover {
+      fill: #000 !important;
+    }
+
+    .tooltip {
+      position: absolute;
+      opacity: 0;
+      padding: 0.5em;
+      color: #480048;
+      background-color: #fff;
+      border-radius: 0.2em;
+      text-align: left;
+    }
+
+    .range {
+      width: 400px;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .legend {
+      width: 300px;
+      height: 30px;
+      background: linear-gradient(90deg, #add8e6, #9da7ef, #8477f5, #5b43fb, #4a1af6, #a860ca, #d59d9b, #f3da5e, #fff600, #ffde00, #ffc700, #ffaf00, #ff9500, #ff7800, #ff5600, #ff1f00, #c51708, #811b0c, #421509, #000000);
+    }
+  </style>
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <div class="container">
+    <h1>Monthly Global Land-Surface Temperature</h1>
+    <h2>1753 - 2015</h2>
+    <p>Temperatures are in Celsius and reported as anomalies relative to the Jan 1951-Dec 1980 average.</p>
+    <p>Estimated Jan 1951-Dec 1980 absolute temperature &#8451: 8.66 +/- 0.07</p>
+    <svg class="chart"></svg>
+    <div class="range">
+      <div class="temp">0&#8451</div>
+      <div class="legend"></div>
+      <div class="temp">+11&#8451</div>
+    </div>
+  </div>
+
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js'></script>
+
+  <script id="rendered-js">
+    const url = 'https://raw.githubusercontent.com/karlwhite247/testable-projects-fcc/master/src/data/heat_map/heat_map.json';
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const colors = ['#add8e6', '#9da7ef', '#8477f5', '#5b43fb', '#4a1af6', '#a860ca', '#d59d9b', '#f3da5e', '#fff600', '#ffde00', '#ffc700', '#ffaf00', '#ff9500', '#ff7800', '#ff5600', '#ff1f00', '#c51708', '#811b0c', '#421509', '#000000'];
+    d3.json(url, d => {
+      const height = 500;
+      const width = 800;
+      const padding = 50;
+      const baseTemp = d.baseTemperature;
+      const data = d.monthlyVariance;
+      const lowTemp = d3.min(data, d => baseTemp - d.variance);
+      const highTemp = d3.max(data, d => baseTemp - d.variance);
+      //create tooltip element
+      const tooltip = d3.select(".container").
+      append("div").
+      attr("class", "tooltip");
+      const colorScale = d3.scaleQuantile().
+      domain([lowTemp, 12]).
+      range(colors);
+      const chart = d3.select(".chart").
+      attr('height', height + padding * 2).
+      attr('width', width + 300).
+      append('g').
+      attr("transform", "translate(" + 150 + "," + padding + ")");
+      const x = d3.scaleLinear().
+      range([0, width]).
+      domain(d3.extent(data, d => d.year));
+      const y = d3.scaleLinear().
+      range([0, height]).
+      domain(d3.extent(data, d => d.month));
+      // create axis
+      const xAxis = d3.axisBottom().
+      scale(x).
+      ticks(10).
+      tickFormat(d3.format(".4"));
+      const yAxis = d3.axisLeft().
+      scale(y).
+      ticks(0);
+      var yLabel = chart.selectAll(".yLabel").
+      data(months).
+      enter().
+      append("text").
+      text(d => d).
+      attr("x", 0).
+      attr("y", (d, i) => i * (height / 11)).
+      style("text-anchor", "end").
+      attr("transform", "translate(-10," + 10 + ")").
+      attr("class", "yLabel");
+      //Create group and append and style axis
+      chart.append("g").
+      attr("class", "x axis").
+      attr("transform", "translate(0," + 525 + ")").
+      call(xAxis);
+      chart.append("g").
+      attr("class", "y axis").
+      call(yAxis);
+      chart.selectAll("rect").
+      data(data).
+      enter().
+      append("rect").
+      attr("class", "bar").
+      attr("x", data => x(data.year)).
+      attr("y", data => y(data.month)).
+      attr("width", 3).
+      attr("height", height / 12).
+      attr("transform", "translate(0, -20)").
+      style("fill", d => colorScale(baseTemp + d.variance))
+        //Show tooltip on mouseover
+        .on("mouseover", data => {
+          d3.select(this).
+          attr("class", "mouseover");
+          let format = d3.format('.4');
+          //append data into tooltip and style
+          tooltip.
+          style("opacity", 0.8).
+          html("<span>" + months[data.month - 1] + " " + data.year + "</span><br><span>Temp: " + `${format(data.variance + baseTemp)}` + "&#8451</span>").
+          style("left", d3.event.pageX + 10 + "px").
+          style("top", d3.event.pageY - 60 + "px");
+        }).
+      on("mouseout", function() {
+        d3.select(this).attr("class", "null");
+      });
+    });
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

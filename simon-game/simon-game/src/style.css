@@ -1,0 +1,182 @@
+$soundtile-size: 40vmin;
+$soundtile-max: 50%;
+$soundtiles: (
+  0: (
+    color: #4caf50,
+    pos: "top-left"
+  ),
+  // green
+  1:
+    (
+      color: #f44336,
+      pos: "top-right"
+    ),
+  // red
+  2:
+    (
+      color: #ffc107,
+      pos: "bottom-left"
+    ),
+  // yellow
+  3:
+    (
+      color: #2196f3,
+      pos: "bottom-right"
+    )
+    // blue
+);
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: transparent;
+}
+
+body {
+  background: #fce3be;
+  color: #fff;
+  font-family: "Luckiest Guy", cursive;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+h1 {
+  margin: 0.9em 0 0.1em;
+  font-size: 10vmin;
+}
+
+button {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.simon {
+  position: relative;
+  width: 2 * $soundtile-size;
+  max-width: 100%;
+  margin: auto auto;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1vmin #333;
+}
+
+.soundtile {
+  float: left;
+  width: $soundtile-size;
+  height: $soundtile-size;
+  max-width: $soundtile-max;
+  max-height: $soundtile-max;
+  border: 2vmin solid #333;
+  overflow: hidden;
+  cursor: pointer;
+
+  @each $name, $tile in $soundtiles {
+    &--#{$name} {
+      background: map-get($tile, color);
+      border-#{map-get($tile, pos)}-radius: 100%;
+
+      &.active,
+      &:active:not(.disabled) {
+        background: lighten(map-get($tile, color), 30%);
+        box-shadow: 0 0 10em rgba(map-get($tile, color), 0.7) inset;
+      }
+    }
+  }
+}
+
+$constols-size: 40vmin;
+$controls: (
+  start: (
+    color: #48d555
+  ),
+  strict: (
+    color: #ffeb3b
+  )
+);
+.controls {
+  width: $constols-size;
+  height: $constols-size;
+  display: block;
+  border-radius: 50%;
+  background: #333;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+
+  &__label {
+    font-size: 2vmin;
+  }
+
+  &__button {
+    font-size: 5vmin;
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    border-radius: 50%;
+    border: 3px solid #222;
+    margin: 0.2em;
+    background: currentColor;
+
+    @each $name, $control in $controls {
+      &--#{$name} {
+        color: map-get($control, color);
+        &:active {
+          background: darken(map-get($control, color), 10%);
+        }
+        &.active {
+          box-shadow: 0 0 1em rgba(map-get($control, color), 0.5);
+          color: lighten(map-get($control, color), 5%);
+        }
+      }
+    }
+  }
+}
+
+.status {
+  font-size: 2.5vmin;
+  width: 2em;
+  height: 2em;
+  margin: 0.5em;
+  display: inline-block;
+  border-radius: 50%;
+  background: #444;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1em;
+
+  &--1 {
+    &:before {
+      content: "\01F3C6"; // trophy icon
+      text-shadow: 0 0 1em #ffc107;
+    }
+  }
+
+  &--0 {
+    color: #f44336;
+    text-shadow: 0 0 1em #f44336;
+  }
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disabled {
+  cursor: not-allowed;
+  //pointer-events: none !important;
+}

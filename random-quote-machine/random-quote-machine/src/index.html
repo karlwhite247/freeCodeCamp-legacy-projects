@@ -1,0 +1,216 @@
+<html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>Free Code Camp Project 'Random Quote Machine'</title>
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+
+  <style>
+    a,
+    a:focus,
+    a:hover {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .btn,
+    .btn:hover,
+    .btn:focus,
+    .btn:active:focus,
+    .btn.active:focus {
+      color: firebrick;
+      background-color: orange;
+      border: 1px solid #fff;
+      text-shadow: none;
+      outline: none;
+    }
+
+    .quote {
+      color: white;
+      font-size: 25px;
+      font-weight: 600;
+      text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    }
+
+    html,
+    body {
+      height: 100%;
+      background-image: url("https://gamespot1.cbsistatic.com/uploads/original/1579/15792183/3342806-vlcsnap-2018-01-19-10h19m37s061.png");
+      background-size: cover;
+      background-color: #333;
+    }
+
+    body {
+      color: #fff;
+      text-align: center;
+      text-shadow:
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+
+      .site-wrapper {
+        display: table;
+        width: 100%;
+        height: 100%;
+        /* For at least Firefox */
+        min-height: 100%;
+        -webkit-box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+        box-shadow: inset 0 0 100px rgba(0, 0, 0, .5);
+      }
+  </style>
+
+  <script>
+    window.console = window.console || function(t) {};
+  </script>
+
+  <script>
+    if (document.location.search.match(/type=embed/gi)) {
+      window.parent.postMessage("resize", "*");
+    }
+  </script>
+</head>
+
+<body translate="no">
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+      <div class="cover-container">
+        <div class="inner cover">
+          <p class="cover-heading quote">I am Shenron. I shall grant you any wish. Now speak. What is your wish?</p>
+          <p class="lead character"></p>
+          <p class="lead">
+            <button class="btn btn-lg btn-default btn-make-a-wish">Make a wish</button><a class="twitter">
+              <button class="btn btn-lg btn-default btn-tweet">Tweet</button></a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script>
+
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+
+  <script id="rendered-js">
+    (function() {
+      var generateQuote, quotes, said, speaker;
+      speaker = '';
+      said = '';
+      quotes = [{
+          quote: "I want the world's greatest ice cream!",
+          character: "Chibi Mai"
+        },
+        {
+          quote: "One-Million Zeni!",
+          character: "Chibi Shu"
+        },
+        {
+          quote: "Revive Krillin!...wait, on second thought.",
+          character: "Said everyone, ever"
+        },
+        {
+          quote: "I want a pair of women's underwear!",
+          character: "Oolong"
+        },
+        {
+          quote: "Kakarot!!!",
+          character: "Broly"
+        },
+        {
+          quote: "Chocolate!!!",
+          character: "Majin Buu"
+        },
+        {
+          quote: "Give me ALL of Earth's finest cuisines. NOW!",
+          character: "Lord Beerus"
+        },
+        {
+          quote: "A better future.",
+          character: "Future Trunks"
+        },
+        {
+          quote: "Restore my youth!",
+          character: "King Piccolo"
+        },
+        {
+          quote: "A pretty lady.",
+          character: "Master Roshi"
+        },
+        {
+          quote: "Eliminate every last Saiyan monkey!",
+          character: "Frieza"
+        },
+        {
+          quote: "Revive everyone killed by Freiza and his army.",
+          character: "Dende"
+        },
+        {
+          quote: "Remove the explosive devices from Android 17 and 18's bodies.",
+          character: "Krillin"
+        },
+        {
+          quote: "Restore Earth and all of it's living inhabitants.",
+          character: "Vegeta"
+        },
+        {
+          quote: "Tell me how to become a Super Saiyan God.",
+          character: "Goku"
+        },
+        {
+          quote: "Switch my body with that of Son Goku!",
+          character: "Alternate Zamasu"
+        },
+        {
+          quote: "Make me immortal!",
+          character: "Future Zamasu"
+        },
+        {
+          quote: "Bring back all the universes that were eliminated.",
+          character: "Android 17"
+        }
+      ];
+      generateQuote = function() {
+        var randomQuote;
+        randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        if (randomQuote.quote.length + randomQuote.character.length > 97) {
+          return generateQuote();
+        } else {
+          $('.quote').text(randomQuote.quote);
+          $('.character').text(randomQuote.character);
+          said = randomQuote.quote.split(' ').join('%20');
+          return speaker = randomQuote.character.split(' ').join('%20');
+        }
+      };
+      $(document).ready(function() {
+        $('.btn-tweet').hide();
+        return $('.btn-make-a-wish').on('click', function() {
+          generateQuote();
+          $('.twitter').attr('href', 'https://twitter.com/intent/tweet?text=' + speaker + '%20said,%20"' + said + '"%20%23DBZ%20https://raw.githubusercontent.com/karlwhite247/freeCodeCamp-projects/master/03%20-%20Front%20End%20Libraries/Build%20a%20Random%20Quote%20Machine/images/Build%20a%20Random%20Quote%20Machine.png').attr('target', '_blank');
+          return $('.btn-tweet').show();
+        });
+      });
+    }).call(this);
+    //# sourceURL=coffeescript
+    //# sourceURL=pen.js
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Build a Tribute Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+  <title>CodePen - Build a Tribute Page</title>
+
+  <link href="//db.onlinewebfonts.com/c/de46a85464f3b146ec9a6788faf1802e?family=Edo+SZ" rel="stylesheet" type="text/css" />
+
+  <link href="//db.onlinewebfonts.com/c/73fedd912ba11f583a359ce4c2e742ed?family=Ninja+Naruto" rel="stylesheet" type="text/css" />
+
+  <link href="//db.onlinewebfonts.com/c/455e71159a2a11236fc9d0b6e030cb73?family=AllisonROB" rel="stylesheet" type="text/css" />
+
+</head>
+
+<style>
+  @font-face {
+    font-family: 'MyWebFont';
+    src: url('webfont.eot');
+    /* IE9 Compat Modes */
+    src: url('webfont.eot?#iefix') format('embedded-opentype'),
+      /* IE6-IE8 */
+      url('webfont.woff2') format('woff2'),
+      /* Super Modern Browsers */
+      url('webfont.woff') format('woff'),
+      /* Pretty Modern Browsers */
+      url('webfont.ttf') format('truetype'),
+      /* Safari, Android, iOS */
+      url('webfont.svg#svgFontName') format('svg');
+    /* Legacy iOS */
+  }
+
+  #main {
+    background-color: #dbe1f0;
+  }
+
+  #title {
+    text-align: center;
+    font-family: Ninja Naruto;
+    font-weight: normal;
+    font-size: 35px;
+    font-style: bold;
+    color: #553101;
+  }
+
+  figcaption {
+    font-size: 28px;
+    color: brown;
+    font-family: bahnschrift;
+    text-align: center;
+    padding: 20px;
+  }
+
+  p,
+  div {
+    margin-left: 20px;
+    margin-right: 20px;
+    line-height: 20px;
+    font-size: 17px;
+    font-family: calibri;
+    text-align: justify;
+  }
+
+  h1 {
+    margin-top: 150px;
+    margin-left: 20px;
+    text-size: 5px;
+    font-family: Edo SZ;
+  }
+
+  strong {
+    margin-top: 140px;
+    margin-left: 20px;
+    font-family: Edo SZ;
+  }
+
+  h2 {
+    margin-top: 90px;
+    margin-left: 100px;
+    line-height: 45px;
+    font-weight: 500;
+    font-size: 25px;
+    text-align: left;
+    font-family: Papyrus;
+    color: crimson;
+    font-weight: 900;
+  }
+
+  h3 {
+    text-align: center;
+    color: #7a2b01;
+    font-family: bahnschrift;
+    font-size: 23px;
+    font-weight: 900;
+    padding: 5px;
+  }
+
+  h4 {
+    margin-left: 20px;
+    line-height: 30px;
+    font-weight: 500;
+    font-size: 19px;
+    text-align: left;
+    font-family: calibri;
+    color: #7a2b01;
+    font-weight: 900;
+  }
+
+  h5 {
+    font-size: 19px;
+    text-align: center;
+    color: #7a2b01;
+    font-family: bahnschrift;
+  }
+
+  h6 {
+    margin-top: 140px;
+    margin-left: 50px;
+    line-height: 30px;
+    font-weight: 900;
+    font-size: 150px;
+    text-align: left;
+    font-family: AllisonROB;
+    color: crimson;
+    font-weight: 500;
+  }
+
+  .newspaper {
+    column-count: 2;
+    column-gap: 60px;
+    margin-left: 50px;
+    margin-right: 50px;
+    line-height: 30px;
+    font-size: 17px;
+    font-family: calibri;
+    text-align: justify;
+  }
+
+  #footer {
+    line-height: 25px;
+    text-content: justify;
+  }
+
+  .video {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 16vh;
+    width: 30vw;
+  }
+
+  .video iframe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+
+  .videoFrame {
+    position: relative;
+    display: flex;
+    width: 90vw;
+    overflow-y: hidden;
+    overflow-x: none;
+    justify-content: space-around;
+    margin: 0 auto;
+    padding: 2vh 0;
+  }
+</style>
+
+<body>
+
+  <div class="container">
+    <div class="top-left">
+
+      <body id='main'>
+        <section id="title">
+          <h1>A Tribute To The Legend</h1>
+          <h5 id="quote">
+            <h2>"No matter what people tell you,<br> words and ideas can change the world".
+              <br><br>
+              “What’s right is what’s left if you do <br>everything else wrong”.
+            </h2>
+            <h6 id="name">- Robin Williams</h6>
+    </div>
+  </div>
+  </div>
+  <div id="img-div">
+    <img src="https://mediadc.brightspotcdn.com/dims4/default/23623e8/2147483647/strip/true/crop/3979x2343+0+219/resize/3979x2343!/quality/90/?url=https%3A%2F%2Fmediadc.brightspotcdn.com%2F24%2F58%2F053927c94f7a8c01bf423e0ff48d%2F118aeac8758c7654410bb9ec1787a5b124c7592c70ffb53a9ceb1637fcf9325b.jpg" style="width: 100%; height: 100%" ; alt="Robin Williams smiling">
+  </div>
+  <figcaption id="img-caption">
+    July 21, 1951 - August 11, 2014
+  </figcaption>
+  </div>
+  </section>
+  </header>
+  <main>
+    <div id="main" class="container">
+      <div id="tribute-info" class="row">
+        <h4 id="title"><strong>Robin Williams</strong></h4>
+        <h3 id="description">Actor, comedian, philanthropist and humaniatarian</h3>
+      </div>
+      <div id="main-content">
+        <div class="newspaper">
+          <b>Robin McLaurin Williams</b> was born at St. Luke's Hospital in Chicago, Illinois, on July 21, 1951. His father, Robert Fitzgerald Williams, was a senior executive in Ford's Lincoln-Mercury Division. His mother, Laurie McLaurin, was a former model from Jackson, Mississippi, whose great-grandfather was Mississippi senator and governor Anselm J. McLaurin. He had English, French, German, Irish, Scottish, and Welsh ancestry.
+          <br>
+          <br>
+          Williams attended public elementary school in Lake Forest at Gorton Elementary School and middle school at Deer Path Junior High School. He described himself as a quiet child who did not overcome his shyness until he became involved with his high school drama department.His friends recall him as very funny. At the time of his graduation in 1969, he was voted "Most Likely Not to Succeed" by his classmates.
+          <br>
+          <br>
+          After high school graduation, Williams studied theatre for three years at the College of Marin, a community college in Kentfield, California. According to College of Marin's drama professor James Dunn, the depth of the young actor's talent became evident when he was cast in the musical Oliver! as Fagin. Williams often improvised during his time in the drama program, leaving cast members in hysterics.Dunn called his wife after one late rehearsal to tell her Williams "was going to be something special".
+          <br>
+          <br>
+          In 1973, Williams attained a full scholarship to the Juilliard School (Group 6, 1973–1976) in New York City. He was one of 20 students accepted into the freshman class, and he and Christopher Reeve were the only two accepted by John Houseman into the Advanced Program at the school that year.
+          <br>
+          <br>
+          Williams and Reeve had a class in dialects taught by Edith Skinner, who Reeve said was one of the world's leading voice and speech teachers; according to Reeve, Skinner was bewildered by Williams and his ability to instantly perform in many different accents.
+          <br><br>
+          Williams voiced characters in several animated films. His voice role as the Genie in the animated musical Aladdin (1992) was written for him. During which, he improvised much of his dialogue and impersonated dozens of celebrities.
+          <br>
+          <br>
+          Williams continued to provide voices in other animated films, including FernGully: The Last Rainforest (1992), Robots (2005), Happy Feet (2006), and an uncredited vocal performance in Everyone's Hero (2006). He also voiced the holographic Dr. Know character in the live-action film A.I. Artificial Intelligence (2001). He was the voice of The Timekeeper, a former attraction at the Walt Disney World Resort about a time-traveling robot who encounters Jules Verne and brings him to the future.
+          <br>
+          <br>
+          After his first starring film role in Popeye (1980), Williams starred in several critically and commercially successful films including The World According to Garp (1982), Moscow on the Hudson (1984), Good Morning, Vietnam (1987), Dead Poets Society (1989), Awakenings (1990), The Fisher King (1991), Patch Adams (1998), One Hour Photo (2002), and World's Greatest Dad (2009). He also starred in box office hits such as Hook (1991), Aladdin (1992), Mrs. Doubtfire (1993), Jumanji (1995), The Birdcage (1996), Good Will Hunting (1997), and the Night at the Museum trilogy (2006–2014). He was nominated for four Academy Awards, winning Best Supporting Actor for Good Will Hunting. He also received two Primetime Emmy Awards, six Golden Globe Awards, two Screen Actors Guild Awards, and four Grammy Awards.
+        </div>
+        <br>
+        <hr />
+        <article id="tribute" class="text-content">
+          <p><em>"Robin Williams was an airman, a doctor, a genie, a nanny, a president, a professor, a bangarang Peter Pan, and everything in between. But he was one of a kind. He arrived in our lives as an alien – but he ended up touching every element of the human spirit. He made us laugh. He made us cry. He gave his immeasurable talent freely and generously to those who needed it most".</em></p>
+          <p>-- President Barack Obama</p>
+        </article>
+        <hr>
+        <footer>
+          <div id="footer-content">
+            <p>Visit his <a id="tribute-link" href="https://en.wikipedia.org/wiki/Robin_Williams" target="_blank">Wikipedia entry</a> to learn more about this remarkable man.</p>
+            <p>Alternatively, please watch these videos of Robin Williams performing stand-up comedy. You will see his immortalised vibrant personality and immense talent making the world a warmer and brighter place .
+            <div class="videoFrame">
+              <iframe width="335" height="340" src="https://www.youtube.com/embed/ofOqUMeEwu8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="335" height="340" src="https://www.youtube.com/embed/d0ran3tHy6Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe width="335" height="340" src="https://www.youtube.com/embed/73mWXVa12_c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </footer>
+        <hr>
+        <h5><b>Free Code Camp 'Tribute Page' - created by Karl White</b></h5>
+
+</body>
+
+</html>
+<!-- partial -->
+  
+</body>
+</html>
